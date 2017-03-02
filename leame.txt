@@ -1,0 +1,13 @@
+-->DESARROLLO
+ec.gob.digercic.renavi.ws.cedula
+http://pru5.registrocivil.gob.ec:80/wsgeneracioncedula/GeneraCedula?wsdl
+
+ec.gob.digercic.renavi.ws.qrbc
+http://172.24.16.93/WSRegistroCivilGeneradorCodigo/WSGenerarCodigo.asmx?wsdl
+
+-->PRODUCCIÓN
+ec.gob.digercic.renavi.ws.cedula
+http://webservice04.registrocivil.gob.ec:80/wsgeneracioncedula/GeneraCedula?wsdl
+
+ec.gob.digercic.renavi.ws.qrbc
+http://172.24.16.67/WSRegistroCivilGeneradorCodigo/WSGenerarCodigo.asmx?wsdl

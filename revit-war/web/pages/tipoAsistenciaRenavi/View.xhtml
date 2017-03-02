@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:fieldset legend="#{campos.VerTipoAsistL}" style="#{util.WidthPfieldset}" >
+                    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                    <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                              draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                        <h:graphicImage library="images" name="cargando.gif"/> 
+                    </p:dialog>
+                    <h:form>
+                        <p:growl id="messages" autoUpdate="true" life="#{util.GrowlLifeMin}"/>
+                        <h:panelGrid columns="2" cellspacing="2" styleClass="text-align-left">
+                            <h:outputText value="#{ViewTipoAsistenciaRenaviLabel_descrTipAsi}"/>
+                            <h:outputText value="#{tipoAsistenciaRenaviEVController.selected.descrTipAsi}" title="#{bundle.ViewTipoAsistenciaRenaviTitle_descrTipAsi}"/>
+
+                        </h:panelGrid>
+                        <br />
+                        <h:panelGrid columns="3" cellspacing="5" styleClass="text-align-center">
+                            <p:commandLink action="#{tipoAsistenciaRenaviEVController.prepareEdit}" title="#{campos.Editar}" disabled="#{tipoAsistenciaRenaviEVController.operacion eq null ? true : false}">
+                                <p:graphicImage library="images/icons" name="editar.png"/>
+                                <f:param value="#{tipoAsistenciaRenaviEVController.selected.idTipAsi}" name="idTipAsi" />
+                                <f:param value="editar" name="operacion"/>
+                            </p:commandLink>
+                            <p:commandLink action="#{tipoAsistenciaRenaviEVController.prepareCreate}" title="#{campos.Crear}" >
+                                <p:graphicImage library="images/icons" name="mas.png"/>
+                            </p:commandLink>
+                            <p:commandLink action="#{tipoAsistenciaRenaviEVController.prepareList}" title="#{campos.VerTodos}">
+                                <p:graphicImage library="images/icons" name="tabla.png"/>
+                            </p:commandLink>
+                            <h:outputText value="#{campos.Editar}"/>
+                            <h:outputText value="#{campos.Crear}"/>
+                            <h:outputText value="#{campos.VerTodos}"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

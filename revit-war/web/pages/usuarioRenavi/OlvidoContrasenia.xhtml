@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="menu">
+            <div align="center"><label>RESTABLECER CLAVE</label></div>
+        </ui:define>
+        <ui:define name="body">
+            <div align="center">
+                <p:fieldset legend="Datos para restablecer clave" style="width: 415px;">
+                    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                    <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                              draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                        <h:graphicImage library="images" name="cargando.gif"/> 
+                    </p:dialog>
+                    <h:form id="frm_lvdCntrsn">
+                        <p:growl id="messages" autoUpdate="false" life="#{util.GrowlLifeMin}"/>
+                        <table border="0" width="100%">
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{campos.CedulaL}" for="usuUsername" />
+                                </td>
+                                <td>
+                                    <h:panelGroup>
+                                        <p:inputMask id="usuUsername" value="#{usuarioRenaviResetPassController.username}" mask="9999999999" validator="cedulaValidador" required="true" requiredMessage="#{campos.UsuarioM}" style="#{util.Width}"/>
+                                        <p:message id="msgusuUsername" for="usuUsername" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{campos.MailL}" for="email" />
+                                </td>
+                                <td>
+                                    <h:panelGroup>
+                                        <p:inputText id="email" value="#{usuarioRenaviResetPassController.email}" required="true" requiredMessage="#{campos.MailM}" style="#{util.Width}"/>
+                                        <p:message id="msgemail" for="email" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <h:panelGroup>
+                                        <p:captcha id="captcha" label="Captcha" theme="white" requiredMessage="Debe ingresar el texto mostrado en la imagen." required="true" validatorMessage="El texto no corresponde a la imagen."/>
+                                        <p:message id="msgcaptcha" for="captcha" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <p:commandButton actionListener="#{usuarioRenaviResetPassController.buscarUserResetPass}" process="@this,usuUsername,captcha,email" update="msgusuUsername,captcha,msgcaptcha,emailUser,msgemail" value="#{campos.Restablecer}" oncomplete="Recaptcha.reload()"/>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <p:dialog id="resetPass" modal="true" widgetVar="resetPass" header="Restablecer clave"   
+                                  draggable="false" closable="false" height="300" width="523">
+                            <div align="center">
+                                <fieldset>
+                                    <div align="justify" style="font-size: 13px;">
+                                        <label>En unos minutos recibirá un e-mail a la cuenta de correo electrónico:</label>
+                                        <br/>
+                                        <h:outputLabel id="emailUser" value="#{usuarioRenaviResetPassController.email}" style="font-weight: bold;"/>
+                                        <br/><br/>
+                                        <label>
+                                            En el correo se detallan las instrucciones para que pueda ingresar
+                                            al Sistema Nacional de Registro de Datos Vitales con su nueva clave.
+                                        </label>
+                                        <br/><br/>
+                                        <label>
+                                            Si la dirección de correo electrónico que se muestra no le pertenece,
+                                            por favor escriba un email al Administrador del Sistema en el que se
+                                            detallen sus datos personales así como también una cuenta de correo
+                                            electrónico válida.
+                                        </label>
+                                        <br/><br/>
+                                        <label>
+                                            Si desea continuar con el proceso, haga clic en el botón guardar, 
+                                            de lo contrario haga clic en en el botón cancelar para cerrar esta ventana.
+                                        </label>
+                                    </div>
+                                    <br/>
+                                    <h:panelGrid columns="2" cellspacing="2">
+                                        <p:commandLink action="#{usuarioRenaviResetPassController.resetearContrasenia}" title="#{campos.Guardar}" process="@this" onclick="if (!confirm('¿Desea continuar con el proceso?')) return false">
+                                            <div class="guardar"/>
+                                        </p:commandLink>
+                                        <p:commandLink title="#{campos.Cerrar}" process="@this" onclick="PF('resetPass').hide();">
+                                            <div class="regresar"/>
+                                        </p:commandLink>
+                                    </h:panelGrid>
+                                </fieldset>  
+                            </div>
+                        </p:dialog>
+                        <p:dialog modal="true" widgetVar="resetPassConfirm" header="Proceso completado"   
+                                draggable="false" closable="false" height="137" width="467"> 
+                            <fieldset>
+                                <h:panelGrid columns="2">
+                                    <h:graphicImage library="images/icons" name="informacion.png"/>
+                                    <h:panelGroup>
+                                        <div align="justify" style="font-size: 13px;">
+                                            <label>
+                                                Se ha enviado un e-mail a su cuenta de correo electrónico.
+                                            </label>
+                                            <br/>
+                                            <label>
+                                                Por favor siga las instrucciones que ahí se detallan para ingresar al sistema.
+                                            </label>
+                                            <br/>
+                                            <b>
+                                                Sugerencia: Revisar también la carpeta de correo no deseado o "SPAM".
+                                            </b>
+                                        </div>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                                <h:link value="Iniciar sesión" outcome="#{facesContext.externalContext.requestPathInfo}/login" onclick="PF('cntrsnCmbd').hide();"/> 
+                            </fieldset>  
+                       </p:dialog>
+                    </h:form>
+                </p:fieldset>
+                <div align="right" style="padding: 0px 335px 0px 0px; font-size: 11px;">
+                    <h:form id="hfrmOlvidoContrasenia">
+                        <h:link value="Ingreso al sistema" outcome="#{facesContext.externalContext.requestPathInfo}/login"/>
+                    </h:form>  
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

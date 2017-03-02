@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!--Estilo para nuevo texto -->     
+    <ui:composition template="./templates/temprincipal.xhtml">
+
+        <ui:define name="menu">
+            <div align="center"><label>INGRESO AL SISTEMA</label></div>
+        </ui:define>
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="loginform">   
+                    <table style="margin-top: 25px;">
+                        <tr>
+                            <td valign="top">
+                                <p:graphicImage library="images"  name="revit.jpg" width="261px" height="261px" style="border-radius: 10px;"/>
+                            </td>
+                            <td style="width: 40px;"/>
+                            <td>
+                                <p:panel id="toggleable" header="BIENVENIDOS" widgetVar="panel">
+                                    <div align="justify" style="width: 400px;">
+                                        <h:outputText value="La Dirección General de Registro Civil, Identificación y Cedulación, pone a su 
+                                                      servicio el Sistema de Registro de Datos Vitales (REVIT), aplicación informática
+                                                      que permite realizar el registro automático de Nacimientos y Defunciones asociados
+                                                      a los ciudadanos que se encuentran registrados en la " rendered="false"/> 
+                                        <h:outputText value="Base da Datos Nacional y Oficial" style="font-weight: bold;" rendered="false"/>
+                                        <h:outputText value=" de registro de identidad del gobierno ecuatoriano." rendered="false"/>
+                                    </div>
+                                    <div>
+                                        <p:fieldset legend="Ingrese sus credenciales" style="padding: 25px 25px; margin-top: 15px;">        
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                                                            <p:inputText id="user" value="#{usuarioRenaviLoginController.username}" required="true" requiredMessage="#{campos.UsuarioM}" placeholder="Ingrese su usuario" maxlength="15" style="#{util.UppercaseWidth}" size="40">
+                                                                <p:message id="usermsg" for="user" display="#{util.DisplayMessage}"/>
+                                                                <f:converter converterId="uperCaseConverter" />
+                                                                <pe:keyFilter regEx="/[a-z0-9]/i"/>
+                                                            </p:inputText>
+                                                        </h:panelGrid>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <h:panelGrid columns="2" cellspacing="1" styleClass="text-align-left">
+                                                            <p:password id="password" value="#{usuarioRenaviLoginController.password}" maxlength="15" required="true" requiredMessage="#{campos.ContraseniaM}" placeholder="INGRESE SU CLAVE" size="35"/>
+                                                            <p:tooltip for="password" styleClass="tooltip"
+                                                                       value="Estimado Usuario, Usted es reponsable por el buen uso de su clave."
+                                                                       showEffect="clip" hideEffect="fade" style="height:35px; width:260px;" />
+                                                            <p:message id="passwordmsg" for="password" display="#{util.DisplayMessage}"/>
+                                                        </h:panelGrid>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center">
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <p:commandButton value="#{campos.Aceptar}" action="#{usuarioRenaviLoginController.login}" process="@this,user,usermsg,password,passwordmsg" update="user,usermsg,password,passwordmsg" oncomplete="PF('statusDialog').hide();"/>
+                                                                </td>
+                                                                <td>
+                                                                    <p:commandButton value="#{campos.Cancelar}" type="reset"/>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <p:dialog id="idResetPass" header="#{campos.IngresoDatos}" widgetVar="resetPass" modal="true" draggable="false" closable="false" width="600" height="270">
+                                                <div align="center">
+                                                    <fieldset>
+                                                        <div align="left" style="margin-bottom: 7px; text-align : justify;">
+                                                            <h:panelGrid columns="2">
+                                                                <h:graphicImage library="images/icons" name="informacion.png"/>
+                                                                <h:outputText value="Por su seguridad, la clave debe contener: mínimo 6 caracteres y máximo 15;
+                                                                              almenos, un caracter en minúscula, mayúscula, dígito y un caracter especial."/>
+                                                            </h:panelGrid>
+                                                            <p:messages id="msg" autoUpdate="false" closable="true"/>
+                                                        </div>
+                                                        <h:panelGrid id="cntndrCmbPss" columns="2" cellspacing="2">
+                                                            <h:outputText value="#{campos.NombresL}"/>
+                                                            <h:outputText id="nombrUsu" value="#{usuarioRenaviLoginController.usu.apellido} #{usuarioRenaviLoginController.usu.nombre}" />
+                                                            <h:outputText value="#{campos.UsuarioL}"/>
+                                                            <h:outputText id="userUsu" value="#{usuarioRenaviLoginController.usu.nomUsuario}"/>
+                                                            <p:outputLabel value="#{campos.ContraseniaNuevaL}" for="passwUsu" />
+                                                            <h:panelGroup>                                                                
+                                                                <p:password id="passwUsu" value="#{usuarioRenaviLoginController.nuevoPassword}" binding="#{passwordComponent}" required="true" requiredMessage="#{campos.ContraseniaNuevaM}" maxlength="50" size="30"/>
+                                                                <p:message id="mssgpasswUsu" for="passwUsu" display="#{util.DisplayMessage}"/>
+                                                            </h:panelGroup>
+                                                            <p:outputLabel value="#{campos.RepitaContrasenaiaL}" for="passwordConfirm" />
+                                                            <h:panelGroup>
+                                                                <p:password id="passwordConfirm" required="true" requiredMessage="Ingrese la confirmación de la nueva clave" maxlength="50" size="30">
+                                                                    <f:validator validatorId="passwordValidator" />
+                                                                    <f:attribute name="passwordComponent" value="#{passwordComponent}"/>
+                                                                </p:password>>
+                                                                <p:message id="mssgpasswordConfirm" for="passwordConfirm" display="#{util.DisplayMessage}"/>
+                                                            </h:panelGroup>
+                                                        </h:panelGrid>
+                                                        <h:panelGrid columns="2">
+                                                            <p:commandLink id="btnCambioPass" action="#{usuarioRenaviLoginController.cambiarContraseniaPrmrVz}" title="#{campos.Guardar}" process="@this,cntndrCmbPss" update="cntndrCmbPss" onclick="if (!confirm('¿Está seguro de cambiar su clave?'))
+                                                                        return false;" >
+                                                                <div class="guardar"/>
+                                                            </p:commandLink>
+                                                            <p:commandLink id="btnCancelCambioPass" action="#{usuarioRenaviLoginController.cambiarContraseniaPrmrVzCls}" title="#{campos.Atras}" process="@this" oncomplete="PF('statusDialog').hide();">
+                                                                <div class="regresar"/>
+                                                            </p:commandLink>
+                                                        </h:panelGrid>
+                                                    </fieldset>    
+                                                </div>
+                                            </p:dialog>
+                                            <p:dialog modal="true" widgetVar="cntrsnCmbd" header="Cambio de clave"   
+                                                      draggable="false" closable="false" height="100" width="323">
+                                                <div align="center">
+                                                    <fieldset>
+                                                        <h:panelGrid columns="2">
+                                                            <h:graphicImage library="images/icons" name="informacion.png"/>
+                                                            <h:outputText value="Cambio de clave exitoso. Por favor vuelva a iniciar sesión en el sistema."/>
+                                                        </h:panelGrid>
+                                                        <h:link value="Iniciar sesión" outcome="#{facesContext.externalContext.requestPathInfo}/login" onclick="PF('cntrsnCmbd').hide();"/> 
+                                                    </fieldset>  
+                                                </div>
+                                            </p:dialog>
+                                            
+                                        </p:fieldset>
+                                        <div align="right" style="margin-top: 5px;">
+                                            <h:link value="¿Olvidó su clave?" outcome="#{facesContext.externalContext.requestPathInfo}/pages/usuarioRenavi/OlvidoContrasenia"/>
+                                        </div>
+                                    </div>                                    
+                                </p:panel>                                
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </div>
+            <script>
+                (function(i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function() {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', 'UA-56828815-6', 'auto');
+                ga('send', 'pageview');
+
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

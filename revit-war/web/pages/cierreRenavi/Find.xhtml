@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="form_cont">
+                    <p:growl id="mssgsBusqueda" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+                    <h:panelGrid id="cntndrFormM" columns="1" cellspacing="1" styleClass="text-align-left" >
+                        <p:fieldset id="cntndrResultadosHijos" legend="Editar Registros de Control" style="width: 1020px;">
+                            <p:dataTable id="pdtTblItemsHijos" value="#{cierreRenaviFController.cierreItems}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                                         scrollable="true" scrollHeight="#{util.DlgTableHeightMediano}" resizableColumns="true" paginator="true" 
+                                         paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowIndexVar="rowIndex">
+                                <f:facet name="header">
+                                    <h:outputText value="#{campos.RegistrosCierreL}"/>
+                                </f:facet>
+                                <p:column headerText="No." style="width:15px; font-size: 11px;">
+                                    #{rowIndex+1}
+                                </p:column>
+                                <p:column width="17">
+                                    <p:commandLink action="#{cierreRenaviFController.prepareEdit}" onclick="if (!confirm('¿#{campos.ConfirmacionEdicion}?'))
+                                                return false;" title="#{campos.Seleccionar}" oncomplete="PF('statusDialog').hide();" process="@this"
+                                                   disabled="#{item.estatus != 'G'}">
+                                        <div class="seleccionar"/>
+                                        <f:param value="#{item.fkUsuSaureg}" name="fkUsuSaureg"/>
+                                        <f:param value="#{item.fkInstSaureg}" name="fkAgenciaSaureg" />
+                                        <f:param value="#{item.ultMesCierre}" name="ultMesCierre" />
+                                    </p:commandLink>
+                                </p:column>
+                                <p:column headerText="PDF" width="10" style="text-align: center;">
+                                    <h:commandLink  action="#{cierreRenaviFController.verPDFSinFirma}"  value="#{campos.Ver}">
+                                        <f:param value="#{item.idCierre}" name="idCierre" />
+                                    </h:commandLink>
+                                </p:column>
+                                <p:column headerText="#{campos.UsuarioT}" width="215px;" filterBy="#{item.usuario}" filterMatchMode="contains" filterStyle="width:90%;" style="text-align:center">
+                                    <h:outputText value="#{item.usuario}" style="float:left;"/>
+                                </p:column>
+                                <p:column headerText="#{campos.CedulaT}" width="105" filterBy="#{item.fkUsuSaureg}" filterMatchMode="contains" style="text-align:center">
+                                    <h:outputText value="#{item.fkUsuSaureg}"/>
+                                </p:column>
+                                <p:column headerText="#{campos.MesCierreT}" width="94" style="text-align:center">
+                                    <h:outputText value="#{item.ultMesCierre}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{campos.FechaCierreT}" width="94" style="text-align:center">
+                                    <h:outputText value="#{item.fechaCierre}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{campos.EstadoT}" width="94" style="text-align:center">
+                                    <h:outputText value="#{item.estatus == 'C' ? 'Cerrado':'Guardado'}">
+                                    </h:outputText>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

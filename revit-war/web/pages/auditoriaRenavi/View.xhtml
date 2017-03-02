@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAuditoriaRenaviTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_idAud}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.idAud}" title="#{bundle.ViewAuditoriaRenaviTitle_idAud}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_idNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.idNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_idNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_proviRcdscNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.proviRcdscNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_proviRcdscNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_cantnRcdscNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.cantnRcdscNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_cantnRcdscNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_paarqRcdscNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.paarqRcdscNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_paarqRcdscNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_oficiRcNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.oficiRcNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_oficiRcNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdTipIns}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdTipIns}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdTipIns}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fechaInscrNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fechaInscrNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_fechaInscrNacViv}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_actaInscrNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.actaInscrNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_actaInscrNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_nombrNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.nombrNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_nombrNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_apellNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.apellNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_apellNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_cedulNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.cedulNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_cedulNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdSexoNv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdSexoNv}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdSexoNv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_tallaNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.tallaNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_tallaNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_pesoNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.pesoNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_pesoNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_semanGstcnNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.semanGstcnNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_semanGstcnNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdTipPar}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdTipPar}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdTipPar}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fechaNacimNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fechaNacimNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_fechaNacimNacViv}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdProEmb}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdProEmb}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdProEmb}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdLugNac}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdLugNac}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdLugNac}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_lugNacEspecifique}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.lugNacEspecifique}" title="#{bundle.ViewAuditoriaRenaviTitle_lugNacEspecifique}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_nombrStblcNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.nombrStblcNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_nombrStblcNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_proviEstbdsNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.proviEstbdsNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_proviEstbdsNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_cantnEstbdsNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.cantnEstbdsNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_cantnEstbdsNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_parrqEstbdsNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.parrqEstbdsNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_parrqEstbdsNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_cddlocStblcNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.cddlocStblcNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_cddlocStblcNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_direcStblcNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.direcStblcNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_direcStblcNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_telefStblcNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.telefStblcNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_telefStblcNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdTipAsi}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdTipAsi}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdTipAsi}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_tipAsiEspecifique}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.tipAsiEspecifique}" title="#{bundle.ViewAuditoriaRenaviTitle_tipAsiEspecifique}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdEstFir}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdEstFir}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdEstFir}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdEstReg}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdEstReg}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdEstReg}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_obsrvAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.obsrvAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_obsrvAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_idMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.idMad}" title="#{bundle.ViewAuditoriaRenaviTitle_idMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_nombrMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.nombrMad}" title="#{bundle.ViewAuditoriaRenaviTitle_nombrMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdPaisMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdPaisMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdPaisMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdNacMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdNacMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdNacMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_cedulMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.cedulMad}" title="#{bundle.ViewAuditoriaRenaviTitle_cedulMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_pasapMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.pasapMad}" title="#{bundle.ViewAuditoriaRenaviTitle_pasapMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fechaNacimMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fechaNacimMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fechaNacimMad}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_edadMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.edadMad}" title="#{bundle.ViewAuditoriaRenaviTitle_edadMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fotoMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fotoMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fotoMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_condicCedMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.condicCedMad}" title="#{bundle.ViewAuditoriaRenaviTitle_condicCedMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_conyugeMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.conyugeMad}" title="#{bundle.ViewAuditoriaRenaviTitle_conyugeMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fecFallecMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fecFallecMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fecFallecMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_nomPadreMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.nomPadreMad}" title="#{bundle.ViewAuditoriaRenaviTitle_nomPadreMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_nomMadreMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.nomMadreMad}" title="#{bundle.ViewAuditoriaRenaviTitle_nomMadreMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_cntrlPrntlNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.cntrlPrntlNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_cntrlPrntlNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_numerPartoNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.numerPartoNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_numerPartoNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_hijosVivsaMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.hijosVivsaMad}" title="#{bundle.ViewAuditoriaRenaviTitle_hijosVivsaMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_hijosNvmrtMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.hijosNvmrtMad}" title="#{bundle.ViewAuditoriaRenaviTitle_hijosNvmrtMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_hijosNmrtsMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.hijosNmrtsMad}" title="#{bundle.ViewAuditoriaRenaviTitle_hijosNmrtsMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdIdeEtn}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdIdeEtn}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdIdeEtn}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdEstCivMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdEstCivMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdEstCivMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdSabeLeerMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdSabeLeerMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdSabeLeerMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdNivelInstr}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdNivelInstr}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdNivelInstr}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_residnProvdsMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.residnProvdsMad}" title="#{bundle.ViewAuditoriaRenaviTitle_residnProvdsMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_residnCantdsMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.residnCantdsMad}" title="#{bundle.ViewAuditoriaRenaviTitle_residnCantdsMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_residnParrdsMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.residnParrdsMad}" title="#{bundle.ViewAuditoriaRenaviTitle_residnParrdsMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_residnLocalMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.residnLocalMad}" title="#{bundle.ViewAuditoriaRenaviTitle_residnLocalMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_residnDirecMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.residnDirecMad}" title="#{bundle.ViewAuditoriaRenaviTitle_residnDirecMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_nombrAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.nombrAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_nombrAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_numregprfsnlAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.numregprfsnlAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_numregprfsnlAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_telefcelAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.telefcelAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_telefcelAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_telefconvenofiAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.telefconvenofiAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_telefconvenofiAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_telfconvenextAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.telfconvenextAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_telfconvenextAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_emailAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.emailAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_emailAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_estadoAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.estadoAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_estadoAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_usernameAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.usernameAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_usernameAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdTipUsuAtprtNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdTipUsuAtprtNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdTipUsuAtprtNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecRcPcpNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecRcPcpNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecRcPcpNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecRcOfiNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecRcOfiNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecRcOfiNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecFecCriNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecFecCriNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecFecCriNacViv}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecCodigStblcNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecCodigStblcNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecCodigStblcNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecCodPaisMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecCodPaisMad}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecCodPaisMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdTipoAreaNv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdTipoAreaNv}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdTipoAreaNv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecAreaNacViv}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecAreaNacViv}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecAreaNacViv}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fkIdTipoAreaMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fkIdTipoAreaMad}" title="#{bundle.ViewAuditoriaRenaviTitle_fkIdTipoAreaMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecAreaMad}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecAreaMad}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecAreaMad}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_campoInecCodCriCod}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.campoInecCodCriCod}" title="#{bundle.ViewAuditoriaRenaviTitle_campoInecCodCriCod}"/>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_fechaAudit}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.fechaAudit}" title="#{bundle.ViewAuditoriaRenaviTitle_fechaAudit}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAuditoriaRenaviLabel_usuarioCambio}"/>
+                    <h:outputText value="#{auditoriaRenaviController.selected.usuarioCambio}" title="#{bundle.ViewAuditoriaRenaviTitle_usuarioCambio}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{auditoriaRenaviController.destroyAndView}" value="#{bundle.ViewAuditoriaRenaviDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAuditoriaRenaviEditLink}"/>
+                <br />
+                <h:commandLink action="#{auditoriaRenaviController.prepareCreate}" value="#{bundle.ViewAuditoriaRenaviCreateLink}" />
+                <br />
+                <h:commandLink action="#{auditoriaRenaviController.prepareList}" value="#{bundle.ViewAuditoriaRenaviShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAuditoriaRenaviIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

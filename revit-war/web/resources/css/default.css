@@ -1,0 +1,478 @@
+a:link, a:visited {
+    color: #045491;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+    color: #045491;
+    /*font-weight : bold;*/
+    text-decoration : underline;
+}
+
+.degrado{
+    background:url("../images/banner.jpg") scroll 0 0 ;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 131px;
+    border-color: #000000;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    border: #e2e2e2;
+    border-width: 1px;
+    
+}
+
+.divAtras{
+   width: 820px;
+   margin-bottom:7px;
+}
+.seleccionar1 {
+    background: url("../images/icons/seleccionar.png");
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+.seleccionar1:hover {
+    background: url("../images/icons/seleccionar-hover.png");
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.seleccionar {
+    background: url("../images/icons/seleccionar.png");
+    background-size: 19px 19px;
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.seleccionar:hover {
+    background: url("../images/icons/seleccionar-hover.png");
+    background-size: 19px 19px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.editar {
+    background: url("../images/icons/edit.png");
+    background-size: 19px 19px;
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.editar:hover {
+    background: url("../images/icons/edit-hover.png");
+    background-size: 19px 19px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.atras {
+    background: url("../images/icons/atras.png");
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.atras:hover {
+    background: url("../images/icons/atras-hover.png");
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.regresar {
+    background: url("../images/icons/regresar.png");
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.regresar:hover {
+    background: url("../images/icons/regresar-hover.png");
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.guardar {
+    background: url("../images/icons/guardar.png");
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.guardar:hover {
+    background: url("../images/icons/guardar-hover.png");
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.cancelar {
+    background: url("../images/icons/cancelar.png");
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.cancelar:hover {
+    background: url("../images/icons/cancelar-hover.png");
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height:40px;
+}
+
+.download {
+    background: url("../images/icons/download.png");
+    background-size: 19px 19px;
+    margin: 0px;    
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.informacion {
+    background: url("../images/icons/informacion.png");
+    background-size: 23px 23px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 23px;
+    height:23px;
+}
+
+.download:hover {
+    background: url("../images/icons/download-hover.png");
+    background-size: 19px 19px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.pdf_icon {
+    background: url("../images/icons/pdf.png");
+    background-size: 19px 19px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.xlsx_icon {
+    background: url("../images/icons/xlsx.png");
+    background-size: 19px 19px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 19px;
+    height:19px;
+}
+
+.mensaje {
+    background: url("../images/icons/sobre.png");
+    background-size: 25px 18px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    width: 120px;
+    height:18px;
+    top:-15px;
+}
+
+.texto-mensaje{
+    //background-color: #a52714;
+    background-color: #fa1c17;
+    border-radius: 5px;
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px;
+}
+
+fieldset { 
+    border-color: #DBD9DA;
+    border-style: solid;
+    border-width: 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/*fieldset { 
+    display: inline-block;
+    border-color: #DBD9DA;
+    border-style: solid;
+    border-width: 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    alignment-adjust: auto;
+    padding-top: 15px;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-bottom: 15px;
+    text-orientation: upright;
+    margin-top: 20px;
+}
+
+fieldset.normal { 
+    display: inline-block;
+    border-color: #DBD9DA;
+    border-style: solid;
+    border-width: 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    alignment-adjust: auto;
+    padding: 5px;
+    text-orientation: upright;
+    margin: 2px 0px 2px 0px;
+}
+
+fieldset legend {
+    color: #1975A3;
+    margin-left: -2em;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+fieldset legend.normal {
+    color: #1975A3;
+    margin-left: 0px;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
+}*/
+
+.ui-growl{
+    margin-top: 120px;
+    margin-left: 20px;
+}
+
+/*** override primefaces style ***/
+.ui-message-info,.ui-message-error,.ui-message-warn,.ui-message-fatal {
+	border: 0!important;
+	margin: 0!important;
+	padding: 0!important;
+        font-size: 0.9em!important;
+}
+ 
+.ui-messages-error,.ui-message-error {
+	color: #D8000C;
+	background-color: #fff!important;
+}
+
+.ui-button{
+    height: 27px;
+    font-size:12px;
+    font-size-adjust:inherit;
+    text-align: center;
+}
+
+.ui-inputfield{
+    padding: 3px;
+}
+
+.ui-outputlabel-rfi{
+    color:  #8a1f11;
+}
+
+/*.ui-widget-header .ui-datatable-scrollable-header{
+    width: 950px;
+    margin-right: 20px;
+}*/
+
+.cntndrTableDlg{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.text-align-left{
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+.text-align-center{
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.text-align-right{
+    text-align: right;
+    margin: 0px;
+    padding: 0px;
+}
+
+.colUno{
+    width: 135px;
+}
+
+.colDos{
+    width: 245px;
+}
+
+.colEspacio{
+    width: 12px;
+}
+
+.colUnoDosEspacio{
+    width: 392px;
+}
+
+.button{
+    background: #efefef;
+    background: -moz-linear-gradient(top,  #efefef 0%, #ededed 27%, #dcdcdc 55%, #d8d8d8 57%, #d0d0d0 80%, #c9c9c9 91%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efefef), color-stop(27%,#ededed), color-stop(55%,#dcdcdc), color-stop(57%,#d8d8d8), color-stop(80%,#d0d0d0), color-stop(91%,#c9c9c9));
+    background: -webkit-linear-gradient(top,  #efefef 0%,#ededed 27%,#dcdcdc 55%,#d8d8d8 57%,#d0d0d0 80%,#c9c9c9 91%);
+    background: -o-linear-gradient(top,  #efefef 0%,#ededed 27%,#dcdcdc 55%,#d8d8d8 57%,#d0d0d0 80%,#c9c9c9 91%);
+    background: -ms-linear-gradient(top,  #efefef 0%,#ededed 27%,#dcdcdc 55%,#d8d8d8 57%,#d0d0d0 80%,#c9c9c9 91%);
+    background: linear-gradient(to bottom,  #efefef 0%,#ededed 27%,#dcdcdc 55%,#d8d8d8 57%,#d0d0d0 80%,#c9c9c9 91%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#c9c9c9',GradientType=0 );
+    color: #4f4f4f;
+    font-weight: bold;
+    font-family: Arial,sans-serif;
+    border:solid 1px #a8a8a8;
+    -webkit-text-shadow: 1px 1px 10px 0px rgba(242,242,242,1);
+    -moz-text-shadow: 1px 1px 10px 0px rgba(242,242,242,1);
+    text-shadow: 1px 1px 10px 0px rgba(242,242,242,1);
+    border-radius:3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding:5px 9px 5px 9px;
+    height: 27px;
+    font-size: 12px;
+    font-size-adjust: inherit;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    text-decoration: none !important;
+    cursor: pointer;
+    zoom: 1;
+    overflow: visible;
+}
+.button:hover{
+    background: #c7dce7;
+    background: -moz-linear-gradient(top,  #c7dce7 0%, #adcbdc 64%, #9ec2d6 88%, #8fb9cf 97%, #86b3cc 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c7dce7), color-stop(64%,#adcbdc), color-stop(88%,#9ec2d6), color-stop(97%,#8fb9cf), color-stop(100%,#86b3cc));
+    background: -webkit-linear-gradient(top,  #c7dce7 0%,#adcbdc 64%,#9ec2d6 88%,#8fb9cf 97%,#86b3cc 100%);
+    background: -o-linear-gradient(top,  #c7dce7 0%,#adcbdc 64%,#9ec2d6 88%,#8fb9cf 97%,#86b3cc 100%);
+    background: -ms-linear-gradient(top,  #c7dce7 0%,#adcbdc 64%,#9ec2d6 88%,#8fb9cf 97%,#86b3cc 100%);
+    background: linear-gradient(to bottom,  #c7dce7 0%,#adcbdc 64%,#9ec2d6 88%,#8fb9cf 97%,#86b3cc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c7dce7', endColorstr='#86b3cc',GradientType=0 );
+    color: #313131;
+    border:solid 1px #7096ab;
+    -webkit-text-shadow: 1px 1px 10px 0px rgba(225,236,242,1);
+    -moz-text-shadow: 1px 1px 10px 0px rgba(225,236,242,1);
+    text-shadow: 1px 1px 10px 0px rgba(225,236,242,1);
+    -webkit-box-shadow: 1px 1px 23px 0px rgba(134,179,204,0.92);
+    -moz-box-shadow: 1px 1px 23px 0px rgba(134,179,204,0.92);
+    box-shadow: 1px 1px 23px 0px rgba(134,179,204,0.92);
+} 
+
+.lineahr{
+    /*height: 1px; 
+    color: #999; 
+    background-color: #999;*/
+    border-top: 2px dotted black;
+}
+
+.ui-fieldset .ui-fieldset-legend{
+    font-size: 98%;
+    font-weight: bold;
+    color: #1975A3;
+    margin-left: -15px;
+    border: 1px;
+    background-color: #fff;
+    margin: 0px;
+    padding: 0px
+}
+
+.hpgroupsinespacio{
+    padding: 0px;
+    border: 0px;
+    
+}
+
+.ui-inputfield[disabled]{
+    color: #313131 !important;
+    opacity: 1;
+    -moz-opacity: 1;
+    -webkit-opacity: 1;
+    filter: Alpha(Opacity=100);
+}
+
+.ui-selectonemenu.ui-state-disabled { 
+    color: #313131 !important;
+    opacity: 1;
+    -moz-opacity: 1;
+    -webkit-opacity: 1;
+    filter: Alpha(Opacity=100);
+}
+
+.ui-button.ui-state-default {
+    background: #1e3d69; /* Old browsers */
+    background: -moz-linear-gradient(top, #1e3d69 0%, #1e3d60 38%, #1e3d63 54%, #1e3d69 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e3d69), color-stop(38%,#1e3d60), color-stop(54%,#1e3d63), color-stop(100%,#1e3d69)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1e3d69 0%,#1e3d60 38%,#1e3d63 54%,#1e3d69 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1e3d69 0%,#1e3d60 38%,#1e3d63 54%,#1e3d69 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1e3d69 0%,#1e3d60 38%,#1e3d63 54%,#1e3d69 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #1e3d69 0%,#1e3d60 38%,#1e3d63 54%,#1e3d69 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e3d69', endColorstr='#1e3d69',GradientType=0 ); /* IE6-9 */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 3px;
+    border-color: #1e3d69;
+    border: 1px;
+    color: #fff;
+    font-weight:normal ;
+    text-shadow: none;
+}
+.ui-button.ui-state-hover {
+    background: #30507c;
+}
+/*Cambio para espacios entre radiobutton  FWTM  19-02-2016*/
+.selectRadio label {
+   margin-right: 30px;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePadreRenaviTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_idPad}" for="idPad" />
+                    <h:inputText id="idPad" value="#{padreRenaviController.selected.idPad}" title="#{bundle.CreatePadreRenaviTitle_idPad}" required="true" requiredMessage="#{bundle.CreatePadreRenaviRequiredMessage_idPad}"/>
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_cedulPad}" for="cedulPad" />
+                    <h:inputText id="cedulPad" value="#{padreRenaviController.selected.cedulPad}" title="#{bundle.CreatePadreRenaviTitle_cedulPad}" />
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_nombrPad}" for="nombrPad" />
+                    <h:inputText id="nombrPad" value="#{padreRenaviController.selected.nombrPad}" title="#{bundle.CreatePadreRenaviTitle_nombrPad}" />
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_apellPad}" for="apellPad" />
+                    <h:inputText id="apellPad" value="#{padreRenaviController.selected.apellPad}" title="#{bundle.CreatePadreRenaviTitle_apellPad}" />
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_pasapPad}" for="pasapPad" />
+                    <h:inputText id="pasapPad" value="#{padreRenaviController.selected.pasapPad}" title="#{bundle.CreatePadreRenaviTitle_pasapPad}" />
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_codigPaisPad}" for="codigPaisPad" />
+                    <h:inputText id="codigPaisPad" value="#{padreRenaviController.selected.codigPaisPad}" title="#{bundle.CreatePadreRenaviTitle_codigPaisPad}" />
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_nacioPad}" for="nacioPad" />
+                    <h:inputText id="nacioPad" value="#{padreRenaviController.selected.nacioPad}" title="#{bundle.CreatePadreRenaviTitle_nacioPad}" />
+                    <h:outputLabel value="#{bundle.CreatePadreRenaviLabel_fkIdPaisPad}" for="fkIdPaisPad" />
+                    <h:selectOneMenu id="fkIdPaisPad" value="#{padreRenaviController.selected.fkIdPaisPad}" title="#{bundle.CreatePadreRenaviTitle_fkIdPaisPad}" >
+                        <f:selectItems value="#{paisRenaviController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{padreRenaviController.create}" value="#{bundle.CreatePadreRenaviSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{padreRenaviController.prepareList}" value="#{bundle.CreatePadreRenaviShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePadreRenaviIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

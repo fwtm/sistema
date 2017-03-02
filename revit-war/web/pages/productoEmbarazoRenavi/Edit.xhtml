@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:fieldset legend="#{campos.EditarProductoEmb}" style="#{util.WidthPfieldset}" >
+
+                    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                    <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                              draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                        <h:graphicImage library="images" name="cargando.gif"/> 
+                    </p:dialog>
+                    <h:form id="hfrmEdtrDiaEspecial">
+                        <p:growl id="messages" autoUpdate="true" life="#{util.GrowlLifeMin}"/>
+                        <h:panelGrid columns="2" cellspacing="2" styleClass="text-align-left">
+                            <h:outputLabel value="#{campos.EditProductoEmbarazoRenaviLabel_descrProEmb}" for="descrProEmb" />
+                            <h:panelGroup>
+                                <h:inputText id="descrProEmb" value="#{productoEmbarazoRenaviEVController.selected.descrProEmb}" title="#{bundle.EditProductoEmbarazoRenaviTitle_idProEmb}" required="true" requiredMessage="#{bundle.EditProductoEmbarazoRenaviRequiredMessage_idProEmb}" maxlength="20" style="#{util.UppercaseWidth}">
+                                    <f:converter converterId="uperCaseConverter"/>
+                                </h:inputText>
+                                <p:message for="descrProEmb" display="#{util.DisplayMessage}"/>
+
+                            </h:panelGroup>
+
+                        </h:panelGrid>
+                        <br />
+                        <p:commandButton action="#{productoEmbarazoRenaviEVController.editar}" value="#{campos.Actualizar}" ajax="false" disabled="#{productoEmbarazoRenaviEVController.operacion eq null ? true : false}">
+                            <f:param value="#{productoEmbarazoRenaviEVController.selected.idProEmb}" name="idProEmb"/>
+                            <f:param value="ver" name="operacion"/>
+                        </p:commandButton>
+                        <br />
+                        <br />
+                        <h:commandLink action="#{productoEmbarazoRenaviEVController.prepareList}" value="#{campos.VerTodos}" immediate="true"/>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

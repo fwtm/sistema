@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+            <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                      draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                <h:graphicImage library="images" name="cargando.gif"/> 
+            </p:dialog>
+            <h:form>
+                <p:growl id="messages" autoUpdate="true" life="#{util.GrowlLifeMin}"/>
+                <p:dataTable value="#{madreRenaviCDLController.items}" var="item" emptyMessage="#{campos.NoHayDatos}" scrollable="true" scrollHeight="200" resizableColumns="true" paginator="true" paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_cedulMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cedulMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_nombrMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombrMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_fechaNacimMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaNacimMad}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_pasapMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pasapMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_anioNacimMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.anioNacimMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_mesNacimMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mesNacimMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_diaNacimMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.diaNacimMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_nomPadreMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomPadreMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMadreRenaviTitle_nomMadreMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomMadreMad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{madreRenaviController.prepareView}" value="#{bundle.ListMadreRenaviViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{madreRenaviController.prepareEdit}" value="#{bundle.ListMadreRenaviEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{madreRenaviController.destroy}" value="#{bundle.ListMadreRenaviDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                <br />
+                <h:commandLink action="#{madreRenaviController.prepareCreate}" value="#{bundle.ListMadreRenaviCreateLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

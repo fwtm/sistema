@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:growl id="mssgsBusquedaD" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+    <div align="left" class="divAtras">
+        <h:panelGrid columns="1">
+            <p:commandLink id="btnAtrasD" action="#{fallecidoCDUVController.atrasD}" title="#{campos.Atras}" process="@this" oncomplete="PF('statusDialog').hide();" onclick="if (!confirm('¿#{campos.ConfirmacionRegrTabNacViv}?'))
+                        return false">
+                <div class="atras"/>
+            </p:commandLink>
+        </h:panelGrid>  
+    </div>
+    <p:fieldset legend="Profesional" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.ProfesionalL}" for="tblSauregUsuario"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:selectOneMenu id="tblSauregUsuario" value="#{fallecidoCDUVController.nomUsuarioSaureg}"
+                                         required="true" requiredMessage="#{campos.ProfesionalM}" valueChangeListener="#{fallecidoCDUVController.cambiarTblSauregUsuarioList}"
+                                         style="#{util.WidthCombo}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{fallecidoCDUVController.tblSauregUsuarioList}" var="item" itemLabel="#{item.apellido} #{item.nombre}" itemValue="#{item.nomUsuario}"/>
+                            <f:ajax render="@this doctor establecimiento btnCrearD"/>
+                        </p:selectOneMenu>
+                        <p:message for="tblSauregUsuario" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td width="12px"/>
+                <td width="135px"/>
+                <td width="245px"/>
+            </tr>
+        </table>       
+    </p:fieldset>        
+    <p:fieldset legend="#{campos.DatResultadosFallecido}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%">
+            <tr>
+                <td width="60px">
+                    <p:outputLabel value="#{campos.NombreL}" for="nombreFalDoctorF" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nombreFalDoctorF" value="#{fallecidoCDUVController.selected.nombreFal}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulaFalDoctorF" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="cedulaFalDoctorF" value="#{fallecidoCDUVController.selected.cedulaFal}" style="#{util.Width}"/>
+                </td>
+                <td/>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset id="doctor" legend="#{campos.DatDoctorFallecimiento}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.CertificadoPorL}" for="fkIdCerPor" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:selectOneMenu id="fkIdCerPor" value="#{fallecidoCDUVController.selected.fkIdCerPor}"
+                                     required="true" requiredMessage="#{campos.CertificadoPorM}"
+                                     style="#{util.WidthCombo}">
+                        <f:selectItems value="#{certificadoPorLController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgfkIdCerPor" for="fkIdCerPor" display="#{util.DisplayMessage}"/>
+                </td>
+                <td width="12px"/>
+                <td width="135px"/>
+                <td width="145px"/>
+            </tr>
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NombreL}" for="nombreUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="nombreUsu" value="#{fallecidoCDUVController.tblSauregUsuario.apellido} #{fallecidoCDUVController.tblSauregUsuario.nombre}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td width="12px"/>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NumRegProfesionalL}" for="regProfesionalUsu" style="#{util.outputTextTitulo}" rendered="false"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="regProfesionalUsu" value="" style="#{util.Width}" rendered="false"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CargoEmpleadoL}" for="fkIdTipAsiD" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fkIdTipAsiD" value="#{fallecidoCDUVController.tblSauregUsuario.idTipUsu.descripcion}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.CelularL}" for="telfcelUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="telfcelUsu" value="#{fallecidoCDUVController.tblSauregUsuario.agenciaInUser.celularUsuario}" style="#{util.Width}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.TelfOficinaL}" for="telfconvenofiUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="telfconvenofiUsu" value="#{fallecidoCDUVController.tblSauregUsuario.agenciaInUser.telefonoUsuario}" style="#{util.Width}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.ExtensionL}" for="telfconvenextUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="telfconvenextUsu" value="#{fallecidoCDUVController.tblSauregUsuario.agenciaInUser.telfExtensionUsuario}"/>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset id="establecimiento" legend="#{campos.DatLugOcurrioFallecimiento}" style="#{util.WidthPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td colspan="2" width="380px">
+                    <p:outputLabel value="#{campos.OcurrioEnEstablecimientoL}" for="fkIdResMueEnest" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td colspan="3">
+                    <p:selectOneMenu id="fkIdResMueEnest" value="#{fallecidoCDUVController.selected.fkIdResMueEnest}"
+                                     required="true" requiredMessage="#{campos.CampoObligatorioM}"
+                                     style="#{util.WidthCombo}" valueChangeListener="#{fallecidoCDUVController.cambiarMuerteEnEstablecimiento}">
+                        <f:selectItems value="#{respuestaMuerteenestablecimLController.itemsAvailableSelectOne}"/>
+                        <f:ajax execute="@this" render="provinciaFllcmnt mssgprovinciaFllcmnt cantonFllcmnt mssgcantonFllcmnt parroquiaFllcmnt 
+                                mssgparroquiaFllcmnt localidadFllcmntFal mssglocalidadFllcmntFal ciudadFllcmntFal mssgciudadFllcmntFal"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgfkIdResMueEnest" for="fkIdResMueEnest" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.LugarFallecimientoL}" for="fkIdLugNac" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="fkIdLugNac" value="#{fallecidoCDUVController.tblSauregUsuario.agenciaInUser.idInstituc.nomInstituc}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td width="12px"/>
+                <td width="135px" />
+                <td width="245px" />
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NombreEstablecimientoL}" for="nombrStblcNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nombrStblcNacViv" value="#{fallecidoCDUVController.tblSauregUsuario.agenciaInUser.nomAgencia}" style="#{util.Width}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.CampoInecCodStblcNVL}" for="campoInecCodigStblcNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="campoInecCodigStblcNacViv" value="#{fallecidoCDUVController.tblSauregUsuario.agenciaInUser.codMsp}" style="#{util.Width}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ProvinciaL}" for="provinciaFllcmnt" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:selectOneMenu id="provinciaFllcmnt" value="#{fallecidoCDUVController.provinciaFllcmnt}"
+                                     required="true" requiredMessage="#{campos.ProvinciaM}" valueChangeListener="#{fallecidoCDUVController.cambiarProvinciaFllcmnt}"
+                                     style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdResMueEnest.idResMueEnest eq 1 ? true :false}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{fallecidoCDUVController.provinciasFllcmnt}" var="itemProv" itemLabel="#{itemProv.codDpa} - #{itemProv.derscripcion}" itemValue="#{itemProv.codDpa}.- #{itemProv.derscripcion}"/>
+                        <f:ajax render="cantonFllcmnt parroquiaFllcmnt"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgprovinciaFllcmnt" for="provinciaFllcmnt" display="#{util.DisplayMessage}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.DireccionL}" for="ciudadFllcmntFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:inputText id="ciudadFllcmntFal" value="#{fallecidoCDUVController.selected.ciudadFllcmntFal}" required="true" requiredMessage="#{campos.DireccionM}" style="#{util.UppercaseWidth}" maxlength="50" disabled="#{fallecidoCDUVController.selected.fkIdResMueEnest.idResMueEnest eq 1 ? true :false}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:inputText>
+                    <p:message id="mssgciudadFllcmntFal" for="ciudadFllcmntFal" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CantonL}" for="cantonFllcmnt" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:selectOneMenu id="cantonFllcmnt" value="#{fallecidoCDUVController.cantonFllcmnt}"
+                                     required="true" requiredMessage="#{campos.CantonM}" valueChangeListener="#{fallecidoCDUVController.cambiarCantonFllcmnt}"
+                                     style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdResMueEnest.idResMueEnest eq 1 ? true :false}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{fallecidoCDUVController.cantonesFllcmnt}" var="itemCant" itemLabel="#{itemCant.codDpa} - #{itemCant.derscripcion}" itemValue="#{itemCant.codDpa}.- #{itemCant.derscripcion}"/>
+                        <f:ajax render="parroquiaFllcmnt"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgcantonFllcmnt" for="cantonFllcmnt" display="#{util.DisplayMessage}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.LocalidadL}" for="localidadFllcmntFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:inputText id="localidadFllcmntFal" value="#{fallecidoCDUVController.selected.localidadFllcmntFal}" style="#{util.UppercaseWidth}" maxlength="50" disabled="#{fallecidoCDUVController.selected.fkIdResMueEnest.idResMueEnest eq 1 ? true :false}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:inputText>
+                    <p:message id="mssglocalidadFllcmntFal" for="localidadFllcmntFal" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ParroquiaL}" for="parroquiaFllcmnt" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:selectOneMenu id="parroquiaFllcmnt" value="#{fallecidoCDUVController.parroquiaFllcmnt}"
+                                     required="true" requiredMessage="#{campos.CantonM}" valueChangeListener="#{fallecidoCDUVController.cambiarParroquiaFllcmnt}"
+                                     style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdResMueEnest.idResMueEnest eq 1 ? true :false}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{fallecidoCDUVController.parroquiasFllcmnt}" var="itemCant" itemLabel="#{itemCant.codDpa} - #{itemCant.derscripcion}" itemValue="#{itemCant.codDpa}.- #{itemCant.derscripcion}"/>
+                        <f:ajax render="@this"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgparroquiaFllcmnt" for="parroquiaFllcmnt" display="#{util.DisplayMessage}"/>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.AsistidoPorL}" for="fkIdTipAsi" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fkIdTipAsi" value="#{fallecidoCDUVController.tblSauregUsuario.idTipUsu.descripcion}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+            </tr>
+        </table>
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.ObservacionL}" for="observacion" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <h:panelGrid columns="3" cellspacing="0" styleClass="text-align-left">
+                            <p:inputText disabled="true" id="countdown" value="250" style="width: 22px; border: 0px;"/>
+                            <h:outputLabel value="de 250 caracteres." />
+                        </h:panelGrid>
+                        <p:inputTextarea cols="#{util.ColsParaNombre}" id="observacion" value="#{fallecidoCDUVController.selected.observacionProfesionalFal}" maxlength="250" style="#{util.UppercaseWidthCienPorCiento}" onkeydown="limitText(250);" onkeyup="limitText(250);" autoResize="false">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputTextarea>
+                        <p:message for="observacion" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+    <br />
+    <h:panelGrid columns="1" cellspacing="0" styleClass="text-align-left">
+        <p:commandLink id="btnCrearD" action="#{fallecidoCDUVController.saveD}" title="#{campos.Finalizar}" 
+                       process="@this,tblSauregUsuario,fkIdCerPor,fkIdResMueEnest,provinciaFllcmnt,ciudadFllcmntFal,
+                       cantonFllcmnt,localidadFllcmntFal,parroquiaFllcmnt,observacion" 
+                       update="tblSauregUsuario,tblSauregUsuario,fkIdCerPor,mssgfkIdCerPor,fkIdResMueEnest,mssgfkIdResMueEnest,
+                       provinciaFllcmnt,mssgprovinciaFllcmnt,ciudadFllcmntFal,mssgciudadFllcmntFal,cantonFllcmnt,mssgcantonFllcmnt,
+                       localidadFllcmntFal,mssglocalidadFllcmntFal,parroquiaFllcmnt,mssgparroquiaFllcmnt,observacion,observacion"
+                       oncomplete="PF('statusDialog').hide();"
+                       onclick="if (!confirm('#{dialogos.ConfirmacionCrear}'))return true;">
+            <div class="guardar"/>
+        </p:commandLink>
+    </h:panelGrid>
+</html>

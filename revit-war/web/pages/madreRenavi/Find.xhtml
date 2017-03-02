@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="form_cont">
+                    <p:growl id="mssgsBusqueda" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+                    <h:panelGrid id="cntndrFormM" columns="1" cellspacing="1" styleClass="text-align-left" >
+                        <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+
+
+                        <p:fieldset id="cntndrResultadosHijos" legend="Editar registros de nacimiento" style="width: 1060px;">
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+
+                            <p:dataTable id="pdtTblItemsHijos" value="#{madreRenaviFController.hijoItems}" selection="#{madreRenaviFController.listnacidovivo}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                                         scrollable="true" scrollHeight="200px" scrollWidth="1061px" resizableColumns="true" paginator="true" 
+                                         paginatorPosition="bottom" rowKey="#{item.fkCedulMad.idMad}"  rows="10"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowIndexVar="rowIndex">
+                                <f:facet name="header">
+                                    <h:outputText value="#{campos.RegistrosNacimiento}"/>
+                                </f:facet>
+
+                                <p:column  selectionMode="multiple"   width="25"  style="text-align:center" />
+                                <p:ajax event="toggleSelect"  update=":form_cont:btnEnviar" />
+                                <p:ajax event="rowSelectCheckbox"  update=":form_cont:btnEnviar"   />
+                                <p:ajax event="rowUnselectCheckbox" update=":form_cont:btnEnviar" />
+
+                                <p:column width="17">
+                                    <p:commandLink action="#{madreRenaviFController.prepareEdit}" onclick="if (!confirm('¿#{campos.ConfirmacionEdicion}?'))
+                                                return false;" title="#{campos.Seleccionar}" oncomplete="PF('statusDialog').hide();">
+                                        <div class="seleccionar"/>
+                                        <f:param value="#{item.numPartoSistema}" name="numPartoSistema"/>
+                                        <f:param value="#{item.fkCedulMad.cedulMad}" name="cedulMad" />
+                                        <f:param value="#{item.fkCedulMad.idMad}" name="id_Mad" />
+                                    </p:commandLink>
+                                </p:column>
+                                <p:column headerText="#{campos.Madre}" width="215" filterBy="#{item.fkCedulMad.nombrMad}" filterMatchMode="contains" filterStyle="width:90%;" style="text-align:center">
+                                    <h:outputText value="#{item.fkCedulMad.nombrMad}" style="float:left; font-size: 11px;"/>
+                                </p:column>
+                                <p:column headerText="#{campos.CedulaMadreT}" width="105" filterBy="#{item.fkCedulMad.cedulMad}" filterMatchMode="contains" style="text-align:center">
+                                    <h:outputText value="#{item.fkCedulMad.cedulMad}"/>
+                                </p:column>
+                                <p:column headerText="#{campos.FechaRegistroT}" width="90" style="text-align:center">
+                                    <h:outputText value="#{item.fechaCreacionNacViv}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{campos.NacidoVivoT}" width="210">
+                                    <div>
+                                        <h:outputText value="#{item.apellNacViv} #{item.nombrNacViv}"  />
+                                        (<p:graphicImage id="img" library="images/icons" name="hijo.png" width="12px" height="12px"/>)
+                                        <p:tooltip for="img" styleClass="tooltip" showEffect="clip" hideEffect="fade" style="height:auto; width:235px;">
+                                            <table>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Nº Parto en el sistema:
+                                                    </td>
+                                                    <td>
+                                                        #{item.numPartoSistema}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Tipo de parto:
+                                                    </td>
+                                                    <td>
+                                                        #{item.fkIdTipPar.descrTipPar}
+                                                    </td>
+                                                </tr>
+                                                <tr style="text-align: left;">
+                                                    <td style="font-weight: bold;">
+                                                        Peso:
+                                                    </td>
+                                                    <td>
+                                                        #{item.pesoNacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Talla:
+                                                    </td>
+                                                    <td>
+                                                        #{item.tallaNacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Sexo:
+                                                    </td>
+                                                    <td>
+                                                        #{item.fkIdSexoNv.descrSexo}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        #{campos.Apgar1L}
+                                                    </td>
+                                                    <td>
+                                                        #{item.apgar1NacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        #{campos.Apgar2L}
+                                                    </td>
+                                                    <td>
+                                                        #{item.apgar2NacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Semanas de gestación:
+                                                    </td>
+                                                    <td>
+                                                        #{item.semanGstcnNacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Estado:
+                                                    </td>
+                                                    <td>
+                                                        #{item.fkIdEstReg.idEstReg eq 1 or item.fkIdEstReg.idEstReg eq 2 or  item.fkIdEstReg.idEstReg eq 3 ? 'INCOMPLETO' : 'COMPLETO'}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:tooltip>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="#{campos.FechaNacimientoT}" width="128">
+                                    <h:outputText value="#{item.fechaNacimNacViv}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Estado Registro" width="102"  filterStyle="width:90%;" style="text-align:center">
+                                    <h:outputText value="#{item.fkIdEstReg.idEstReg  eq 7  ? 'ANULADO' : ''} " style="font-size: 10px;"/>
+                                    <h:outputText value="#{item.fkIdEstReg.idEstReg  eq 8 ? 'ANULADO/EDITADO' : ''} "  style="font-size: 10px;"/>
+                                    <h:outputText value="#{item.fkIdEstReg.idEstReg  eq 4  ? 'ACTIVO' : ''} "  style="font-size: 10px;"/>
+                                    <h:outputText value="#{item.fkIdEstReg.idEstReg   eq 3  ? 'ACTIVO' : ''} "  style="font-size: 10px;"/>
+                                    <h:outputText value="#{item.fkIdEstReg.idEstReg   eq 2  ? 'ACTIVO' : ''} "  style="font-size: 10px;"/>
+
+                                </p:column>
+
+                            </p:dataTable>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <div align="center" >
+                                <p:commandButton id="btnEnviar"  update=":form_cont:cntndrFormM" process=":form_cont:pdtTblItemsHijos" title="Eliminar"   value="Eliminar" oncomplete="PF('multiCarDialog').show();"  disabled="#{empty madreRenaviFController.listnacidovivo}" >
+
+                                </p:commandButton>  
+                            </div>
+                            <p:dialog  header="¿Está seguro que desea eliminar los registros?" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="300" >
+                                <p:outputPanel id="multiCarDetail" style="text-align:center;">
+
+                                    <hr/>
+
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"  onclick="PF('multiCarDialog').hide();" style="font-size: 12px;"/>
+                                    <p:commandButton  value="Si" action="#{madreRenaviFController.eliminar()}"  oncomplete="PF('multiCarDialog').hide()" process="@this" update=":form_cont:cntndrFormM,:form_cont:pdtTblItemsHijos, :form_cont:btnEnviar" style="font-size: 12px;"/>
+
+                                </p:outputPanel>
+                                <p:ajax event="close" update=":form_cont:cntndrFormM,:form_cont:pdtTblItemsHijos, :form_cont:btnEnviar" process="@this" oncomplete="PF('statusDialog').hide();" 
+                                        global="false" />
+                            </p:dialog>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                        </p:fieldset>
+                        <p:fieldset id="cntndrResultadosHijos2" legend="Editar registros anulados" style="width: 1060px;">
+                            <p:dataTable id="pdtTblItemsHijos2" value="#{madreRenaviFController.hijoItems2}"  var="item2" emptyMessage="#{campos.NoHayDatos}" 
+                                         scrollable="true" scrollHeight="200px" scrollWidth="1061px" resizableColumns="true" paginator="true" 
+                                         paginatorPosition="bottom" rowKey="#{item.fkCedulMad.idMad}"  rows="10"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowIndexVar="rowIndex">
+                                <f:facet name="header">
+                                    <h:outputText value="REGISTROS ANULADOS"/>
+                                </f:facet>
+                                <p:column width="17">
+                                    <p:commandLink action="#{madreRenaviFController.prepareEdit}" onclick="if (!confirm('¿#{campos.ConfirmacionEdicion}?'))
+                                                return false;" title="#{campos.Seleccionar}" oncomplete="PF('statusDialog').hide();">
+                                        <div class="seleccionar"/>
+                                        <f:param value="#{item2.numPartoSistema}" name="numPartoSistema"/>
+                                        <f:param value="#{item2.fkCedulMad.cedulMad}" name="cedulMad" />
+                                        <f:param value="#{item2.fkCedulMad.idMad}" name="id_Mad" />
+                                    </p:commandLink>
+                                </p:column>
+                                <p:column headerText="#{campos.Madre}" width="260" filterBy="#{item2.fkCedulMad.nombrMad}" filterMatchMode="contains" filterStyle="width:90%;" style="text-align:center">
+                                    <h:outputText value="#{item2.fkCedulMad.nombrMad}" style="float:left; font-size: 11px;"/>
+                                </p:column>
+                                <p:column headerText="#{campos.CedulaMadreT}" width="105" filterBy="#{item2.fkCedulMad.cedulMad}" filterMatchMode="contains" style="text-align:center">
+                                    <h:outputText value="#{item2.fkCedulMad.cedulMad}"/>
+                                </p:column>
+                                <p:column headerText="#{campos.FechaRegistroT}" width="90" style="text-align:center">
+                                    <h:outputText value="#{item2.fechaCreacionNacViv}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="#{campos.NacidoVivoT}" width="210">
+                                    <div>
+                                        <h:outputText value="#{item2.apellNacViv} #{item2.nombrNacViv}"  />
+                                        (<p:graphicImage id="img" library="images/icons" name="hijo.png" width="12px" height="12px"/>)
+                                        <p:tooltip for="img" styleClass="tooltip" showEffect="clip" hideEffect="fade" style="height:auto; width:235px;">
+                                            <table>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Nº Parto en el sistema:
+                                                    </td>
+                                                    <td>
+                                                        #{item2.numPartoSistema}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Tipo de parto:
+                                                    </td>
+                                                    <td>
+                                                        #{item2.fkIdTipPar.descrTipPar}
+                                                    </td>
+                                                </tr>
+                                                <tr style="text-align: left;">
+                                                    <td style="font-weight: bold;">
+                                                        Peso:
+                                                    </td>
+                                                    <td>
+                                                        #{item2.pesoNacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Talla:
+                                                    </td>
+                                                    <td>
+                                                        #{item2.tallaNacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Sexo:
+                                                    </td>
+                                                    <td>
+                                                        #{item2.fkIdSexoNv.descrSexo}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        #{campos.Apgar1L}
+                                                    </td>
+                                                    <td>
+                                                        #{item2.apgar1NacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        #{campos.Apgar2L}
+                                                    </td>
+                                                    <td>
+                                                        #{item2.apgar2NacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Semanas de gestación:
+                                                    </td>
+                                                    <td>
+                                                        #{item2.semanGstcnNacViv}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Estado:
+                                                    </td>
+                                                    <td>
+                                                        #{item2.fkIdEstReg.idEstReg eq 1 or item2.fkIdEstReg.idEstReg eq 2 or  item2.fkIdEstReg.idEstReg eq 3 ? 'INCOMPLETO' : 'COMPLETO'}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:tooltip>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="#{campos.FechaNacimientoT}" width="128">
+                                    <h:outputText value="#{item2.fechaNacimNacViv}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Estado Registro" width="102"  filterStyle="width:90%;" style="text-align:center">
+                                    <h:outputText value="#{item2.fkIdEstReg.idEstReg  eq 7  ? 'ANULADO' : ''} " style="font-size: 10px;"/>
+                                    <h:outputText value="#{item2.fkIdEstReg.idEstReg  eq 8 ? 'ANULADO/EDITADO' : ''} "  style="font-size: 10px;"/>
+                                    <h:outputText value="#{item2.fkIdEstReg.idEstReg  eq 4  ? 'ACTIVO' : ''} "  style="font-size: 10px;"/>
+                                    <h:outputText value="#{item2.fkIdEstReg.idEstReg   eq 3  ? 'ACTIVO' : ''} "  style="font-size: 10px;"/>
+                                    <h:outputText value="#{item2.fkIdEstReg.idEstReg   eq 2  ? 'ACTIVO' : ''} "  style="font-size: 10px;"/>
+
+                                </p:column>
+
+                            </p:dataTable>
+
+
+
+
+
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+
+                        </p:fieldset>
+                    </h:panelGrid>
+                    <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

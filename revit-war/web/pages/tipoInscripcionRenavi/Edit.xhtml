@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:fieldset legend="#{campos.EditarTipoInscripL}" style="#{util.WidthPfieldset}" >
+
+                    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                    <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                              draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                        <h:graphicImage library="images" name="cargando.gif"/> 
+                    </p:dialog>
+                    <h:form id="hfrmEdtrDiaEspecial">
+                        <p:growl id="messages" autoUpdate="true" life="#{util.GrowlLifeMin}"/>
+                        <h:panelGrid columns="2" cellspacing="2" styleClass="text-align-left">
+                            <h:outputLabel value="#{campos.EditTipoInscripcionRenaviLabel_descrTipIns}" for="descrTipIns" />
+                            <h:inputText id="descrTipIns" value="#{tipoInscripcionRenaviEVController.selected.descrTipIns}" title="#{campos.EditTipoInscripcionRenaviTitle_descrTipIns}" required="true" requiredMessage="#{campos.EditTipoInscripcionRenaviRequiredMessage_descrTipIns}"/>
+
+                        </h:panelGrid>
+                        <br />
+                        <p:commandButton action="#{tipoInscripcionRenaviEVController.editar}" value="#{campos.Actualizar}" ajax="false" disabled="#{tipoInscripcionRenaviEVController.operacion eq null ? true : false}">
+                            <f:param value="#{tipoInscripcionRenaviEVController.selected.idTipIns}" name="idTipIns"/>
+                            <f:param value="ver" name="operacion"/>
+                        </p:commandButton>
+                        <br />
+                        <br />
+                        <h:commandLink action="#{tipoInscripcionRenaviEVController.prepareList}" value="#{campos.VerTodos}" immediate="true"/>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

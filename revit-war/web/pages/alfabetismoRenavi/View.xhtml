@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAlfabetismoRenaviLabel_idAlfb}"/>
+                    <h:outputText value="#{alfabetismoRenaviController.selected.idAlfb}" title="#{bundle.ViewAlfabetismoRenaviTitle_idAlfb}"/>
+                    <h:outputText value="#{bundle.ViewAlfabetismoRenaviLabel_descAlfb}"/>
+                    <h:outputText value="#{alfabetismoRenaviController.selected.descAlfb}" title="#{bundle.ViewAlfabetismoRenaviTitle_descAlfb}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{alfabetismoRenaviController.destroyAndView}" value="#{bundle.ViewAlfabetismoRenaviDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAlfabetismoRenaviEditLink}"/>
+                <br />
+                <h:commandLink action="#{alfabetismoRenaviController.prepareCreate}" value="#{bundle.ViewAlfabetismoRenaviCreateLink}" />
+                <br />
+                <h:commandLink action="#{alfabetismoRenaviController.prepareList}" value="#{bundle.ViewAlfabetismoRenaviShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAlfabetismoRenaviIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

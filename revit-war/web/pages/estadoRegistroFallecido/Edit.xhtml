@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditEstadoRegistroFallecidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditEstadoRegistroFallecidoLabel_idEstRegFal}" for="idEstRegFal" />
+                    <h:inputText id="idEstRegFal" value="#{estadoRegistroFallecidoController.selected.idEstRegFal}" title="#{bundle.EditEstadoRegistroFallecidoTitle_idEstRegFal}" required="true" requiredMessage="#{bundle.EditEstadoRegistroFallecidoRequiredMessage_idEstRegFal}"/>
+                    <h:outputLabel value="#{bundle.EditEstadoRegistroFallecidoLabel_nombreEstRegFal}" for="nombreEstRegFal" />
+                    <h:inputText id="nombreEstRegFal" value="#{estadoRegistroFallecidoController.selected.nombreEstRegFal}" title="#{bundle.EditEstadoRegistroFallecidoTitle_nombreEstRegFal}" required="true" requiredMessage="#{bundle.EditEstadoRegistroFallecidoRequiredMessage_nombreEstRegFal}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{estadoRegistroFallecidoController.update}" value="#{bundle.EditEstadoRegistroFallecidoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditEstadoRegistroFallecidoViewLink}"/>
+                <br />
+                <h:commandLink action="#{estadoRegistroFallecidoController.prepareList}" value="#{bundle.EditEstadoRegistroFallecidoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditEstadoRegistroFallecidoIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

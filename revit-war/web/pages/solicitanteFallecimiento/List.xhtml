@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSolicitanteFallecimientoEmpty}" rendered="#{solicitanteFallecimientoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{solicitanteFallecimientoController.items.rowCount > 0}">
+                    <h:outputText value="#{solicitanteFallecimientoController.pagination.pageFirstItem + 1}..#{solicitanteFallecimientoController.pagination.pageLastItem + 1}/#{solicitanteFallecimientoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{solicitanteFallecimientoController.previous}" value="#{bundle.Previous} #{solicitanteFallecimientoController.pagination.pageSize}" rendered="#{solicitanteFallecimientoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{solicitanteFallecimientoController.next}" value="#{bundle.Next} #{solicitanteFallecimientoController.pagination.pageSize}" rendered="#{solicitanteFallecimientoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{solicitanteFallecimientoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_edadSolFal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.edadSolFal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_causaProbableMuerte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.causaProbableMuerte}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_sintomasSolFal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sintomasSolFal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_direccionSolFal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direccionSolFal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_tipoInvolucrado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoInvolucrado}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_parentesco}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parentesco}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_fallecido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fallecido}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitanteFallecimientoTitle_ciudadanoInvolucrado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ciudadanoInvolucrado}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{solicitanteFallecimientoController.prepareView}" value="#{bundle.ListSolicitanteFallecimientoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{solicitanteFallecimientoController.prepareEdit}" value="#{bundle.ListSolicitanteFallecimientoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{solicitanteFallecimientoController.destroy}" value="#{bundle.ListSolicitanteFallecimientoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{solicitanteFallecimientoController.prepareCreate}" value="#{bundle.ListSolicitanteFallecimientoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSolicitanteFallecimientoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

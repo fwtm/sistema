@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAuditoriaRenaviTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAuditoriaRenaviEmpty}" rendered="#{auditoriaRenaviController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{auditoriaRenaviController.items.rowCount > 0}">
+                    <h:outputText value="#{auditoriaRenaviController.pagination.pageFirstItem + 1}..#{auditoriaRenaviController.pagination.pageLastItem + 1}/#{auditoriaRenaviController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{auditoriaRenaviController.previous}" value="#{bundle.Previous} #{auditoriaRenaviController.pagination.pageSize}" rendered="#{auditoriaRenaviController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{auditoriaRenaviController.next}" value="#{bundle.Next} #{auditoriaRenaviController.pagination.pageSize}" rendered="#{auditoriaRenaviController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{auditoriaRenaviController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_idAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAud}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_idNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_proviRcdscNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.proviRcdscNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_cantnRcdscNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantnRcdscNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_paarqRcdscNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.paarqRcdscNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_oficiRcNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.oficiRcNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdTipIns}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdTipIns}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fechaInscrNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaInscrNacViv}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_actaInscrNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.actaInscrNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_nombrNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombrNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_apellNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_cedulNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cedulNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdSexoNv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdSexoNv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_tallaNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tallaNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_pesoNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pesoNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_semanGstcnNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.semanGstcnNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdTipPar}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdTipPar}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fechaNacimNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaNacimNacViv}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdProEmb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdProEmb}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdLugNac}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdLugNac}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_lugNacEspecifique}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lugNacEspecifique}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_nombrStblcNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombrStblcNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_proviEstbdsNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.proviEstbdsNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_cantnEstbdsNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantnEstbdsNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_parrqEstbdsNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.parrqEstbdsNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_cddlocStblcNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cddlocStblcNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_direcStblcNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direcStblcNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_telefStblcNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefStblcNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdTipAsi}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdTipAsi}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_tipAsiEspecifique}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipAsiEspecifique}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdEstFir}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdEstFir}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdEstReg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdEstReg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_obsrvAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.obsrvAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_idMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_nombrMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombrMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdPaisMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdPaisMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdNacMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdNacMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_cedulMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cedulMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_pasapMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pasapMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fechaNacimMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaNacimMad}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_edadMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.edadMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fotoMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fotoMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_condicCedMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.condicCedMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_conyugeMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.conyugeMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fecFallecMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fecFallecMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_nomPadreMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomPadreMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_nomMadreMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomMadreMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_cntrlPrntlNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cntrlPrntlNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_numerPartoNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numerPartoNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_hijosVivsaMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hijosVivsaMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_hijosNvmrtMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hijosNvmrtMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_hijosNmrtsMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hijosNmrtsMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdIdeEtn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdIdeEtn}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdEstCivMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdEstCivMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdSabeLeerMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdSabeLeerMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdNivelInstr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdNivelInstr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_residnProvdsMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.residnProvdsMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_residnCantdsMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.residnCantdsMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_residnParrdsMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.residnParrdsMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_residnLocalMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.residnLocalMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_residnDirecMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.residnDirecMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_nombrAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombrAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_numregprfsnlAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numregprfsnlAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_telefcelAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefcelAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_telefconvenofiAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefconvenofiAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_telfconvenextAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telfconvenextAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_emailAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.emailAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_estadoAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_usernameAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usernameAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdTipUsuAtprtNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdTipUsuAtprtNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecRcPcpNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecRcPcpNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecRcOfiNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecRcOfiNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecFecCriNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecFecCriNacViv}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecCodigStblcNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecCodigStblcNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecCodPaisMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecCodPaisMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdTipoAreaNv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdTipoAreaNv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecAreaNacViv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecAreaNacViv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fkIdTipoAreaMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fkIdTipoAreaMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecAreaMad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecAreaMad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_campoInecCodCriCod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.campoInecCodCriCod}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_fechaAudit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaAudit}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditoriaRenaviTitle_usuarioCambio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuarioCambio}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{auditoriaRenaviController.prepareView}" value="#{bundle.ListAuditoriaRenaviViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{auditoriaRenaviController.prepareEdit}" value="#{bundle.ListAuditoriaRenaviEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{auditoriaRenaviController.destroy}" value="#{bundle.ListAuditoriaRenaviDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{auditoriaRenaviController.prepareCreate}" value="#{bundle.ListAuditoriaRenaviCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAuditoriaRenaviIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

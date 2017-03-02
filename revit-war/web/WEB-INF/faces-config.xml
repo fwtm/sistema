@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.1"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+    <application>
+        <lifecycle>
+            <phase-listener>ec.gob.digercic.renavi.view.util.AuthorizationListener</phase-listener>
+        </lifecycle>
+        <message-bundle>ec.gob.digercic.renavi.view.resources.Faces</message-bundle>
+        <resource-bundle>
+            <base-name>ec.gob.digercic.renavi.view.resources.Estados</base-name>
+            <var>estados</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>ec.gob.digercic.renavi.view.resources.Dialogos</base-name>
+            <var>dialogos</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>ec.gob.digercic.renavi.view.resources.Util</base-name>
+            <var>util</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>ec.gob.digercic.renavi.view.resources.Campos</base-name>
+            <var>campos</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>ec.gob.digercic.renavi.view.resources.Mensajes</base-name>
+            <var>mensajes</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle2</base-name>
+            <var>bundle2</var>
+        </resource-bundle>
+    </application>
+    <validator>
+        <validator-id>validadorcedu</validator-id>
+        <validator-class>ec.gob.digercic.renavi.view.validator.CedulaValidator</validator-class>
+    </validator>
+</faces-config>

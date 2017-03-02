@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="form_cont">
+                    <p:growl id="mssgsBusqueda" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+                    <h:panelGrid id="cntndrFormM" columns="1" cellspacing="1" styleClass="text-align-left" >
+                        <p:fieldset id="cntndrResultadosHijos" legend="Editar Registros de Defunción" style="width: 1020px;">
+                            <p:dataTable id="pdtTblItemsFallecidos" value="#{fallecidoLController.items}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                                         scrollable="true" scrollHeight="#{util.DlgTableHeightMediano}" resizableColumns="true" paginator="true" 
+                                         paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowIndexVar="rowIndex">
+                                <f:facet name="header">
+                                    <h:outputText value="Registro de defunción"/>
+                                </f:facet>
+                                <p:column width="17">
+                                    <p:commandLink action="#{fallecidoLController.prepareEdit}" onclick="if (!confirm('¿#{campos.ConfirmacionEdicion}?'))
+                                                return false;" title="#{campos.Seleccionar}" oncomplete="PF('statusDialog').hide();">
+                                        <div class="seleccionar"/>
+                                        <f:param value="#{item.idFal}" name="id"/>
+                                        <f:param value="editar" name="operacion"/>
+                                    </p:commandLink>
+                                </p:column>
+                                <p:column headerText="#{campos.NombreT}" width="266" filterBy="#{item.nombreFal}" filterMatchMode="contains" filterStyle="width:90%;" style="text-align:center">
+                                    <h:outputText value="#{item.nombreFal}" style="float:left;"/>
+                                </p:column>
+                                <p:column headerText="#{campos.CedulaT}" width="105" filterBy="#{item.cedulaFal}" filterMatchMode="contains" style="text-align:center">
+                                    <h:outputText value="#{item.cedulaFal}"/>
+                                </p:column>
+                                <p:column headerText="#{campos.FechaRegistroT}" width="94" style="text-align:center">
+                                    <h:outputText value="#{item.fechaCreacionFal}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Información" width="70">
+                                    <div>
+                                        <p:graphicImage id="img" library="images/icons" name="cruz.png" width="12px" height="12px"/>
+                                        <p:tooltip for="img" styleClass="tooltip" showEffect="clip" hideEffect="fade" style="height:auto; width:235px;">
+                                            <table>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        fecha de nacimiento:
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText value="#{item.fechaNacimientoFal}">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                        </h:outputText>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        fecha de fallecimiento:
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText value="#{item.fechaFallecimientoFal}">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                        </h:outputText>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Edad al fallecer:
+                                                    </td>
+                                                    <td>
+                                                        #{item.edadFal}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: bold;">
+                                                        Estado civil:
+                                                    </td>
+                                                    <td>
+                                                        #{item.fkIdEstadoCivilFal.descEstCiv}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:tooltip>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

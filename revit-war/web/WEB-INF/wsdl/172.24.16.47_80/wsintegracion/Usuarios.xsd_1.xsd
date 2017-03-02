@@ -1,0 +1,576 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.2-b13 (branches/2.2-6964; 2012-01-09T18:04:18+0000) JAXWS-RI/2.2.6-promoted-b20 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://ws.wsinformacion.digercic.gob.ec/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.wsinformacion.digercic.gob.ec/">
+
+<xs:element name="cambiarContrasenia" type="tns:cambiarContrasenia"/>
+
+<xs:element name="cambiarContraseniaResponse" type="tns:cambiarContraseniaResponse"/>
+
+<xs:element name="enviarMailResetPass" type="tns:enviarMailResetPass"/>
+
+<xs:element name="enviarMailResetPassResponse" type="tns:enviarMailResetPassResponse"/>
+
+<xs:element name="getAgenciasPorInstitucion" type="tns:getAgenciasPorInstitucion"/>
+
+<xs:element name="getAgenciasPorInstitucionPorSistema" type="tns:getAgenciasPorInstitucionPorSistema"/>
+
+<xs:element name="getAgenciasPorInstitucionPorSistemaResponse" type="tns:getAgenciasPorInstitucionPorSistemaResponse"/>
+
+<xs:element name="getAgenciasPorInstitucionResponse" type="tns:getAgenciasPorInstitucionResponse"/>
+
+<xs:element name="getAgenciasPorInstitucionYUsuario" type="tns:getAgenciasPorInstitucionYUsuario"/>
+
+<xs:element name="getAgenciasPorInstitucionYUsuarioResponse" type="tns:getAgenciasPorInstitucionYUsuarioResponse"/>
+
+<xs:element name="getCompRolUsuario" type="tns:getCompRolUsuario"/>
+
+<xs:element name="getCompRolUsuarioResponse" type="tns:getCompRolUsuarioResponse"/>
+
+<xs:element name="getCredencialesFirma" type="tns:getCredencialesFirma"/>
+
+<xs:element name="getCredencialesFirmaResponse" type="tns:getCredencialesFirmaResponse"/>
+
+<xs:element name="getInstitucionesBySistema" type="tns:getInstitucionesBySistema"/>
+
+<xs:element name="getInstitucionesBySistemaResponse" type="tns:getInstitucionesBySistemaResponse"/>
+
+<xs:element name="getRolesByUsuarioByAgenciaBySistema" type="tns:getRolesByUsuarioByAgenciaBySistema"/>
+
+<xs:element name="getRolesByUsuarioByAgenciaBySistemaResponse" type="tns:getRolesByUsuarioByAgenciaBySistemaResponse"/>
+
+<xs:element name="getRolesUsuario" type="tns:getRolesUsuario"/>
+
+<xs:element name="getRolesUsuarioResponse" type="tns:getRolesUsuarioResponse"/>
+
+<xs:element name="getUbicacionByCodUbiMagna" type="tns:getUbicacionByCodUbiMagna"/>
+
+<xs:element name="getUbicacionByCodUbiMagnaResponse" type="tns:getUbicacionByCodUbiMagnaResponse"/>
+
+<xs:element name="getUsuAgenciaByUserAndAgencia" type="tns:getUsuAgenciaByUserAndAgencia"/>
+
+<xs:element name="getUsuAgenciaByUserAndAgenciaResponse" type="tns:getUsuAgenciaByUserAndAgenciaResponse"/>
+
+<xs:element name="getUsuario" type="tns:getUsuario"/>
+
+<xs:element name="getUsuarioByUserAndAgencia" type="tns:getUsuarioByUserAndAgencia"/>
+
+<xs:element name="getUsuarioByUserAndAgenciaMSP" type="tns:getUsuarioByUserAndAgenciaMSP"/>
+
+<xs:element name="getUsuarioByUserAndAgenciaMSPResponse" type="tns:getUsuarioByUserAndAgenciaMSPResponse"/>
+
+<xs:element name="getUsuarioByUserAndAgenciaResponse" type="tns:getUsuarioByUserAndAgenciaResponse"/>
+
+<xs:element name="getUsuarioByUsernameAndMail" type="tns:getUsuarioByUsernameAndMail"/>
+
+<xs:element name="getUsuarioByUsernameAndMailResponse" type="tns:getUsuarioByUsernameAndMailResponse"/>
+
+<xs:element name="getUsuarioResponse" type="tns:getUsuarioResponse"/>
+
+<xs:element name="getUsuariosByAgencia" type="tns:getUsuariosByAgencia"/>
+
+<xs:element name="getUsuariosByAgenciaMSP" type="tns:getUsuariosByAgenciaMSP"/>
+
+<xs:element name="getUsuariosByAgenciaMSPAll" type="tns:getUsuariosByAgenciaMSPAll"/>
+
+<xs:element name="getUsuariosByAgenciaMSPAllResponse" type="tns:getUsuariosByAgenciaMSPAllResponse"/>
+
+<xs:element name="getUsuariosByAgenciaMSPResponse" type="tns:getUsuariosByAgenciaMSPResponse"/>
+
+<xs:element name="getUsuariosByAgenciaResponse" type="tns:getUsuariosByAgenciaResponse"/>
+
+<xs:element name="getUsuariosFromPageForFirma" type="tns:getUsuariosFromPageForFirma"/>
+
+<xs:element name="getUsuariosFromPageForFirmaResponse" type="tns:getUsuariosFromPageForFirmaResponse"/>
+
+<xs:element name="getUsuariosPorAgenciaPorSistema" type="tns:getUsuariosPorAgenciaPorSistema"/>
+
+<xs:element name="getUsuariosPorAgenciaPorSistemaResponse" type="tns:getUsuariosPorAgenciaPorSistemaResponse"/>
+
+<xs:element name="getUsuariosPorSistemaPorAgenciaMspPorRol" type="tns:getUsuariosPorSistemaPorAgenciaMspPorRol"/>
+
+<xs:element name="getUsuariosPorSistemaPorAgenciaMspPorRolResponse" type="tns:getUsuariosPorSistemaPorAgenciaMspPorRolResponse"/>
+
+<xs:element name="leerEstructura" type="tns:leerEstructura"/>
+
+<xs:element name="leerEstructuraResponse" type="tns:leerEstructuraResponse"/>
+
+<xs:element name="tblSauregAgencia" type="tns:tblSauregAgencia"/>
+
+<xs:element name="tblSauregCompRol" type="tns:tblSauregCompRol"/>
+
+<xs:element name="tblSauregEstados" type="tns:tblSauregEstados"/>
+
+<xs:element name="tblSauregEstrucSist" type="tns:tblSauregEstrucSist"/>
+
+<xs:element name="tblSauregInstitucion" type="tns:tblSauregInstitucion"/>
+
+<xs:element name="tblSauregPermiso" type="tns:tblSauregPermiso"/>
+
+<xs:element name="tblSauregRol" type="tns:tblSauregRol"/>
+
+<xs:element name="tblSauregUbicacion" type="tns:tblSauregUbicacion"/>
+
+<xs:element name="tblSauregUsuAgencia" type="tns:tblSauregUsuAgencia"/>
+
+<xs:element name="tblSauregUsuario" type="tns:tblSauregUsuario"/>
+
+<xs:complexType name="getRolesByUsuarioByAgenciaBySistema">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string"/>
+<xs:element name="idAgencia" type="xs:string"/>
+<xs:element name="idSistema" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRolesByUsuarioByAgenciaBySistemaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregRol" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregRol">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="idRol" type="xs:long" minOccurs="0"/>
+<xs:element name="status" type="xs:unsignedShort" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosByAgenciaMSP">
+<xs:sequence>
+<xs:element name="codMsp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosByAgenciaMSPResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregUsuario">
+<xs:sequence>
+<xs:element name="agenciaInUser" type="tns:tblSauregAgencia" minOccurs="0"/>
+<xs:element name="apellido" type="xs:string" minOccurs="0"/>
+<xs:element name="codError" type="xs:string" minOccurs="0"/>
+<xs:element name="codLogin" type="xs:string" minOccurs="0"/>
+<xs:element name="contrasenia" type="xs:string" minOccurs="0"/>
+<xs:element name="desError" type="xs:string" minOccurs="0"/>
+<xs:element name="desLogin" type="xs:string" minOccurs="0"/>
+<xs:element name="estError" type="xs:string" minOccurs="0"/>
+<xs:element name="estructSistList" type="tns:tblSauregEstrucSist" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="fechaCambio" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="idEstado" type="xs:string" minOccurs="0"/>
+<xs:element name="idEstados" type="tns:tblSauregEstados" minOccurs="0"/>
+<xs:element name="idUsuario" type="xs:integer" minOccurs="0"/>
+<xs:element name="ip" type="xs:string" minOccurs="0"/>
+<xs:element name="listTblSauregAgencia" type="tns:tblSauregAgencia" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="listTblSauregInstitucion" type="tns:tblSauregInstitucion" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="nomUsuario" type="xs:string" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="observacion" type="xs:string" minOccurs="0"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="tblSauregCompRolList" type="tns:tblSauregCompRol" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="userInstitInUser" type="tns:tblSauregInstitucion" minOccurs="0"/>
+<xs:element name="usuDominio" type="xs:string" minOccurs="0"/>
+<xs:element name="usuarioCambio" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregAgencia">
+<xs:sequence>
+<xs:element name="celularUsuario" type="xs:string" minOccurs="0"/>
+<xs:element name="codAgencia" type="xs:string" minOccurs="0"/>
+<xs:element name="codMsp" type="xs:string" minOccurs="0"/>
+<xs:element name="contacto" type="xs:string" minOccurs="0"/>
+<xs:element name="direccion" type="xs:string" minOccurs="0"/>
+<xs:element name="extencion" type="xs:string" minOccurs="0"/>
+<xs:element name="fechaCreacion" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="idAgencia" type="xs:long" minOccurs="0"/>
+<xs:element name="idCanton" type="tns:tblSauregUbicacion" minOccurs="0"/>
+<xs:element name="idInstituc" type="tns:tblSauregInstitucion" minOccurs="0"/>
+<xs:element name="idParroquia" type="tns:tblSauregUbicacion" minOccurs="0"/>
+<xs:element name="idProvincia" type="tns:tblSauregUbicacion" minOccurs="0"/>
+<xs:element name="localidad" type="xs:string" minOccurs="0"/>
+<xs:element name="localizacionOfi" type="xs:long" minOccurs="0"/>
+<xs:element name="nomAgencia" type="xs:string" minOccurs="0"/>
+<xs:element name="rangoIpFinal" type="xs:string" minOccurs="0"/>
+<xs:element name="rangoIpInicial" type="xs:string" minOccurs="0"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="telefono" type="xs:string" minOccurs="0"/>
+<xs:element name="telefonoUsuario" type="xs:string" minOccurs="0"/>
+<xs:element name="telfExtensionUsuario" type="xs:string" minOccurs="0"/>
+<xs:element name="eMail" type="xs:string" minOccurs="0"/>
+<xs:element name="eMailUsuario" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregUbicacion">
+<xs:sequence>
+<xs:element name="codAs400" type="xs:string" minOccurs="0"/>
+<xs:element name="codDpa" type="xs:string" minOccurs="0"/>
+<xs:element name="codExterno1" type="xs:string" minOccurs="0"/>
+<xs:element name="codExterno2" type="xs:string" minOccurs="0"/>
+<xs:element name="derscripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="fechaCreacion" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="idGrupo" type="tns:tblSauregUbicacion" minOccurs="0"/>
+<xs:element name="idUbicacion" type="xs:long" minOccurs="0"/>
+<xs:element name="observacion" type="xs:string" minOccurs="0"/>
+<xs:element name="status" type="xs:unsignedShort" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregInstitucion">
+<xs:sequence>
+<xs:element name="codRevit" type="xs:string" minOccurs="0"/>
+<xs:element name="EMail" type="xs:string" minOccurs="0"/>
+<xs:element name="idInstituc" type="xs:long" minOccurs="0"/>
+<xs:element name="nomCorto" type="xs:string" minOccurs="0"/>
+<xs:element name="nomInstituc" type="xs:string" minOccurs="0"/>
+<xs:element name="paginaWeb" type="xs:string" minOccurs="0"/>
+<xs:element name="status" type="xs:unsignedShort" minOccurs="0"/>
+<xs:element name="telefono" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregEstrucSist">
+<xs:sequence>
+<xs:element name="codEsctructSist" type="xs:string" minOccurs="0"/>
+<xs:element name="codEstructura" type="tns:tblSauregEstrucSist" minOccurs="0"/>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="idEstrucSist" type="xs:long" minOccurs="0"/>
+<xs:element name="idPermiso" type="xs:long" minOccurs="0"/>
+<xs:element name="idSistema" type="xs:long" minOccurs="0"/>
+<xs:element name="imagen" type="xs:string" minOccurs="0"/>
+<xs:element name="ordenEstruct" type="xs:integer" minOccurs="0"/>
+<xs:element name="paginas" type="xs:string" minOccurs="0"/>
+<xs:element name="status" type="xs:unsignedShort" minOccurs="0"/>
+<xs:element name="tipoSistEstruct" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregEstados">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="idEstados" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregCompRol">
+<xs:sequence>
+<xs:element name="tblSauregCompRolPK" type="tns:tblSauregCompRolPK" minOccurs="0"/>
+<xs:element ref="tns:tblSauregEstrucSist" minOccurs="0"/>
+<xs:element ref="tns:tblSauregPermiso" minOccurs="0"/>
+<xs:element ref="tns:tblSauregRol" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregCompRolPK">
+<xs:sequence>
+<xs:element name="idEstrucSist" type="xs:long"/>
+<xs:element name="idPermiso" type="xs:long"/>
+<xs:element name="idRol" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregPermiso">
+<xs:sequence>
+<xs:element name="certificado" type="xs:string" minOccurs="0"/>
+<xs:element name="codCertificado" type="xs:string" minOccurs="0"/>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="idPermiso" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosByAgencia">
+<xs:sequence>
+<xs:element name="idAgencia" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosByAgenciaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuario">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string"/>
+<xs:element name="contrasenia" type="xs:string"/>
+<xs:element name="idSistema" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cambiarContrasenia">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string"/>
+<xs:element name="claveAnterior" type="xs:string"/>
+<xs:element name="claveNueva" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cambiarContraseniaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="leerEstructura">
+<xs:sequence>
+<xs:element name="cedula" type="xs:string"/>
+<xs:element name="idAgencia" type="xs:long"/>
+<xs:element name="idSistema" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="leerEstructuraResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregEstrucSist" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAgenciasPorInstitucion">
+<xs:sequence>
+<xs:element name="idInstitucion" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAgenciasPorInstitucionResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregAgencia" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAgenciasPorInstitucionPorSistema">
+<xs:sequence>
+<xs:element name="idInstitucion" type="xs:string"/>
+<xs:element name="idSistema" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAgenciasPorInstitucionPorSistemaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregAgencia" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosPorSistemaPorAgenciaMspPorRol">
+<xs:sequence>
+<xs:element name="idAgencia" type="xs:string"/>
+<xs:element name="idSistema" type="xs:string"/>
+<xs:element name="idRol" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosPorSistemaPorAgenciaMspPorRolResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompRolUsuario">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string"/>
+<xs:element name="idAgencia" type="xs:string"/>
+<xs:element name="idSistema" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompRolUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregCompRol" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosByAgenciaMSPAll">
+<xs:sequence>
+<xs:element name="codMsp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosByAgenciaMSPAllResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuAgenciaByUserAndAgencia">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string"/>
+<xs:element name="idAgencia" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuAgenciaByUserAndAgenciaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuAgencia" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregUsuAgencia">
+<xs:sequence>
+<xs:element name="celular" type="xs:string" minOccurs="0"/>
+<xs:element name="EMail" type="xs:string" minOccurs="0"/>
+<xs:element name="status" type="xs:unsignedShort" minOccurs="0"/>
+<xs:element ref="tns:tblSauregAgencia" minOccurs="0"/>
+<xs:element name="tblSauregUsuAgenciaPK" type="tns:tblSauregUsuAgenciaPK" minOccurs="0"/>
+<xs:element ref="tns:tblSauregUsuario" minOccurs="0"/>
+<xs:element name="telefono" type="xs:string" minOccurs="0"/>
+<xs:element name="telfExtension" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tblSauregUsuAgenciaPK">
+<xs:sequence>
+<xs:element name="idAgencia" type="xs:long"/>
+<xs:element name="nomUsuario" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioByUserAndAgenciaMSP">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string"/>
+<xs:element name="codMsp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioByUserAndAgenciaMSPResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosPorAgenciaPorSistema">
+<xs:sequence>
+<xs:element name="idAgencia" type="xs:string"/>
+<xs:element name="idSistema" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosPorAgenciaPorSistemaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosFromPageForFirma">
+<xs:sequence>
+<xs:element name="idAgencia" type="xs:string"/>
+<xs:element name="idPagina" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuariosFromPageForFirmaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioByUsernameAndMail">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string"/>
+<xs:element name="email" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioByUsernameAndMailResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAgenciasPorInstitucionYUsuario">
+<xs:sequence>
+<xs:element name="idInstitucion" type="xs:string"/>
+<xs:element name="usuario" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAgenciasPorInstitucionYUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregAgencia" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="enviarMailResetPass">
+<xs:sequence>
+<xs:element name="nombres" type="xs:string"/>
+<xs:element name="nomUsuario" type="xs:string"/>
+<xs:element name="idSistema" type="xs:string"/>
+<xs:element name="email" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="enviarMailResetPassResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCredencialesFirma">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCredencialesFirmaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUbicacionByCodUbiMagna">
+<xs:sequence>
+<xs:element name="codUbiMagna" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUbicacionByCodUbiMagnaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUbicacion" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioByUserAndAgencia">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string"/>
+<xs:element name="idAgencia" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioByUserAndAgenciaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregUsuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRolesUsuario">
+<xs:sequence>
+<xs:element name="nomUsuario" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRolesUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregRol" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getInstitucionesBySistema">
+<xs:sequence>
+<xs:element name="idSistema" type="xs:string"/>
+<xs:element name="Status" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getInstitucionesBySistemaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tblSauregInstitucion" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

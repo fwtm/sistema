@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:growl id="mssgsBusquedaM" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+    <p:fieldset legend="#{campos.DatBusqueda}" style="#{util.WidthMrgnBttmPfieldset}">
+        <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left" style="width: 100%;">
+            <p:messages id="mssgsBusquedaErrorM" autoUpdate="false" closable="true"/>
+            <h:panelGrid id="cntndrBuscarPor" columns="2" cellspacing="1" styleClass="text-align-left">
+                <p:outputLabel value="#{campos.BuscarPorL}" for="buscarPor" style="#{util.outputTextTitulo}"/>
+                <p:selectOneRadio id="buscarPor" value="#{madreRenaviCDLController.buscarPor}" required="true" requiredMessage="#{campos.BuscarPorM}" immediate="true">  
+                    <p:ajax event="change" immediate="true" listener="#{madreRenaviCDLController.cambiarBuscarPor}" oncomplete="PF('statusDialog').hide();" process="@this" update="buscarPor,cntndrBusquedaCedula,cntndrBusquedaNombres,
+                            nombrMad,fotoMad,cedulMad,fechaNacimMad,edadMad,sexoMad,fkIdEstCivMad,conyugeMad,condicCedMad,fecFallecMad,nomMadreMad,nomPadreMad,fkIdNacionalidad,fkIdIdeEtnMad,fkIdPaisMad,campoInecCodPaisMad,fkIdSabeLeerMad,
+                            fkIdNivelInstr,fkIdTipPar,fkIdProEmb,cntrlPrntlNacViv,numerPartoNacViv,hijosVivsaMad,hijosNvmrtMad,hijosNmrtsMad,residnProvdsMad,residnCantdsMad,residnParrdsMad,residnLocalMad,residnDirecMad,btnCreateM
+                            ,lblnumerPartoNacViv,lblhijosVivsaMad,lblhijosNvmrtMad,lblhijosNmrtsMad
+                            ,numPartoSistema,hijosNacierVivSistema,hijosNacierVivSistemaMsg,hijosNacierMuertSistema,hijosNacierMuertSistemaMsg,numeroEmbarazosMad,numeroEmbarazosMadMsg"/>
+                    <f:selectItem itemLabel="#{campos.NombresT}" itemValue="#{campos.NombresT}"/>  
+                    <f:selectItem itemLabel="#{campos.CedulaT}" itemValue="#{campos.CedulaT}" />
+                </p:selectOneRadio>
+                <p:message for="buscarPor" display="#{util.DisplayMessage}"/>
+            </h:panelGrid>
+            <h:panelGroup id="cntndrBusquedaCedula">
+                <h:panelGrid  columns="3" cellspacing="1" styleClass="text-align-left" rendered="#{madreRenaviCDLController.buscarPor eq 'Cédula' ? true:false}">
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulMadBusq" style="#{util.outputTextTitulo}"/>
+                    <p:inputMask id="cedulMadBusq" value="#{madreRenaviCDLController.cedulaBusq}" mask="9999999999" required="true" requiredMessage="#{campos.CedulaM}" style="#{util.Width}" disabled="#{madreRenaviCDLController.selected.cedulMad  eq null ? false:true}">
+                        <f:validator validatorId="cedulaValidador" />
+                    </p:inputMask>
+                    <p:message id="mssgcedulMadBusq" for="cedulMadBusq" display="#{util.DisplayMessage}"/>
+                    <p:commandButton id="btnBuscarCedula" action="#{madreRenaviCDLController.buscarMadreCedula}" value="#{campos.Buscar}" process="@this,cedulMadBusq" update="@this,mailMad,celularMad,cedulMadBusq,mssgcedulMadBusq,btnResetBuscarCedula,nombrMad,fotoMad,cedulMad,fechaNacimMad,edadMad,sexoMad,fkIdEstCivMad,conyugeMad
+                                     ,condicCedMad,fecFallecMad,nomMadreMad,nomPadreMad,fkIdNacionalidad,fkIdIdeEtnMad,fkIdPaisMad,campoInecCodPaisMad,fkIdSabeLeerMad,fkIdNivelInstr,fkIdTipPar,fkIdProEmb,cntrlPrntlNacViv,numerPartoNacViv
+                                     ,hijosVivsaMad,hijosNvmrtMad,hijosNmrtsMad,residnProvdsMad,residnCantdsMad,residnParrdsMad,residnLocalMad,residnDirecMad,btnCreateM,lblnumerPartoNacViv,lblhijosVivsaMad,lblhijosNvmrtMad,lblhijosNmrtsMad
+                                     ,numPartoSistema,hijosNacierVivSistema,hijosNacierVivSistemaMsg,hijosNacierMuertSistema,hijosNacierMuertSistemaMsg,semanGstcnNacViv,semanGstcnNacVivMsg,numeroEmbarazosMad,numeroEmbarazosMadMsg,fkIdPaisResidnMad" disabled="#{madreRenaviCDLController.selected.cedulMad eq null ? false:true}" oncomplete="PF('statusDialog').hide();" />
+                    <p:commandButton id="btnResetBuscarCedula" action="#{madreRenaviCDLController.limpiarBuscarPorCedula}" value="#{campos.NuevaBusqueda}" process="@this" update="@this,mailMad,celularMad,cedulMadBusq,btnBuscarCedula,nombrMad,fotoMad,cedulMad,fechaNacimMad,edadMad,sexoMad,fkIdEstCivMad,conyugeMad
+                                     ,condicCedMad,fecFallecMad,nomMadreMad,nomPadreMad,fkIdNacionalidad,fkIdIdeEtnMad,fkIdPaisMad,campoInecCodPaisMad,fkIdSabeLeerMad,fkIdNivelInstr,fkIdTipPar,fkIdProEmb,cntrlPrntlNacViv,numerPartoNacViv
+                                     ,hijosVivsaMad,hijosNvmrtMad,hijosNmrtsMad,residnProvdsMad,residnCantdsMad,residnParrdsMad,residnLocalMad,residnDirecMad,btnCreateM,lblnumerPartoNacViv,lblhijosVivsaMad,lblhijosNvmrtMad,lblhijosNmrtsMad
+                                     ,numPartoSistema,hijosNacierVivSistema,hijosNacierVivSistemaMsg,hijosNacierMuertSistema,hijosNacierMuertSistemaMsg,semanGstcnNacViv,semanGstcnNacVivMsg,numeroEmbarazosMad,numeroEmbarazosMadMsg,fkIdPaisResidnMad" disabled="#{madreRenaviCDLController.selected.cedulMad eq null ? true:false}" oncomplete="PF('statusDialog').hide();" onclick="cerrarMsj()" />
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup id="cntndrBusquedaNombres">
+                <h:panelGrid columns="5" cellspacing="1" styleClass="text-align-left" rendered="#{madreRenaviCDLController.buscarPor eq 'Nombres' ? true:false}"  columnClasses="colUno,colDos,colEspacio,colUno,colDos">
+                    <p:outputLabel value="#{campos.ApellidoUnoL}" for="apellidoUnoBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="apellidoUnoBusq" value="#{madreRenaviCDLController.apellidoUnoBusq}" maxlength="20" required="true" requiredMessage="#{campos.ApellidoUnoM}" style="#{util.UppercaseWidth}" disabled="#{madreRenaviCDLController.selected.cedulMad  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgapellidoUnoBusq" for="apellidoUnoBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid>    
+                    <h:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false"/>
+                    <p:outputLabel value="#{campos.ApellidoDosL}" for="apellidoDosBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="apellidoDosBusq" value="#{madreRenaviCDLController.apellidoDosBusq}" maxlength="20" style="#{util.UppercaseWidth}" disabled="#{madreRenaviCDLController.selected.cedulMad  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgapellidoDosBusq" for="apellidoDosBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid> 
+                    <p:outputLabel value="#{campos.NombreUnoL}" for="nombreUnoBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="nombreUnoBusq" value="#{madreRenaviCDLController.nombreUnoBusq}" required="true" requiredMessage="#{campos.NombreUnoM}" maxlength="30" style="#{util.UppercaseWidth}" disabled="#{madreRenaviCDLController.selected.cedulMad  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgnombreUnoBusq" for="nombreUnoBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid> 
+                    <h:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false"/>
+                    <p:outputLabel value="#{campos.NombreDosL}" for="nombreDosBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="nombreDosBusq" value="#{madreRenaviCDLController.nombreDosBusq}" maxlength="30" style="#{util.UppercaseWidth}" disabled="#{madreRenaviCDLController.selected.cedulMad  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgnombreDosBusq" for="nombreDosBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid columns="2" cellspacing="1" styleClass="text-align-left" rendered="#{madreRenaviCDLController.buscarPor eq 'Nombres' ? true:false}">
+                    <p:commandButton id="btnBuscarNombres" action="#{madreRenaviCDLController.buscarMadreAppellidosNombres}" value="#{campos.Buscar}" process="@this,apellidoUnoBusq,apellidoDosBusq,nombreUnoBusq,nombreDosBusq" update="@this,apellidoUnoBusq,apellidoDosBusq,nombreUnoBusq,nombreDosBusq,mssgapellidoUnoBusq,mssgapellidoDosBusq,mssgnombreUnoBusq,mssgnombreDosBusq" disabled="#{madreRenaviCDLController.selected.cedulMad eq null ? false:true}" oncomplete="PF('statusDialog').hide();"/>
+                    <p:commandButton id="btnResetBuscarNombres" action="#{madreRenaviCDLController.limpiarBuscarPorApellNom}" value="#{campos.NuevaBusqueda}" process="@this" update="@this,mailMad,celularMad,apellidoUnoBusq,apellidoDosBusq,nombreUnoBusq,nombreDosBusq,btnBuscarNombres,nombrMad,fotoMad,cedulMad,fechaNacimMad,edadMad,sexoMad,fkIdEstCivMad,conyugeMad
+                                     ,condicCedMad,fecFallecMad,nomMadreMad,nomPadreMad,fkIdNacionalidad,fkIdIdeEtnMad,fkIdPaisMad,campoInecCodPaisMad,fkIdSabeLeerMad,fkIdNivelInstr,fkIdTipPar,fkIdProEmb,cntrlPrntlNacViv,numerPartoNacViv
+                                     ,hijosVivsaMad,hijosNvmrtMad,hijosNmrtsMad,residnProvdsMad,residnCantdsMad,residnParrdsMad,residnLocalMad,residnDirecMad,btnCreateM,lblnumerPartoNacViv,lblhijosVivsaMad,lblhijosNvmrtMad,lblhijosNmrtsMad
+                                     ,numPartoSistema,hijosNacierVivSistema,hijosNacierVivSistemaMsg,hijosNacierMuertSistema,hijosNacierMuertSistemaMsg,semanGstcnNacViv,semanGstcnNacVivMsg,numeroEmbarazosMad,numeroEmbarazosMadMsg,fkIdPaisResidnMad" disabled="#{madreRenaviCDLController.selected.cedulMad eq null ? true:false}" oncomplete="PF('statusDialog').hide();" onclick="cerrarMsj()"/>
+                </h:panelGrid>
+            </h:panelGroup>    
+        </h:panelGrid>
+    </p:fieldset>
+
+    <p:fieldset id="cntndrResultadosMadre" legend="#{campos.DatResultadosMadre}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NombreL}" for="nombrMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="nombrMad" value="#{madreRenaviCDLController.selected.nombrMad}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td width="12px"/>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.FotografiaL}" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px" rowspan="7">
+                    <p:graphicImage id="fotoMad" cache="false" value="#{fotografiaController.fotografia}" width="120px" height="140px"  alt="NO REGISTRA FOTO" style="background: #d5d6d9;">
+                        <f:param name="cedula" value="#{madreRenaviCDLController.selected.cedulMad}" />
+                        <f:param name="view" value="Create" />
+                    </p:graphicImage>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulMad" style="#{util.outputTextTitulo}"/>  
+                </td>
+                <td>
+                    <p:outputLabel id="cedulMad" value="#{madreRenaviCDLController.selected.cedulMad}" style="#{util.Width}"/>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.FechaNacimientoL}" for="fechaNacimMad" style="#{util.outputTextTitulo}"/> 
+                </td>
+                <td>
+                    <p:outputLabel id="fechaNacimMad" value="#{madreRenaviCDLController.selected.fechaNacimMad}" style="#{util.Width}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.EdadL}" for="edadMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="edadMad" value="#{madreRenaviCDLController.hijoAux.edadMad}" style="#{util.Width} #{madreRenaviCDLController.hijoAux.edadMad lt 57 and madreRenaviCDLController.hijoAux.edadMad gt 7 ? '':'background-color: #F7FE2E;'}"/>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.SexoL}" for="sexoMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="sexoMad" value="#{madreRenaviCDLController.hijoAux.sexoMad}" style="#{util.UppercaseWidth} #{madreRenaviCDLController.hijoAux.sexoMad eq 'HOMBRE' ? 'background-color: #F7FE2E;':''}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.EstadoCivilL}" for="fkIdEstCivMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdEstCivMad" value="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad}"
+                                         required="true" requiredMessage="#{campos.EstadoCivilM}"
+                                         style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}">
+                            <f:selectItems value="#{estadoCivilRenaviCDLController.itemsAvailableSelectOne}" var="item"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdEstCivMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CelularL}" for="celularMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:inputText id="celularMad" value="#{madreRenaviCDLController.selected.celularMad}" required="true" maxlength="10" style="#{util.WidthPregunta}">
+                        <pe:keyFilter regEx="/[\d\-]/"/>
+                        <p:tooltip for="celularMad" styleClass="tooltip"
+                                   value="Si no posee celular, digitar el número 99."
+                                   showEffect="clip" hideEffect="fade" style="height:20px; width:255px;" />
+                    </p:inputText>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.MailL}" for="mailMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+
+                    <p:inputText id="mailMad" value="#{madreRenaviCDLController.selected.mailMad}" style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.selected.cedulMad eq null ? true:false}">
+                        <f:validateRegex
+                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" disabled="#{madreRenaviCDLController.selected.mailMad eq null ? true:false}"/>
+
+                    </p:inputText>
+
+                    <p:message for="mailMad" display="#{util.DisplayMessage}"/>
+                </td>
+
+
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.TelefonoL}" for="telefonoMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+
+                    <p:inputText id="telefonoMad" value="#{madreRenaviCDLController.selected.telefonoMad}" maxlength="9" style="#{util.WidthCombo}" >
+                        <p:message for="telefonoMad" display="#{util.DisplayMessage}"/>   
+                    </p:inputText>
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ConyugeL}" for="conyugeMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="conyugeMad" value="#{madreRenaviCDLController.hijoAux.conyugeMad}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CondicionCeduladoL}" for="condicCedMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="condicCedMad" value="#{madreRenaviCDLController.hijoAux.condicCedMad}" style="#{util.UppercaseWidth} #{madreRenaviCDLController.hijoAux.condicCedMad.contains('FALLECIDO') ? 'background-color: #F7FE2E;':''}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.FechaFallecimientoL}" for="fecFallecMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fecFallecMad" value="#{madreRenaviCDLController.hijoAux.fecFallecMad}" style="#{util.UppercaseWidth} #{not madreRenaviCDLController.hijoAux.fecFallecMad eq null ? 'background-color: #F7FE2E;':''}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:outputLabel>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NombreMadreL}" for="nomMadreMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nomMadreMad" value="#{madreRenaviCDLController.selected.nomMadreMad}" style="#{util.UppercaseWidth}" >
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.NombrePadreL}" for="nomPadreMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nomPadreMad" value="#{madreRenaviCDLController.selected.nomPadreMad}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NacionalidadL}" for="fkIdNacionalidad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fkIdNacionalidad" value="#{madreRenaviCDLController.hijoAux.fkIdNacMad}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.EtniaL}" for="fkIdIdeEtnMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdIdeEtnMad" value="#{madreRenaviCDLController.hijoAux.fkIdIdeEtnMad}" required="true" requiredMessage="#{campos.EtniaM}" style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null ? true:false}">
+                            <f:selectItems value="#{identificacionEtnicaRenaviCDLController.itemsAvailableSelectOne}"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdIdeEtnMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NomPaisL}" for="fkIdPaisMadEtiq" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup id="fkIdPaisMad">
+                        <p:selectOneMenu id="fkIdPaisMadEtiq" value="#{madreRenaviCDLController.hijoAux.fkIdPaisMad}" required="true" requiredMessage="#{campos.PaisM}" style="#{util.WidthCombo}" 
+                                         disabled="true"
+                                         valueChangeListener="#{madreRenaviCDLController.cambiarPaisDatMadre}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{madreRenaviCDLController.listPaisDatMadre}"/>
+                            <f:ajax execute="@this" render="campoInecCodPaisMad"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdPaisMadEtiq" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.CodigoPaisL}" for="campoInecCodPaisMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="campoInecCodPaisMad" value="#{madreRenaviCDLController.hijoAux.campoInecCodPaisMad}" style="#{util.Width}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.SabeLeerEscribirL}" for="fkIdSabeLeerMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdSabeLeerMad" value="#{madreRenaviCDLController.hijoAux.fkIdSabeLeerMad}" required="true" requiredMessage="#{campos.SabeLeerEscribirM}" style="#{util.WidthCombo}" valueChangeListener="#{madreRenaviCDLController.cambiarSabeLeer}" disabled="#{madreRenaviCDLController.hijoAux.edadMad eq null or madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}">
+                            <f:selectItems value="#{alfabetismoRenaviCDLController.itemsAvailableSelectOne}"/>
+                            <f:ajax render="fkIdNivelInstr"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdSabeLeerMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.InstruccionAlcanzadaL}" for="fkIdNivelInstr" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdNivelInstr" value="#{madreRenaviCDLController.hijoAux.fkIdNivelInstr}" required="true" requiredMessage="#{campos.InstruccionAlcanzadaM}" style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.hijoAux.fkIdSabeLeerMad.idAlfb eq 2 or madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null ? true:false}">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{madreRenaviCDLController.nivelesInstruccion}" var="item" itemLabel="#{item.descrNivInst}" itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdNivelInstr" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+
+    <p:fieldset id="cntndrDatGestacionalesActual" legend="#{campos.DatGestacionalesActual}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="406px">
+                    <p:outputLabel value="#{campos.NumeroPartoSistemaL}" for="numPartoSistema" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="133px">
+                    <p:outputLabel id="numPartoSistema" value="#{madreRenaviCDLController.hijoAux.numPartoSistema}"/>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td width="406px">
+                    <p:outputLabel value="#{campos.SemanasGestacionL}" for="semanGstcnNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="133px">
+                    <h:panelGroup>
+                        <p:inputText id="semanGstcnNacViv" value="#{madreRenaviCDLController.hijoAux.semanGstcnNacViv}" placeholder="#{campos.SemanasGestacionPH}" onblur="valSemGestacion();" required="true" requiredMessage="#{campos.SemanasGestacionM}" maxlength="2" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="semanGstcnNacVivMsg" for="semanGstcnNacViv" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ControlesPrenatalesL}" for="cntrlPrntlNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="cntrlPrntlNacViv" placeholder="#{campos.ControlesPrenatalesPH}" onblur="valContPrenatales();"  maxlength="2" value="#{madreRenaviCDLController.hijoAux.cntrlPrntlNacViv}" required="true" requiredMessage="#{campos.ControlesPrenatalesM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="cntrlPrntlNacVivMsg" for="cntrlPrntlNacViv" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ProductoEmbarazoL}" for="fkIdProEmb" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdProEmb" value="#{madreRenaviCDLController.hijoAux.fkIdProEmb}" required="true" requiredMessage="#{campos.ProductoEmbarazoM}" style="#{util.WidthPreguntaCombo}" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}">
+                            <f:selectItems value="#{productoEmbarazoRenaviCDLController.itemsAvailableSelectOne}"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdProEmb" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NumHijosNacierVivSistemaL}" for="hijosNacierVivSistema" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="hijosNacierVivSistema" placeholder="#{campos.NumHijosNacierVivSistemaPH}" onblur="valHijosVivSistema();" maxlength="2" value="#{madreRenaviCDLController.hijoAux.hijosNaciervivSistema}" required="true" requiredMessage="#{campos.NumHijosNacierVivSistemaM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="hijosNacierVivSistemaMsg" for="hijosNacierVivSistema" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NumHijosNacierMuertSistemaL}" for="hijosNacierMuertSistema" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="hijosNacierMuertSistema" placeholder="#{campos.NumHijosNacierMuertSistemaPH}" onblur="valHijosMuertSistema();" maxlength="2" value="#{madreRenaviCDLController.hijoAux.hijosNaciermuertSistema}" required="true" requiredMessage="#{campos.NumHijosNacierMuertSistemaM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="hijosNacierMuertSistemaMsg" for="hijosNacierMuertSistema" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+            </tr>
+
+
+        </table>
+    </p:fieldset>    
+    <p:fieldset id="cntndrDatGestacionalesHistorico" legend="#{campos.DatGestacionalesHistorica}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="406px">
+                    <p:outputLabel value="#{campos.NumeroPartoL}" for="numerPartoNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="133px">
+                    <h:panelGroup>
+                        <p:inputText id="numerPartoNacViv" placeholder="#{campos.NumeroPartosPH}" onblur="valNumeroParto();" maxlength="2" value="#{madreRenaviCDLController.hijoAux.numerPartoNacViv}" required="true" requiredMessage="#{campos.NumeroPartoM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}" />
+                        <p:message id="numerPartoNacVivMsg" for="numerPartoNacViv" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td>
+                    <h:panelGroup id="lblnumerPartoNacViv">
+                        <h:outputLabel value="Parto anterior: #{madreRenaviCDLController.numParto}" rendered="#{madreRenaviCDLController.numParto eq null or madreRenaviCDLController.numParto == 0 ?false:true}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td width="406px">
+                    <p:outputLabel value="#{campos.NumeroEmbarazosL}" for="numeroEmbarazosMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="133px">
+                    <h:panelGroup>
+                        <p:inputText id="numeroEmbarazosMad" value="#{madreRenaviCDLController.hijoAux.numeroEmbarazosMad}" placeholder="#{campos.NumeroEmbarazosPH}" onblur="valNumEmbarazos();" required="true" requiredMessage="#{campos.NumeroEmbarazosM}" maxlength="2" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="numeroEmbarazosMadMsg" for="numeroEmbarazosMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NumHijosVivosActualmenteL}" for="hijosVivsaMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="hijosVivsaMad" placeholder="#{campos.NumHijosVivosActualmentePH}" onblur="valHijosViv1();" maxlength="2" value="#{madreRenaviCDLController.hijoAux.hijosVivsaMad}" required="true" requiredMessage="#{campos.NumHijosVivosActualmenteM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="hijosVivsaMadMsg" for="hijosVivsaMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td>
+                    <h:panelGroup id="lblhijosVivsaMad" >
+                        <h:outputLabel  value=" Hijos vivos:  " rendered="#{madreRenaviCDLController.numHijosvivos eq null or madreRenaviCDLController.numHijosvivos == 0 ?false:true}"/>                      
+                        <h:outputLabel id="OlblhijosVivsaMad"  value="#{madreRenaviCDLController.numHijosvivos}" rendered="#{madreRenaviCDLController.numHijosvivos eq null or madreRenaviCDLController.numHijosvivos == 0 ?false:true}"/>                      
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NumHijosNacieronVivosHanMuertoL}" for="hijosNvmrtMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="hijosNvmrtMad" placeholder="#{campos.NumHijosNacieronVivosHanMuertoPH}" onblur="valHijosVivHanMuert();" maxlength="2" value="#{madreRenaviCDLController.hijoAux.hijosNvmrtMad}" required="true" requiredMessage="#{campos.NumHijosNacieronVivosHanMuertoM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="hijosNvmrtMadMsg" for="hijosNvmrtMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td>
+                    <h:panelGroup id="lblhijosNvmrtMad">
+                        <h:outputLabel value="Hijos vivos que han muerto: #{madreRenaviCDLController.numHijosVivMuertos}" rendered="#{madreRenaviCDLController.numHijosVivMuertos eq null or madreRenaviCDLController.numHijosVivMuertos == 0 ?false:true}"/>
+                    </h:panelGroup> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.HijosNacieronMuertosL}" for="hijosNmrtsMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="hijosNmrtsMad" placeholder="#{campos.NumHijosNacieronMuertosPH}" onblur="valHijosMuert();" maxlength="2" value="#{madreRenaviCDLController.hijoAux.hijosNmrtsMad}" required="true" requiredMessage="#{campos.HijosNacieronMuertosM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                        <p:message id="hijosNmrtsMadMsg" for="hijosNmrtsMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td>
+                    <h:panelGroup id="lblhijosNmrtsMad">
+                        <h:outputLabel value="Hijos que nacieron muertos: #{madreRenaviCDLController.numHijosNacierMuertos}" rendered="#{madreRenaviCDLController.numHijosNacierMuertos eq null or madreRenaviCDLController.numHijosNacierMuertos == 0 ? false:true}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+
+    <p:fieldset id="cntndrDatResidenciaHabitualMadre" legend="#{campos.DatResidenciaHabitualMadre}" style="#{util.WidthPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NomPaisL}" for="fkIdPaisResidnMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdPaisResidnMad" value="#{madreRenaviCDLController.hijoAux.fkIdPaisResidnMad}" filter="true" filterMatchMode="contains" required="true" requiredMessage="#{campos.PaisM}" style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.hijoAux.edadMad lt 57 and madreRenaviCDLController.hijoAux.edadMad gt 7 ? false:true}"
+                                         valueChangeListener="#{madreRenaviCDLController.cambiarPaisResidnMad}">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{madreRenaviCDLController.listPais}" var="itemPais" itemLabel="#{itemPais.descPais}" itemValue="#{itemPais}"/>
+                            <f:ajax render="residnProvdsMad residnCantdsMad residnParrdsMad"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdPaisResidnMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td width="12px"/>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.DireccionL}" for="residnDirecMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:inputText id="residnDirecMad" value="#{madreRenaviCDLController.hijoAux.residnDirecMad}" required="true" requiredMessage="#{campos.DireccionM}" style="#{util.UppercaseWidth}" maxlength="50" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message for="residnDirecMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.ProvinciaL}" for="residnProvdsMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:selectOneMenu id="residnProvdsMad" value="#{madreRenaviCDLController.provincia}"
+                                         required="true" requiredMessage="#{campos.ProvinciaM}" valueChangeListener="#{madreRenaviCDLController.cambiarProvincia}"
+                                         style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null or madreRenaviCDLController.hijoAux.fkIdPaisResidnMad.idPais != 81 ? true:false}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{madreRenaviCDLController.provincias}" var="itemProv" itemLabel="#{itemProv.codDpa} - #{itemProv.derscripcion}" itemValue="#{itemProv.codDpa}.- #{itemProv.derscripcion}"/>
+                            <f:ajax render="residnCantdsMad residnParrdsMad"/>
+                        </p:selectOneMenu>
+                        <p:message for="residnProvdsMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td width="12px"/>
+                <td>
+                    <p:outputLabel value="#{campos.LocalidadL}" for="residnLocalMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="residnLocalMad" value="#{madreRenaviCDLController.hijoAux.residnLocalMad}" style="#{util.UppercaseWidth}" maxlength="50" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null? true:false}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.CantonL}" for="residnCantdsMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:selectOneMenu id="residnCantdsMad" value="#{madreRenaviCDLController.canton}"
+                                         required="true" requiredMessage="#{campos.CantonM}" valueChangeListener="#{madreRenaviCDLController.cambiarCanton}"
+                                         style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null or madreRenaviCDLController.hijoAux.fkIdPaisResidnMad.idPais != 81 ? true:false}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{madreRenaviCDLController.cantones}" var="itemCant" itemLabel="#{itemCant.codDpa} - #{itemCant.derscripcion}" itemValue="#{itemCant.codDpa}.- #{itemCant.derscripcion}"/>
+                            <f:ajax render="residnParrdsMad"/>
+                        </p:selectOneMenu>
+                        <p:message for="residnCantdsMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ParroquiaL}" for="residnParrdsMad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="residnParrdsMad" value="#{madreRenaviCDLController.parroquia}"
+                                         required="true" requiredMessage="#{campos.ParroquiaM}" valueChangeListener="#{madreRenaviCDLController.cambiarParroquia}"
+                                         style="#{util.WidthCombo}" disabled="#{madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv eq null or madreRenaviCDLController.hijoAux.fkIdPaisResidnMad.idPais != 81 ? true:false}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{madreRenaviCDLController.parroquias}" var="itemParr" itemLabel="#{itemParr.codDpa} - #{itemParr.derscripcion}" itemValue="#{itemParr.codDpa}.- #{itemParr.derscripcion}"/>
+                            <f:ajax render="@this"/>
+                        </p:selectOneMenu>
+                        <p:message for="residnParrdsMad" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+            </tr>
+        </table>
+    </p:fieldset>
+    <br/>
+    <h:panelGrid id="cntndrBotonesM" columns="1" cellspacing="0" styleClass="text-align-left">
+
+
+        <p:commandLink id="btnCreateM" action="#{madreRenaviCDLController.validarCelular}" title="#{campos.Guardar}" process="@this cntndrResultadosMadre cntndrDatGestacionalesActual cntndrDatGestacionalesHistorico cntndrDatResidenciaHabitualMadre" update="cntndrBuscarPor cntndrBusquedaCedula cntndrBusquedaNombres cntndrResultadosMadre cntndrDatGestacionalesActual cntndrDatGestacionalesHistorico cntndrDatResidenciaHabitualMadre" oncomplete="PF('statusDialog').hide();" disabled="#{madreRenaviCDLController.hijoAux.edadMad lt 57 and madreRenaviCDLController.hijoAux.edadMad gt 7 and madreRenaviCDLController.hijoAux.sexoMad eq 'MUJER' and not madreRenaviCDLController.hijoAux.condicCedMad.contains('7') and not madreRenaviCDLController.hijoAux.condicCedMad.contains('8') and not madreRenaviCDLController.hijoAux.condicCedMad.contains('9') and not madreRenaviCDLController.hijoAux.condicCedMad.contains('34') and madreRenaviCDLController.hijoAux.fkIdEstCivMad.descEstCiv != null  ? false:true}" onclick="if (!saveM())
+                    return false;">
+            <div class="guardar"/>
+        </p:commandLink>
+    </h:panelGrid>
+
+    <p:dialog  header="RESULTADO BÚSQUEDA DE CIUDADANA ECUATORIANA" widgetVar="personasDialog" modal="true" draggable="false" width="#{util.DlgWidthMediano}" height="#{util.DlgHeightMediano}">
+        <div align="center" class="cntndrTableDlg">
+            <p:dataTable id="pdtTblItemsPersonas" value="#{madreRenaviCDLController.personas}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                         scrollable="true" scrollWidth="#{util.DlgTableWidthMediano}" scrollHeight="#{util.DlgTableHeightMediano}" resizableColumns="true" paginator="true" paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <f:facet name="header">
+                    <h:outputText value="#{campos.Resultados}"/>
+                </f:facet>
+                <p:column width="#{util.OpcionesSeleccionar}">
+                    <h:commandLink actionListener="#{madreRenaviCDLController.seleccionarPersonaDialog}" onclick="PF('personasDialog').hide();">
+                        <div class="seleccionar"/>
+                        <f:param value="#{item.cedula}" name="cedulaDialog" />
+                        <f:ajax render=":form_cont:contTab:mailMad :form_cont:contTab:btnBuscarNombres :form_cont:contTab:btnResetBuscarNombres 
+                                :form_cont:contTab:nombrMad :form_cont:contTab:fotoMad :form_cont:contTab:cedulMad :form_cont:contTab:fechaNacimMad :form_cont:contTab:edadMad :form_cont:contTab:sexoMad :form_cont:contTab:fkIdEstCivMad :form_cont:contTab:conyugeMad :form_cont:contTab:condicCedMad :form_cont:contTab:fecFallecMad :form_cont:contTab:nomMadreMad :form_cont:contTab:nomPadreMad :form_cont:contTab:fkIdNacionalidad :form_cont:contTab:fkIdIdeEtnMad :form_cont:contTab:fkIdPaisMad :form_cont:contTab:campoInecCodPaisMad :form_cont:contTab:fkIdSabeLeerMad :form_cont:contTab:fkIdNivelInstr :form_cont:contTab:fkIdTipPar :form_cont:contTab:fkIdProEmb :form_cont:contTab:cntrlPrntlNacViv :form_cont:contTab:numerPartoNacViv :form_cont:contTab:hijosVivsaMad :form_cont:contTab:hijosNvmrtMad :form_cont:contTab:hijosNmrtsMad :form_cont:contTab:residnProvdsMad :form_cont:contTab:residnCantdsMad :form_cont:contTab:residnParrdsMad :form_cont:contTab:residnLocalMad :form_cont:contTab:residnDirecMad :form_cont:contTab:btnCreateM
+                                :form_cont:contTab:lblnumerPartoNacViv :form_cont:contTab:lblhijosVivsaMad :form_cont:contTab:lblhijosNvmrtMad :form_cont:contTab:lblhijosNmrtsMad
+                                :form_cont:contTab:numPartoSistema :form_cont:contTab:hijosNacierVivSistema :form_cont:contTab:hijosNacierVivSistemaMsg :form_cont:contTab:hijosNacierMuertSistema :form_cont:contTab:hijosNacierMuertSistemaMsg :form_cont:contTab:semanGstcnNacViv :form_cont:contTab:semanGstcnNacVivMsg :form_cont:contTab:numeroEmbarazosMad :form_cont:contTab:numeroEmbarazosMadMsg :form_cont:contTab:fkIdPaisResidnMad "/>
+                    </h:commandLink>
+                </p:column>
+                <p:column headerText="#{campos.CedulaT}" width="#{util.Codigo}">
+                    <h:outputText value="#{item.cedula}"/>
+                </p:column>
+                <p:column headerText="#{campos.NombresT}" width="#{util.Nombre}">
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
+                <p:column headerText="#{campos.FechaNacimientoT}" width="#{util.Fecha}">
+                    <h:outputText value="#{item.fechaNacimiento}"/>
+                </p:column>
+                <p:column headerText="#{campos.LugarNacimentoT}" width="#{util.Descripcion}">
+                    <h:outputText value="#{item.lugarNacimiento}"/>
+                </p:column>
+            </p:dataTable>
+            <h:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false"/>
+            <h:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false"/>
+
+
+            <p:link href="/pages/contenedor/CreateCont_NI.jsf" value="Registrar Indocumentada"  > 
+            </p:link>
+
+
+        </div>
+    </p:dialog>
+    <p:dialog  header="#{campos.BuscarCiudadano}" widgetVar="indocumenDialog" modal="true" draggable="false" width="300" height="150" >
+        <div align="center" class="cntndrTableDlg">
+            <p>No se ha encontrado ningún registro para los nombre ingresados, desea registrar madre indocumentada? </p>
+            <p:link href="/pages/contenedor/CreateCont_NI.jsf" value="Registrar Indocumentada"  > 
+            </p:link>
+        </div>
+    </p:dialog>
+
+
+
+    <p:dialog  header="#{campos.EliminarRegistros}" widgetVar="eliminarNVDialog" modal="true" closable="true" draggable="false" width="#{util.DlgWidthMediano}" height="420">
+        <div align="center" class="cntndrTableDlg">
+            <div align="left" style="text-align : justify;">
+                <p:messages id="mssgsHijosDelete" autoUpdate="false" closable="false"/>
+            </div>   
+            <p:dataTable id="pdtTblHijosDelete" 
+                         value="#{madreRenaviCDLController.hijosAux}"
+                         var="itemDelete"
+                         rowKey="#{itemDelete.idNacViv}"
+                         selection="#{madreRenaviCDLController.hijosAuxDelete}"
+                         emptyMessage="#{campos.NoHayDatos}" scrollable="true" scrollWidth="70%" scrollHeight="140" 
+                         resizableColumns="true" paginator="true" paginatorPosition="bottom" rows="10"  
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <f:facet name="header">
+                    <h:outputText value="#{campos.Hijos}"/>
+                </f:facet>
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column headerText="#{campos.CodigoT}" width="#{util.Codigo}">
+                    <h:outputText value="#{itemDelete.idNacViv}"/>
+                </p:column>
+                <p:column headerText="#{campos.NumeroProductoT}" width="#{util.Codigo}">
+                    <h:outputText value="#{itemDelete.numeroProductoNacViv}"/>
+                </p:column>
+                <p:column headerText="#{campos.NombresT}" width="#{util.Nombre}">
+                    <h:outputText value="#{itemDelete.apellNacViv} #{itemDelete.nombrNacViv}"/>
+                </p:column>
+                <p:column headerText="#{campos.SexoT}" width="#{util.Codigo}">
+                    <h:outputText value="#{itemDelete.fkIdSexoNv.descrSexo}"/>
+                </p:column>
+                <p:column headerText="#{campos.PesoT}" width="#{util.Codigo}">
+                    <h:outputText value="#{itemDelete.pesoNacViv}"/>
+                </p:column>
+                <p:column headerText="#{campos.TallaT}" width="#{util.Codigo}">
+                    <h:outputText value="#{itemDelete.tallaNacViv}"/>
+                </p:column>
+                <f:facet name="footer">
+
+
+                    <h:commandButton action="#{madreRenaviCDLController.deleteHijosAuxDelete}" value="#{campos.Eliminar}" onclick="if (!confirm('¿#{campos.ConfirmacionEliminacion}?'))
+                                return false" class="button">
+                        <f:ajax execute="@this pdtTblHijosDelete"/>
+                    </h:commandButton>
+                </f:facet>
+            </p:dataTable>
+        </div>
+    </p:dialog>
+    <br/>
+    <script type="text/javascript">
+        function cerrarMsj() {
+            var msj = document.getElementById('form_cont:contTab:mssgsBusquedaErrorM');
+            msj.style.display = "none";
+        }
+    </script>
+</html>

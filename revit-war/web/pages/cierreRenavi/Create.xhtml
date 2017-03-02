@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="form_cierre">
+                    <p:growl id="mssgsBusquedaM" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+                    <div align="center" style="margin-bottom: 7px; font-weight: bold; color: #565656; font-size: 1.1em;">
+                        Creación de Registro de Control
+                    </div>
+                    <p:fieldset id="cntndrResultados" legend="#{campos.CriterioBusqueda}" style="#{util.WidthMrgnBttmPfieldset}">
+                        <table align="left">
+                            <tr>
+                                <br/>
+
+                                <td>
+                                    <p:outputLabel id="lbl_agenci" for="id_Agenci" value="#{campos.EstableSaludL}" style="#{util.outputTextTitulo}"/>
+                                </td>
+                                <td>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu id="id_Agenci" value="#{cierreRenaviController.agen}" 
+                                                         style="#{util.WidthCombo}" 
+                                                         required="true" requiredMessage="#{campos.CampoRequerido}" valueChangeListener="#{cierreRenaviController.cambiarAgencia}">
+                                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{cierreRenaviController.listAgencias}" var="item" itemLabel="#{item.nomAgencia}" itemValue="#{item}"/>
+                                            <f:ajax render="@this fechaCierr" rendered="fechaCierr" />
+                                        </p:selectOneMenu>
+                                        <p:message id="msg_agenci" for="id_Agenci" display="#{util.DisplayMessage}"/>    
+                                    </h:panelGroup>
+                                </td>
+                                <td colspan="3"></td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{campos.FechaCierreL}" for="fechaCierr" style="#{util.outputTextTitulo}"/>
+                                </td>
+                                <td>
+                                    <h:panelGroup>
+                                        <p:selectOneMenu id="fechaCierr" value="#{cierreRenaviController.mes}" disabled="#{cierreRenaviController.agen eq null ? true:false}"
+                                                         style="#{util.WidthCombo}" valueChangeListener="#{cierreRenaviController.calcularCierre}"
+                                                         required="true" requiredMessage="#{campos.CampoRequerido}"> 
+
+                                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{cierreRenaviController.listMeses}" var="item" itemLabel="#{item.descripcion}" itemValue="#{item.idMes}.- #{item.descripcion}"/>
+                                            <f:ajax execute="@this"  render="numParto numNacimiento numRegFisicos diferPartos diferNacViv LblNumPar lblNumNacCal LblNumPar LblNumParNoIdent numNacVivF numNacVivFNoIdent numRegIncompletos numRegIncompletosNoIdent numRegAnulNacVivFe"/>
+                                        </p:selectOneMenu>
+                                        <p:message id="msgfechaCierr" for="fechaCierr" display="#{util.DisplayMessage}"/>    
+                                    </h:panelGroup>
+                                </td> 
+
+                            </tr>
+
+                        </table>
+
+                    </p:fieldset>
+                    <p:fieldset id="cntndrResultadosCierre" legend="#{campos.CierreEstaditicoL}" style="#{util.WidthMrgnBttmPfieldset}">
+
+                        <table  border="0" cellspacing="0" cellpadding="1" bordercolor="000" width="100%">
+
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <br/>
+                                            <td>
+                                                <p:outputLabel value="#{campos.UsuarioL}" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td>
+                                                <p:outputLabel value="#{usuarioRenaviLoginController.userLogin.apellido} #{usuarioRenaviLoginController.userLogin.nombre}"/>
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p:outputLabel value="#{campos.FechaRegistro}" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td>
+                                                <p:calendar value="#{cierreRenaviController.fechaSistema}"  disabled="true" pattern="dd/MM/yyyy" readonly="true"   />
+                                            </td>
+                                        </tr>
+                                        <tr align="right">
+                                            <td colspan="4" width="690px;">
+
+                                            </td>
+
+                                            <td>
+                                                <p:outputLabel value="#{campos.SistemaL}" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                        </tr>
+                                        <tr align="center">
+                                            <td colspan="3" width="635px;">
+
+                                            </td>
+                                            <td >
+                                                <p:outputLabel value="#{campos.ManualL}" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td>
+                                                <p:outputLabel value="#{campos.SistemaDocumL}"  style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td>
+                                                <p:outputLabel value="#{campos.SistemaIndocumL}"  style="#{util.outputTextTitulo}" />
+                                            </td>
+                                           
+                                        
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" >
+                                                <p:outputLabel value="#{campos.NumPartosL}" for="numParto" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                           
+                                            <td></td>
+                                            <td>
+                                                <p:inputText id="numParto" value="#{cierreRenaviController.selected.numPartos}" 
+                                                             required="true" requiredMessage="#{campos.CampoRequerido}" 
+                                                             style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{cierreRenaviController.mes eq null ? true:false}"  >
+
+                                                </p:inputText>
+                                                <p:message for="numParto" display="#{util.DisplayMessage}"/>
+                                            </td>
+                                            <td>
+                                                <p:inputText id="LblNumPar" value="#{cierreRenaviController.selected.numPartosSistema}" readonly="true"  style="#{util.WidthPregunta}" />
+                                            </td>
+                                            <td>
+                                                <p:inputText id="LblNumParNoIdent" value="#{cierreRenaviController.selected.numPartosSisIndoc}" readonly="true"  style="#{util.WidthPregunta}" />
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                         
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="360px;">
+                                                <p:outputLabel value="#{campos.NumNacimientosL}"  for="numNacimiento" style="#{util.outputTextTitulo}"/>
+                                            </td>
+                                            <td>
+                                                <p:inputText  id="numNacimiento" value="#{cierreRenaviController.selected.numNacimientos}" 
+                                                              required="true" requiredMessage="#{campos.CampoRequerido}" 
+                                                              style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')"
+                                                              disabled="#{cierreRenaviController.mes eq null ? true:false}">
+                                                    <p:ajax update="numNacimientosReplica"  event="blur" process="@this,numNacimientosReplica"/>
+                                                </p:inputText>
+
+                                                <p:message for="numNacimiento" display="#{util.DisplayMessage}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <td width="495px;">
+                                            <p:outputLabel value="#{campos.NumNacimientosSistemaL}" for="numNacVivF" style="#{util.outputTextTitulo}" />
+                                        </td>
+                                        <td>
+                                            <p:inputText id="numNacVivF" value="#{cierreRenaviController.selected.numNacVivFe}" readonly="true"  style="#{util.WidthPregunta}"/> 
+                                        </td>
+                                        <td>
+                                            <p:inputText id="numNacVivFNoIdent" value="#{cierreRenaviController.selected.numNacVivFeIndoc}" readonly="true"  style="#{util.WidthPregunta}"/> 
+                                        </td>
+
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="360px;">
+                                                <p:outputLabel value="#{campos.NumRegFisicoL}" for="numRegFisicos" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td>
+                                                <p:inputText id="numRegFisicos" value="#{cierreRenaviController.selected.numRegFisicos}" 
+                                                             required="true" requiredMessage="#{campos.CampoRequerido}" 
+                                                             style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')"
+                                                             disabled="#{cierreRenaviController.mes eq null ? true:false}">
+                                                    <p:ajax update="lblNumNacCal"  process="@this,LblNumPar, lblNumNacCal, numNacVivF, numRegIncompletos, numRegAnulNacVivFe,LblNumParNoIdent, numNacVivFNoIdent,numRegIncompletosNoIdent,diferNacViv"
+                                                            listener="#{cierreRenaviController.calcularTotalNac}" event="blur"/>
+                                                </p:inputText>
+                                                <p:message for="numRegFisicos" display="#{util.DisplayMessage}"/>
+
+                                            </td>
+
+                                        </tr>
+                                    </table> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="495px;">
+                                                <p:outputLabel value="#{campos.NumRegIncompletosL}" for="numRegIncompletos" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td>
+                                                <p:inputText id="numRegIncompletos" value="#{cierreRenaviController.selected.numRegIncompletos}"  style="#{util.WidthPregunta}" readonly="true" />
+                                            </td>
+                                            <td>
+                                                <p:inputText id="numRegIncompletosNoIdent" value="#{cierreRenaviController.selected.numRegIncompletosIndoc}"  style="#{util.WidthPregunta}" readonly="true" />
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="495px;">
+                                                <p:outputLabel value="#{campos.NumRegAnulNacVivFeL}" for="numRegAnulNacVivFe" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td colspan="4">
+                                                <p:inputText id="numRegAnulNacVivFe" value="#{cierreRenaviController.selected.numRegAnulNacVivFe}"  style="#{util.WidthPregunta}" readonly="true"/>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="360px;">
+                                                <p:outputLabel value="#{campos.DiferPartosL}" for="diferPartos" style="#{util.outputTextTitulo}" />
+                                            </td>
+                                            <td colspan="4">
+                                                <p:inputText id="diferPartos" value="#{cierreRenaviController.selected.diferPartos}" 
+                                                             required="true" requiredMessage="#{campos.CampoRequerido}" 
+                                                             style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')"
+                                                             disabled="#{cierreRenaviController.mes eq null ? true:false}">
+                                                    <p:ajax update="LblNumPar,observacion"  process="@this,LblNumPar"
+                                                            listener="#{cierreRenaviController.calcularTotalPartos}" event="blur"/>
+
+                                                </p:inputText>
+                                                <p:message for="diferPartos" display="#{util.DisplayMessage}"/>
+                                            </td>
+                                        </tr>
+                                    </table> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="360px;">
+                                                <p:outputLabel value="#{campos.DiferNacVivL}" for="diferNacViv" style="#{util.outputTextTitulo}" /> 
+                                            </td>
+                                            <td colspan="4">
+                                                <p:inputText id="diferNacViv" value="#{cierreRenaviController.selected.diferNacViv}" 
+                                                             required="true" requiredMessage="#{campos.CampoRequerido}" 
+                                                             style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')"
+                                                             disabled="#{cierreRenaviController.mes eq null ? true:false}">
+                                                    <p:ajax update="lblNumNacCal,numRegFisicos,observacionI"  process="@this,LblNumPar, lblNumNacCal, numNacVivF, numRegIncompletos, numRegAnulNacVivFe,LblNumParNoIdent, numNacVivFNoIdent,numRegIncompletosNoIdent"
+                                                            listener="#{cierreRenaviController.calcularTotalNac}" event="blur"/>
+                                                </p:inputText>
+                                                <p:message for="diferPartos" display="#{util.DisplayMessage}"/>
+                                            </td>
+
+                                        </tr>
+                                    </table>  
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="360px;">
+                                                <p:outputLabel value="#{campos.TotalL}" for="lblNumNacCal" style="#{util.outputTextTitulo}" /> 
+                                            </td>
+                                            <td>
+                                                <p:inputText id="numNacimientosReplica" value="#{cierreRenaviController.selected.numNacimientos}"  readonly="true"  style="#{util.WidthPregunta}" />
+                                            </td>
+                                            <td>
+                                                <p:inputText id="lblNumNacCal" value="#{cierreRenaviController.numTotalNac}"  readonly="true"  style="#{util.WidthPregunta}" />
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="147px;">
+                                                <p:outputLabel value="#{campos.ObservacionDL}" for="observacion" style="#{util.outputTextTitulo}"/>
+                                            </td>
+                                            <td width="617px;">
+                                                <h:panelGroup>
+                                                    <p:inputTextarea cols="#{util.ColsParaNombre}" id="observacion" value="#{cierreRenaviController.selected.observacion}" 
+                                                                     maxlength="250" style="#{util.UppercaseWidthCienPorCiento}" onkeydown="limitText(250);" 
+                                                                     onkeyup="limitText(250);" autoResize="false" required="true" requiredMessage="#{campos.ObservacionM}" 
+                                                                     disabled="#{cierreRenaviController.selected.diferPartos eq null || cierreRenaviController.selected.diferPartos eq 0  ? true:false}">
+                                                        <f:converter converterId="uperCaseConverter"/>
+                                                    </p:inputTextarea>
+                                                    <p:message for="observacion" display="#{util.DisplayMessage}"/>
+                                                </h:panelGroup>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="147px;">
+                                                <p:outputLabel value="#{campos.ObservacionIL}" for="observacionI" style="#{util.outputTextTitulo}"/>
+                                            </td>
+                                            <td width="617px;">
+                                                <h:panelGroup>
+                                                    <p:inputTextarea cols="#{util.ColsParaNombre}" id="observacionI" value="#{cierreRenaviController.selected.observacionInc}" 
+                                                                     maxlength="250" style="#{util.UppercaseWidthCienPorCiento}" onkeydown="limitText(250);" 
+                                                                     onkeyup="limitText(250);" autoResize="false" required="true" requiredMessage="#{campos.ObservacionM}"
+                                                                     disabled="#{cierreRenaviController.selected.diferNacViv eq null || cierreRenaviController.selected.diferNacViv eq 0  ? true:false}">
+                                                        <f:converter converterId="uperCaseConverter"/>
+                                                    </p:inputTextarea>
+                                                    <p:message for="observacionI" display="#{util.DisplayMessage}"/>
+                                                </h:panelGroup>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </p:fieldset>
+                    <h:panelGrid   id="cntndrBotonesM1" columns="3" cellspacing="20" styleClass="text-align-left">
+                        <p:commandLink action="#{cierreRenaviController.saveM1}" title="#{campos.Guardar}" 
+                                       process="@this id_Agenci fechaCierr numParto numNacimiento numRegFisicos diferPartos diferNacViv observacion observacionI mssgsBusquedaM"
+                                       update="id_Agenci fechaCierr numParto numNacimiento numRegFisicos diferPartos diferNacViv observacion observacionI 
+                                       LblNumPar lblNumNacCal numNacVivF numRegIncompletos numRegAnulNacVivFe cntndrResultadosCierre"> 
+                            <div class="guardar"/>
+                        </p:commandLink>
+
+                        <p:commandLink action="#{cierreRenaviController.saveM}" title="#{campos.CierreL}"  process="@this id_Agenci fechaCierr numParto numNacimiento numRegFisicos diferPartos diferNacViv observacion observacionI mssgsBusquedaM"
+                                       update="id_Agenci fechaCierr numParto numNacimiento numRegFisicos diferPartos diferNacViv observacion observacionI 
+                                       LblNumPar lblNumNacCal numNacVivF numRegIncompletos numRegAnulNacVivFe cntndrResultadosCierre"> 
+                            <div class="seleccionar1"/>
+                        </p:commandLink>
+                        <p:commandLink action="#{cierreRenaviController.prepareCreate}" title="#{campos.Cancelar}" ajax="false" immediate="true">
+                            <div class="regresar"/> 
+                        </p:commandLink>
+
+                    </h:panelGrid>
+                     <div align="left" style="font-size: 11px; font-weight: bold; margin-top: 8px;">
+                        Los campos marcados con <label style="color: #d12f19">*</label> son obligatorios.
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

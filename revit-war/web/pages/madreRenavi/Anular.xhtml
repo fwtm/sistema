@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="form_anular_M">
+                    <p:growl id="mssgsBusqueda" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+
+                    <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                    <!--                    busqueda de la madre-->
+                    <div align="center" style="margin-bottom: 7px; font-weight: bold; color: #565656; font-size: 1.1em;">
+                        Anulación Registro de Nacido Vivo
+                    </div>
+                    <h:panelGrid id="BusquedaMadre" columns="1" cellspacing="1" styleClass="text-align-left" >
+                        <p:fieldset id="busquedaM" legend="Datos de Búsqueda" style="width: 1020px;">
+                            <p:messages id="mssgsBusquedaErrorM" autoUpdate="false" closable="true"/>
+                            <!--Cambio FWTM-->
+                                    <h:panelGroup id="pnlGrpCriterios">
+                                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="2">
+                                    <p:outputLabel id="lbBusqueda" for="rbCriteriosBusqueda" value="Criterios de Búsqueda:" style="#{util.outputTextTitulo}"/>
+                                    <p:selectOneRadio id="rbCriteriosBusqueda" value="#{madreRenaviCDLController.criterioBusqueda}" required="true" requiredMessage="#{campos.BusquedaPorM}" styleClass="selectRadio">
+                                        <f:selectItem itemValue="idMadre" itemLabel="Cédula Madre"/>
+                                        <f:selectItem itemValue="codigoMadre" itemLabel="Identificación Madre REVIT"/>
+                                    </p:selectOneRadio>
+                                    <p:message id="criterioBusquedaMsg" for="rbCriteriosBusqueda" display="#{util.DisplayMessage}"/>
+                                </h:panelGrid>
+                                </h:panelGroup>
+                            <!--20-07-2016-->
+                            <h:panelGroup id="cntndrBusquedaCedula">
+                                <h:panelGrid  columns="3" cellspacing="1" styleClass="text-align-left">
+                                    <p:outputLabel value="Parámetro de Busqueda:" for="cedulMadBusq" style="#{util.outputTextTitulo}"/>
+                                    <p:inputText id="cedulMadBusq" value="#{madreRenaviCDLController.cedulaBusq}" required="true" requiredMessage="Debe ingresar la cédula o código REVIT" maxlength="15" style="#{util.Width}">
+                                         <pe:keyFilter regEx="/[0-9]/i"/>
+                                    </p:inputText>
+                                    <p:message id="mssgcedulMadBusq" for="cedulMadBusq" display="#{util.DisplayMessage}"/>
+                                    <p:commandButton id="btnConsultaCedula" action="#{madreRenaviCDLController.seleccionBusqueda}" value="Buscar" 
+                                                     process="@this,rbCriteriosBusqueda ,cedulMadBusq" 
+                                                     update="@this,btnEliminar,obserAnul,tblResultados,cedulMadBusq,mssgcedulMadBusq,btnConsultaCedula,btnEliminar,btnLimpiarDatos,nombrMad,fotoMad,cedulMad,fechaNacimMad,edadMad,fkIdNacionalidad,fkIdPaisMad,campoInecCodPaisMad, criterioBusquedaMsg"  
+                                                     oncomplete="PF('statusDialog').hide();"
+                                                     disabled="#{madreRenaviCDLController.cedulaBusq ne null ? true:false}"/>
+                                    <p:commandButton id="btnLimpiarDatos" action="#{madreRenaviCDLController.limpiarBuscarPorCedula}" value="#{campos.NuevaBusqueda}" 
+                                                 process="@this" 
+                                                 update="@this,tblResultados,cedulMadBusq,btnConsultaCedula,nombrMad,fotoMad,cedulMad,fechaNacimMad,edadMad,fkIdNacionalidad,fkIdPaisMad,campoInecCodPaisMad"
+                                                 disabled="#{madreRenaviCDLController.cedulaBusq eq null ? true:false}"
+                                                 oncomplete="PF('statusDialog').hide();" onclick="cerrarMsj()" />
+                                </h:panelGrid>
+                            </h:panelGroup>
+                        </p:fieldset>
+                    </h:panelGrid>
+                    <p:fieldset id="cntndrResultadosMadre" legend="Datos de la Madre" style="width: 1020px;">
+                        <table border="0" width="100%" style="text-align-left">
+                            <tr>
+                                <td width="135px">
+                                    <p:outputLabel value="#{campos.NombreL}" for="nombrMad" style="#{util.outputTextTitulo}"/>
+                                </td>
+                                <td width="245px">
+                                    <p:outputLabel id="nombrMad" value="#{madreRenaviCDLController.selected.nombrMad}" style="#{util.UppercaseWidth}">
+                                        <f:converter converterId="uperCaseConverter"/>
+                                    </p:outputLabel>
+                                </td>
+                                <td width="12px"/>
+                                <td width="135px">
+                                    <p:outputLabel value="#{campos.FotografiaL}" style="#{util.outputTextTitulo}" />
+                                </td>
+                                <td width="245px" rowspan="7">
+                                    <p:graphicImage id="fotoMad" cache="false" value="#{fotografiaController.fotografia}" width="120px" height="140px" alt="No registra Foto">
+                                        <f:param name="cedula" value="#{madreRenaviCDLController.selected.cedulMad}" />
+                                        <f:param name="view" value="Create" />
+                                    </p:graphicImage>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{'Cédula o Código Madre'}" for="cedulMad" style="#{util.outputTextTitulo}"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel id="cedulMad" value="#{madreRenaviCDLController.criterioBusqueda eq 'idMadre' ? madreRenaviCDLController.selected.cedulMad:madreRenaviCDLController.selected.idMad}"
+                                                   style="#{util.Width}"/>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{campos.FechaNacimientoL}" for="fechaNacimMad" style="#{util.outputTextTitulo}"/> 
+                                </td>
+                                <td>
+                                    <p:outputLabel id="fechaNacimMad" value="#{madreRenaviCDLController.selected.fechaNacimMad}" style="#{util.Width}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:outputLabel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{campos.EdadL}" for="edadMad" style="#{util.outputTextTitulo}"/>
+                                    
+                                </td>
+                                <td>
+                                    <p:outputLabel id="edadMad" value="#{madreRenaviCDLController.criterioBusqueda eq 'idMadre' ? madreRenaviCDLController.hijoAux.edadMad:madreRenaviCDLController.edadMadre}" style="#{util.Width}"/>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{campos.NacionalidadL}" for="fkIdNacionalidad" style="#{util.outputTextTitulo}"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel id="fkIdNacionalidad" value="#{madreRenaviCDLController.criterioBusqueda eq 'codigoMadre' ? 'EXTRANJERO':madreRenaviCDLController.hijoAux.fkIdNacMad}" style="#{util.UppercaseWidth}">
+                                        <f:converter converterId="uperCaseConverter"/>
+                                    </p:outputLabel>
+                                </td>                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{campos.NomPaisL}" for="fkIdPaisMad" style="#{util.outputTextTitulo}"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel id="fkIdPaisMad" value="#{madreRenaviCDLController.hijoAux.fkIdPaisMad}" style="#{util.UppercaseWidth}">
+                                        <f:converter converterId="uperCaseConverter"/>
+                                    </p:outputLabel>
+                                </td>                                
+                                <td>
+                                    <p:outputLabel value="#{campos.CodigoPaisL}" for="campoInecCodPaisMad" style="#{util.outputTextTitulo}"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel id="campoInecCodPaisMad" value="#{madreRenaviCDLController.hijoAux.campoInecCodPaisMad}" style="#{util.Width}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </p:fieldset>
+                    <!--                    buscar ciudadano-->
+                    <p:dialog  header="#{campos.BuscarCiudadano}" widgetVar="personasDialog" modal="true" draggable="false" width="#{util.DlgWidthMediano}" height="#{util.DlgHeightMediano}">
+                        <div align="center" class="cntndrTableDlg">
+                            <p:dataTable id="pdtTblItemsPersonas" value="#{madreRenaviCDLController.personas}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                                         scrollable="true" scrollWidth="#{util.DlgTableWidthMediano}" scrollHeight="#{util.DlgTableHeightMediano}" resizableColumns="true" paginator="true" paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{campos.Resultados}"/>
+                                </f:facet>
+                                <p:column width="#{util.OpcionesSeleccionar}">
+                                    <h:commandLink actionListener="#{madreRenaviCDLController.seleccionarPersonaDialog}" onclick="PF('personasDialog').hide();">
+                                        <div class="seleccionar"/>
+                                        <f:param value="#{item.cedula}" name="cedulaDialog" />
+                                        <f:ajax render="nombrMad fotoMad cedulMad fechaNacimMad edadMad fkIdNacionalidad fkIdPaisMad campoInecCodPaisMad "/>
+                                    </h:commandLink>
+                                </p:column>
+                                <p:column headerText="#{campos.CedulaT}" width="#{util.Codigo}">
+                                    <h:outputText value="#{item.cedula}"/>
+                                </p:column>
+                                <p:column headerText="#{campos.NombresT}" width="#{util.Nombre}">
+                                    <h:outputText value="#{item.nombre}"/>
+                                </p:column>
+                                <p:column headerText="#{campos.FechaNacimientoT}" width="#{util.Fecha}">
+                                    <h:outputText value="#{item.fechaNacimiento}"/>
+                                </p:column>
+                                <p:column headerText="#{campos.LugarNacimentoT}" width="#{util.Descripcion}">
+                                    <h:outputText value="#{item.lugarNacimiento}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </p:dialog>
+                    <h:panelGrid id="cntndrFormM" columns="1" cellspacing="1" styleClass="text-align-left" >
+                        <p:fieldset id="cntndrNacidosVivos" legend="Datos del Nacido Vivo" style="width: 1020px; "  >
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:dataTable id="tblResultados" var="nv" value="#{madreRenaviCDLController.listObj}" paginator="true" emptyMessage="No se han encontrado Resultados"
+                                         paginatorPosition="bottom" rows="5" rowIndexVar="rowIndex" scrollable="false" scrollWidth="1010px" scrollHeight="#{util.DlgTableHeightMediano}">
+                                <p:column headerText="No." style="width:22px;font-size: 10px;">
+                                    #{rowIndex+1}
+                                </p:column>
+                                <p:column headerText="Cédula Nacido Vivo" style="width:80px;font-size: 11px;">
+                                    <h:outputText value="#{nv[0]}" style="font-size: 10px;"/>
+                                </p:column>
+                                <p:column headerText="Nombre Nacido Vivo" style="width:100px;font-size: 11px;">
+                                    <h:outputText value="#{nv[1]}" style="font-size: 10px;"/>
+                                </p:column>
+                                <p:column headerText="Apellido  Nacido Vivo" style="width:130px;font-size: 11px;">
+                                    <h:outputText value="#{nv[2]}" style="font-size: 10px;"/>
+                                </p:column>
+                                <p:column headerText="Fecha Nacimiento Nacido Vivo" style="width:100px;font-size: 11px;">
+                                    <h:outputText value="#{nv[3]}" style="font-size: 10px;">
+                                    <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Nombre Agencia" style="width:100px;font-size: 11px;">
+                                    <h:outputText value="#{madreRenaviCDLController.agenciaMSP.agenciaInUser.nomAgencia eq null ? 'N/E':madreRenaviCDLController.agenciaMSP.agenciaInUser.nomAgencia}" style="font-size: 10px;"/>
+                                </p:column> 
+                                <p:column headerText="Datos Médico" style="width:100px;font-size: 11px;">
+                                    <h:outputText value="#{madreRenaviCDLController.agenciaMSP.apellido eq null ? 'N/E':madreRenaviCDLController.agenciaMSP.apellido} #{madreRenaviCDLController.agenciaMSP.nombre eq null ? ' ':madreRenaviCDLController.agenciaMSP.nombre}" style="font-size: 10px;"/>
+                                </p:column>
+                                <p:column headerText="Estado de Firma" style="width:80px;font-size: 11px;">
+                                    <h:outputText value="#{nv[4] eq '2' ? 'FIRMADO':''}" style="font-size: 10px;"/>
+                                </p:column>  
+                                <p:column headerText="Estado del Registro" style="width:100px;font-size: 11px;">
+                                    <h:outputText value="#{nv[5] eq '4' ? 'REGISTRO COMPLETO':''}" style="font-size: 10px;"/>
+                                    <h:outputText value="#{nv[5] eq '8' ? 'REGISTRO ANULADO':''}" style="font-size: 10px;"/>
+                                </p:column> 
+
+                            </p:dataTable>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                        </p:fieldset>
+
+                        <p:fieldset id="cntndrResultadosHijos" legend="Anulación del Registro" style="width: 1020px; "  >
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                                        <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                                        <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                                        <b>Observación de Anulación:   </b>
+                                        <p:inputText   id="obserAnul" value="#{madreRenaviCDLController.observacionA}" style="#{util.Width} text-transform: uppercase;" size="200"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                                        <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                                        <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                                        <b>Desea Anular la madre seleccionada y el nacido vivo ? </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                            <p:commandButton id="btnEliminar" value="Anular Registro" action="#{madreRenaviCDLController.anular}"  process="@this,obserAnul"
+                                                             disabled="#{madreRenaviCDLController.cedulaBusq eq null ? true:false}"
+                                                             update="@this,btnLimpiarDatos,obserAnul,tblResultados,cedulMadBusq,btnConsultaCedula,btnEliminar,nombrMad,fotoMad,cedulMad,fechaNacimMad,edadMad,fkIdNacionalidad,fkIdPaisMad,campoInecCodPaisMad" 
+                                                             oncomplete="PF('statusDialog').hide();" onclick="cerrarMsj()"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

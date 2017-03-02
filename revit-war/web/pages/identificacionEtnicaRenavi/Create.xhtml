@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+
+                <p:fieldset legend="#{campos.CrearIdentificacionEtnicaL}" style="#{util.WidthPfieldset}" >
+
+                    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                    <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                              draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                        <h:graphicImage library="images" name="cargando.gif"/> 
+                    </p:dialog>
+                    <h:form>
+                        <p:growl id="messages" autoUpdate="true" life="#{util.GrowlLifeMin}"/>
+
+                        <h:panelGrid columns="2" cellspacing="5" styleClass="text-align-center">
+
+                            <p:outputLabel value="#{campos.identificacionEtnica}" for="descIdeEtn" />
+                            <h:panelGroup>
+                                <p:inputText id="descIdeEtn" value="#{identificacionEtnicaRenaviCDLController.selected.descIdeEtn}" required="true" requiredMessage="#{campos.NombreM}" maxlength="20" style="#{util.UppercaseWidth}">
+                                    <f:converter converterId="uperCaseConverter"/>
+                                </p:inputText>
+                                <p:message for="descIdeEtn" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup>
+
+                        </h:panelGrid>
+                        <br />
+                        <br />
+
+                        <h:panelGrid columns="2" cellspacing="2" styleClass="text-align-left">
+                            <p:commandButton action="#{identificacionEtnicaRenaviCDLController.create}" value="#{campos.Guardar}" ajax="false"/>
+                            <p:commandButton value="#{campos.Cancelar}" type="reset" immediate="true"/>
+                        </h:panelGrid>
+                        <br />
+                        <br />
+                        <h:commandLink action="#{identificacionEtnicaRenaviCDLController.prepareList}" value="#{campos.VerTodos}" immediate="true"/>
+                    </h:form>
+                </p:fieldset>
+
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

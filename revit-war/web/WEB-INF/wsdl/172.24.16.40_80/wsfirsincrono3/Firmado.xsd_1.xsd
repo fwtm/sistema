@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.2-b13 (branches/2.2-6964; 2012-01-09T18:04:18+0000) JAXWS-RI/2.2.6-promoted-b20 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://ws.wsfirma.digercic.gob.ec/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.wsfirma.digercic.gob.ec/">
+
+<xs:element name="firmaPdf" type="tns:firmaPdf"/>
+
+<xs:element name="firmaPdfCoordenadas" type="tns:firmaPdfCoordenadas"/>
+
+<xs:element name="firmaPdfCoordenadasResponse" type="tns:firmaPdfCoordenadasResponse"/>
+
+<xs:element name="firmaPdfResponse" type="tns:firmaPdfResponse"/>
+
+<xs:element name="firmaXml" type="tns:firmaXml"/>
+
+<xs:element name="firmaXmlResponse" type="tns:firmaXmlResponse"/>
+
+<xs:element name="guardarParametros" type="tns:guardarParametros"/>
+
+<xs:element name="guardarParametrosResponse" type="tns:guardarParametrosResponse"/>
+
+<xs:complexType name="firmaPdfCoordenadas">
+<xs:sequence>
+<xs:element name="sinFirma1" type="xs:base64Binary" nillable="true" minOccurs="0"/>
+<xs:element name="nomSistema1" type="xs:string" minOccurs="0"/>
+<xs:element name="x" type="xs:float"/>
+<xs:element name="y" type="xs:float"/>
+<xs:element name="w" type="xs:float"/>
+<xs:element name="h" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="firmaPdfCoordenadasResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="firmaXml">
+<xs:sequence>
+<xs:element name="xml" type="xs:string" minOccurs="0"/>
+<xs:element name="nomSistema" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="firmaXmlResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="firmaPdf">
+<xs:sequence>
+<xs:element name="sinFirma" type="xs:base64Binary" nillable="true" minOccurs="0"/>
+<xs:element name="nomSistema" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="firmaPdfResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="guardarParametros">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="valor" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="guardarParametrosResponse">
+<xs:sequence/>
+</xs:complexType>
+</xs:schema>

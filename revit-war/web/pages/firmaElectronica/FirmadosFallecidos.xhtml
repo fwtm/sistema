@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p:fieldset id="fieldsetgenerico" style="width: 1020px;"> 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:messages id="messages" autoUpdate="false" closable="true"/>
+                        <table width="100%" border="0">
+                            <tr>
+                                <td width="13%" align="left">
+                                    <p:outputLabel value="Fecha firma inicio:" for="filtroFechaIni" />
+                                </td>
+                                <td width="20%" align="left">
+                                    <h:panelGroup id="cntndrFiltroFechaIni">
+                                        <p:calendar id="filtroFechaIni" value="#{firmadosFallecidoControler.fechaInicio}" title="#{campos.FechaDiaEspecialT}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" pattern="dd/MM/yyyy" navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" yearRange="c-1:c-0" maxdate="#{firmadosFallecidoControler.fechaFin}" >
+                                            <p:ajax event="dateSelect" update="filtroFechaFin" />
+                                        </p:calendar>    
+                                        <p:message for="filtroFechaIni" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                                <td width="11%" align="left">
+                                    <p:outputLabel value="Fecha firma fin:" for="filtroFechaFin" />
+                                </td>
+                                <td width="20%" align="left">
+                                    <h:panelGroup id="cntndrFiltroFechaFin">
+                                        <p:calendar id="filtroFechaFin" value="#{firmadosFallecidoControler.fechaFin}" title="#{campos.FechaDiaEspecialT}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" pattern="dd/MM/yyyy" navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" mindate="#{firmadosFallecidoControler.fechaInicio}" maxdate="#{firmadosFallecidoControler.fechaActual}">
+                                            <f:attribute name="finicial" value="#{firmadosFallecidoControler.fechaInicio}"/>
+                                            <p:ajax event="dateSelect" update="filtroFechaIni" />
+                                            <f:validator validatorId="primeDateRangeValidator" />
+                                        </p:calendar>   
+                                        <p:message for="filtroFechaFin" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                                <td align="left">
+                                    <p:commandButton action="#{firmadosFallecidoControler.buscarFallecidosFirmados}" title="#{campos.Buscar}" process="@this,filtroFechaIni,filtroFechaFin" update="checkboxDT cntndrFiltroFechaIni cntndrFiltroFechaFin" value="#{campos.Buscar}"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <p:dataTable id="checkboxDT" var="item" 
+                                     value="#{firmadosFallecidoControler.listFallecidoFirmados}" 
+                                     style="margin-bottom:0"
+                                     emptyMessage="#{campos.NoHayDatos}" scrollable="true" scrollHeight="#{util.DlgTableHeightMediano}" paginator="true" 
+                                     paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowIndexVar="rowIndex">
+                            <f:facet name="header">
+                                 REGISTROS POR FIRMAR
+                            </f:facet>
+                            <p:column headerText="Nº" width="5" style="text-align: center;">
+                                #{rowIndex+1}
+                            </p:column>
+                            <p:column headerText="PDF" width="10" style="text-align: center;">
+                                <h:commandLink  action="#{firmadosFallecidoControler.verPDFConFirma}"  value="#{campos.Ver}">
+                                    <f:param value="#{item.cedulaFal}" name="cedula" />
+                                </h:commandLink>
+                            </p:column>
+                            <p:column headerText="Certificado" width="15" style="text-align: center;">
+                                <h:commandLink  action="#{firmadosFallecidoControler.verPDFCertificado}"  value="#{campos.Ver}">
+                                    <f:param value="#{item.cedulaFal}" name="cedula" />
+                                </h:commandLink>
+                            </p:column>
+                            <p:column headerText="#{campos.FechaNacimientoT}" width="55" style="text-align: center;">
+                                <h:outputText value="#{item.fechaNacimientoFal}">
+                                    <f:convertDateTime parent="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column >
+                            <p:column headerText="#{campos.FechaFallecimientoT}" width="55" style="text-align: center;">
+                                <h:outputText value="#{item.fechaFallecimientoFal}">
+                                    <f:convertDateTime parent="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column >
+                            <p:column headerText="#{campos.CedulaT}" filterBy="#{item.cedulaFal}" filterMatchMode="contains" width="40" style="text-align: center;">
+                                <h:outputText value="#{item.cedulaFal}"/>
+                            </p:column>
+                            <p:column headerText="#{campos.NombresT}" width="100">
+                                <h:outputText value="#{item.nombreFal}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

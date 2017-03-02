@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p/>
+                <div align="center" style="margin-bottom: 7px; font-weight: bold; color: #565656; font-size: 1.1em;">
+                    Reporte Detallado
+                </div>
+                <p:fieldset id="fieldsetgenerico" style="#{util.WidthPfieldset}" legend="Reporte Detallado"> 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:growl id="growl" sticky="false" life="3000"/>
+                        <h:panelGrid columns="4" cellspacing="3" styleClass="text-align-left">
+                            <p:outputLabel value="Fecha de Nacimiento Desde:" style="#{util.outputTextTitulo}"  />
+                            <h:panelGrid id="cntndrFiltroFechaIniNac" columns="1" cellspacing="0" styleClass="text-align-left">
+                                <p:calendar id="filtroFechaNacIni" value="#{reporteController.fechaNacIni}" title="#{campos.FechaDiaEspecialT}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="Campo Requerido" pattern="dd/MM/yyyy " navigator="false" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" maxdate="#{reporteController.fechaNacFin}" yearRange="c-1:c-0" >
+                                    <p:ajax event="dateSelect" update="filtroFechaNacFin" />
+                                </p:calendar>    
+                            </h:panelGrid>
+                            <p:outputLabel value="Hasta:" for="filtroFechaNacFin" style="#{util.outputTextTitulo}"/>
+                            <h:panelGrid id="cntndrFiltroFechaFinNac" columns="1" cellspacing="0" styleClass="text-align-left">
+                                <p:calendar id="filtroFechaNacFin" value="#{reporteController.fechaNacFin}" title="#{campos.FechaDiaEspecialT}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="Campo Requerido" pattern="dd/MM/yyyy " navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" mindate="#{reporteController.fechaNacIni}" maxdate="#{reporteController.fechaActual}">
+                                    <f:attribute name="finicial" value="#{reporteController.fechaNacIni}"/>
+                                    <p:ajax event="dateSelect" update="filtroFechaNacIni" />
+                                    <f:validator validatorId="primeDateRangeValidator" />
+                                </p:calendar>   
+                                <!--<p:message  id="errorfiltroFechaNacFin" for="filtroFechaNacFin" display="#{util.DisplayMessage}"/>-->
+                            </h:panelGrid>
+                            <p:outputLabel value="Institución:" for="inst" style="#{util.outputTextTitulo}" />
+                            <p:selectOneMenu id="inst" value="#{reporteController.idInstitucion}" filter="true" filterMatchMode="contains"  style="width: 190px;" valueChangeListener="#{reporteController.poblaAgencias}" required="true" requiredMessage="Es oblogatorio seleccionar la institución">
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reporteController.instituciones}"  var="inst" 
+                                               itemLabel="#{inst.nomInstituc}" 
+                                               itemValue="#{inst.idInstituc.toString()}"/>
+                                <f:ajax render="@this agencias usu" execute="@this" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+
+                            <p:outputLabel value="Establecimiento de Salud:" for="agencias" style="#{util.outputTextTitulo}" />
+                            <p:selectOneMenu id="agencias" value="#{reporteController.codMSP}" filter="true" filterMatchMode="contains"  style="width: 190px;"  valueChangeListener="#{reporteController.poblaUsuariosPorAgencias}" required="#{reporteController.rolSesion eq 'RA' or reporteController.rolSesion eq 'RP' ? true:false}"  requiredMessage="Es oblogatorio seleccionar el establecimiento de salud" >
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reporteController.agencias}"  var="age" 
+                                               itemLabel="#{age.nomAgencia}" 
+                                               itemValue="#{age.codMsp};#{age.nomAgencia}"/>
+                                <f:ajax execute="@this" render="@this usu"/> 
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="Usuario:" for="usu" style="#{util.outputTextTitulo}" />
+                            <p:selectOneMenu id="usu" value="#{reporteController.userCedula}" filter="true" filterMatchMode="contains"  style="width: 190px;"  required="#{reporteController.rolSesion eq 'RP' ? true : false}" requiredMessage="Es obligatorio seleccionar el usuario">
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reporteController.usuarios}"  var="user" 
+                                               itemLabel="#{user.nombre} #{user.apellido} " 
+                                               itemValue="#{user.nomUsuario.toString()}"/>
+                                <f:ajax  render="@this"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="Cédula de la Madre:" style="#{util.outputTextTitulo}" />
+                            <h:panelGroup>
+                                <p:inputText id="cedMa" value="#{reporteController.cedulaMadre}" onkeypress="return permite(event, 'num')" size="10" validator="cedulaValidadorReporte">
+                                </p:inputText>    
+                                <p:message for="cedMa" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" /> 
+                            <p:outputLabel  value="Estado Registro:" style="#{util.outputTextTitulo}" for="estReg"  />
+                            <p:selectOneMenu id="estReg" value="#{reporteController.regEst}"  style="width: 190px;" valueChangeListener="#{reporteController.prueba}" required="true" requiredMessage="Es obligatorio seleccionar el estado del registro." >
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reporteController.listRegEst}"  var="estR" 
+                                               itemLabel="#{estR.descripcion}"
+                                               itemValue="#{estR.id}" />
+                                <f:ajax execute="@this" render="@this" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" /> 
+                        </h:panelGrid>  
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <p:commandButton action="#{reporteController.generaReporte}" title="#{campos.EjecutarL}" process="filtroFechaNacIni filtroFechaNacFin @this inst agencias usu estReg cedMa" update="filtroFechaNacIni,filtroFechaNacFin,growl,btnReporte,tblResultados"  value="Ejecutar"  />
+                            <h:panelGroup id="btnReporte">
+                                <h:panelGrid columns="2" cellspacing="3">
+                                    <p:commandLink action="#{reporteController.generaReportePDF()}" ajax="false" immediate="true"
+                                                title="#{campos.Seleccionar}" rendered="#{not empty reporteController.resultado}">
+                                        <div class="pdf_icon"/>
+                                    </p:commandLink>
+                                    <p:commandLink action="#{reporteController.generaReporteXLSX()}" ajax="false" immediate="true"
+                                                title="#{campos.Seleccionar}" rendered="#{not empty reporteController.resultado}">
+                                        <div class="xlsx_icon"/>
+                                    </p:commandLink>
+                                </h:panelGrid> 
+                            </h:panelGroup>
+                            
+                            
+                            
+                            
+                        </h:panelGrid>
+                        <br/> 
+                        <p:fieldset id="fieldsetRes" style="#{util.WidthPfieldset}" legend="Resultados"> 
+                            <p:dataTable  id="tblResultados" var="nv" value="#{reporteController.resultado}" emptyMessage="No se han encontrado Resultados"
+                                          scrollWidth="760px"  scrollHeight="250" resizableColumns="true" paginator="true" 
+                                          paginatorPosition="bottom" rows="40"  
+                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                          scrollable="true" rowIndexVar="rowIndex">
+
+                                <p:column headerText="No." style="width:20px;font-size: 11px;">
+                                    #{rowIndex+1}
+                                </p:column>
+                                <p:column headerText="PDF" style="width:40px;font-size: 11px;">
+                                    <h:commandLink  action="#{reporteController.verPDFConFirma}"  value="Ver" style="float:left" rendered="#{nv.pdfConFirmaNacViv ne null}">
+                                        <f:param value="#{nv.cedulNacViv}" name="cedula" />
+                                    </h:commandLink>
+                                    <h:commandLink  action="#{reporteController.verPDFSinFirma}"  value="Ver" style="float:left" rendered="#{nv.pdfConFirmaNacViv eq null}">
+                                        <f:param value="#{nv.idNacViv}" name="idNacViv" />
+                                    </h:commandLink>
+                                </p:column>                               
+                                <p:column headerText="No. Identificación" style="width:90px;font-size: 11px;" filterBy="#{nv.cedulNacViv}">
+                                    <h:outputText value="#{nv.cedulNacViv}" style="font-size: 10px; "/>
+                                </p:column>
+                                <p:column  headerText="Nacido Vivo" style="width:110px;font-size: 11px;"  >
+                                    <h:outputText value="#{nv.nombrNacViv}  #{nv.apellNacViv}" style="font-size: 10px; "/>
+                                </p:column>
+                                <p:column    headerText="Fecha Nacimiento" style="width:90px;font-size: 11px;" >
+                                    <h:outputText value="#{nv.fechaNacimNacViv}" style="font-size: 10px; ">
+                                        <f:convertDateTime parent="dd/MM/yyyy"/>
+                                    </h:outputText>    
+                                </p:column>
+                                <p:column  headerText="Nombre Madre" style="width:115px;font-size: 11px;"  filterBy="#{nv.fkCedulMad.nomMadreMad}">
+                                    <h:outputText value="#{nv.fkCedulMad.nombrMad}" style="font-size: 10px; "/>
+                                </p:column>
+                                <p:column headerText="Cédula Madre" style="width:100px;font-size: 11px;"  filterBy="#{nv.fkCedulMad.cedulMad}" >
+                                    <h:outputText value="#{nv.fkCedulMad.cedulMad}" style="font-size: 10px; "/>
+                                </p:column>                               
+                                <f:facet name="footer" >  
+                                    <h:outputText value="TOTAL: #{reporteController.resultado.size()}" style="font-size: 11px; " /> 
+                                </f:facet>  
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

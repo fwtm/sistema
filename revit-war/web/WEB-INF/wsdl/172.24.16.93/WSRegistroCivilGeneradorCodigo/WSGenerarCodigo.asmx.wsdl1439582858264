@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.registrocivil.gob.ec/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.registrocivil.gob.ec/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.registrocivil.gob.ec/">
+      <s:element name="GenerarQR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarQRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerarQRResult" type="tns:QR" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="QR">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoError" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionError" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImagenQR" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dimension" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GenerarBarras">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarBarrasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerarBarrasResult" type="tns:Barras" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Barras">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoError" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionError" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImagenBarra" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dimension" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GenerarQRSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarQR" />
+  </wsdl:message>
+  <wsdl:message name="GenerarQRSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarQRResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarBarrasSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarBarras" />
+  </wsdl:message>
+  <wsdl:message name="GenerarBarrasSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarBarrasResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GeneratorCodeSoap">
+    <wsdl:operation name="GenerarQR">
+      <wsdl:input message="tns:GenerarQRSoapIn" />
+      <wsdl:output message="tns:GenerarQRSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarBarras">
+      <wsdl:input message="tns:GenerarBarrasSoapIn" />
+      <wsdl:output message="tns:GenerarBarrasSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GeneratorCodeSoap" type="tns:GeneratorCodeSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GenerarQR">
+      <soap:operation soapAction="http://www.registrocivil.gob.ec/GenerarQR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarBarras">
+      <soap:operation soapAction="http://www.registrocivil.gob.ec/GenerarBarras" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GeneratorCodeSoap12" type="tns:GeneratorCodeSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GenerarQR">
+      <soap12:operation soapAction="http://www.registrocivil.gob.ec/GenerarQR" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarBarras">
+      <soap12:operation soapAction="http://www.registrocivil.gob.ec/GenerarBarras" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GeneratorCode">
+    <wsdl:port name="GeneratorCodeSoap" binding="tns:GeneratorCodeSoap">
+      <soap:address location="http://172.24.16.93/WSRegistroCivilGeneradorCodigo/WSGenerarCodigo.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GeneratorCodeSoap12" binding="tns:GeneratorCodeSoap12">
+      <soap12:address location="http://172.24.16.93/WSRegistroCivilGeneradorCodigo/WSGenerarCodigo.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <link href="#{request.contextPath}/resources/images/icons/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/blueprint/screen.css" type="text/css" rel="stylesheet" media="screen, projection"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/blueprint/print.css" type="text/css" rel="stylesheet" media="print"/>   
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <h:outputScript library="js" name="utilitarioDIGERCIC.js"/>
+        <h:outputScript library="js" name="validador.js"/>
+        <h:outputScript library="js" name="calendar_es.js"/>
+        <title><ui:insert name="pageTitle">[DIGERCIC-REVIT]</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <div class="container" id="container">
+            <div class="span-29 last" id="top">
+                <table border="0" width="100%" class="degrado">
+                    <tr>
+                        <td >
+                            <table width="88%" border="0" style="margin-left: 135px; margin-top: 3px;">
+                                <tr>
+                                    <td colspan="2" align="right" height="85px" valign="top" style="padding-right: 10px;">
+                                        <table style="margin-top: 26px;" border="0">
+                                            <tr>
+                                                <td colspan="2" align="center"/>
+                                            </tr>
+                                            <tr>
+                                                <td/>
+                                                <td/>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="68px"/>
+                                    <td/>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!--<div class=" span-29 last barra-roja" />-->
+            
+            <div class="span-29 last" id="menu">
+                <div id="menu_container">
+                    <ui:insert name="menu"> 
+                    </ui:insert>
+                </div>
+            </div>
+            
+            <!--<div class="span-29 last" id="ruta">
+                <div id="ruta_container">
+                    <ui:insert name="ruta">Ruta</ui:insert>
+                </div>
+            </div>-->
+
+            <div class="span-29 last" id="content">
+                <div id="content_container">
+                    <ui:insert name="body">Content</ui:insert>
+                </div>
+            </div>
+            
+            <div class="span-29 last" id="ruta">
+                <div align="center" id="ruta_container">
+                    <ui:insert name="navegador">
+                        Para el correcto funcionamiento de la aplicación se recomienda usar: Mozilla Firefox versión 15, MAC Safari 5, Google Chrome 35, o las versiones superiores de estos navegadores.
+                    </ui:insert>
+                </div>
+            </div>
+            
+            <div class="span-29 last" id="bottom">
+                <h:graphicImage library="images" name="footer.jpg" height="20"/>
+            </div>
+        </div>
+        <script>
+            window.location.hash = "_";
+            window.location.hash = "_";//for google chrome
+            window.onhashchange = function() {
+                window.location.hash = "_";
+            };
+        </script> 
+    </h:body>
+
+</html>

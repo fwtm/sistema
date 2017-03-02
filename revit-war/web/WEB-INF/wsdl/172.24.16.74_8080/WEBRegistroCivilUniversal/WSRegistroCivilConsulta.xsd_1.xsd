@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.2.0-1 (tags/2.2.0u1-7139; 2012-06-02T10:55:19+0000) JAXWS-RI/2.2.6-2 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://www.registrocivil.gob.ec" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://www.registrocivil.gob.ec">
+
+<xs:element name="BusquedaPorCedula" type="tns:BusquedaPorCedula"/>
+
+<xs:element name="BusquedaPorCedulaResponse" type="tns:BusquedaPorCedulaResponse"/>
+
+<xs:element name="BusquedaPorNombre" type="tns:BusquedaPorNombre"/>
+
+<xs:element name="BusquedaPorNombreInscrito" type="tns:BusquedaPorNombreInscrito"/>
+
+<xs:element name="BusquedaPorNombreInscritoResponse" type="tns:BusquedaPorNombreInscritoResponse"/>
+
+<xs:element name="BusquedaPorNombreResponse" type="tns:BusquedaPorNombreResponse"/>
+
+<xs:element name="WsUp" type="tns:WsUp"/>
+
+<xs:element name="WsUpResponse" type="tns:WsUpResponse"/>
+
+<xs:complexType name="BusquedaPorNombre">
+<xs:sequence>
+<xs:element name="Apellido1" type="xs:string" minOccurs="0"/>
+<xs:element name="Apellido2" type="xs:string" minOccurs="0"/>
+<xs:element name="Nombre1" type="xs:string" minOccurs="0"/>
+<xs:element name="Nombre2" type="xs:string" minOccurs="0"/>
+<xs:element name="EdadInicio" type="xs:string" minOccurs="0"/>
+<xs:element name="EdadFinal" type="xs:string" minOccurs="0"/>
+<xs:element name="Genero" type="xs:string" minOccurs="0"/>
+<xs:element name="Usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="Contrasenia" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BusquedaPorNombreResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:ciudadanos" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ciudadanos">
+<xs:sequence>
+<xs:element name="codigoError" type="xs:string" minOccurs="0"/>
+<xs:element name="error" type="xs:string" minOccurs="0"/>
+<xs:element name="firmaElectronica" type="xs:string" minOccurs="0"/>
+<xs:element name="inscrito" type="tns:inscrito" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="persona" type="tns:persona" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="inscrito">
+<xs:sequence>
+<xs:element name="Acta" type="xs:string" minOccurs="0"/>
+<xs:element name="ActaDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="AnioInscripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="Clase" type="xs:string" minOccurs="0"/>
+<xs:element name="ClaseDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoCondicionNacido" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoError" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoGenero" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarInscripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarInscripcionFallecimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarNacimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoNacionalidadMadre" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoNacionalidadPadre" type="xs:string" minOccurs="0"/>
+<xs:element name="CondicionNacido" type="xs:string" minOccurs="0"/>
+<xs:element name="Error" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaActualizacion" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaIngreso" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaInscripcionFallecimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaNacimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="Genero" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarInscripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarInscripcionFallecimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarNacimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="NacionalidadMadre" type="xs:string" minOccurs="0"/>
+<xs:element name="NacionalidadPadre" type="xs:string" minOccurs="0"/>
+<xs:element name="Nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="NombreMadre" type="xs:string" minOccurs="0"/>
+<xs:element name="NombrePadre" type="xs:string" minOccurs="0"/>
+<xs:element name="Pagina" type="xs:string" minOccurs="0"/>
+<xs:element name="PaginaDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="Tomo" type="xs:string" minOccurs="0"/>
+<xs:element name="TomoDefuncion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="persona">
+<xs:sequence>
+<xs:element name="Acta" type="xs:string" minOccurs="0"/>
+<xs:element name="ActaDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="ActaMatrimonio" type="xs:string" minOccurs="0"/>
+<xs:element name="AnioInscripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="CIConyuge" type="xs:string" minOccurs="0"/>
+<xs:element name="CIMadre" type="xs:string" minOccurs="0"/>
+<xs:element name="CIPadre" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP1" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP10" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP2" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP3" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP4" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP5" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP6" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP7" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP8" type="xs:string" minOccurs="0"/>
+<xs:element name="CMP9" type="xs:string" minOccurs="0"/>
+<xs:element name="Calle" type="xs:string" minOccurs="0"/>
+<xs:element name="Cedula" type="xs:string" minOccurs="0"/>
+<xs:element name="Clase" type="xs:string" minOccurs="0"/>
+<xs:element name="ClaseDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="ClaseMatrimonio" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoCondicionCedulado" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoDomicilio" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoError" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoEstadoCivil" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoGenero" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoInstruccion" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarInscripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarInscripcionFallecimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarMatrimonio" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoLugarNacimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoNacionalidad" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoNacionalidadMadre" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoNacionalidadPadre" type="xs:string" minOccurs="0"/>
+<xs:element name="CodigoProfesion" type="xs:string" minOccurs="0"/>
+<xs:element name="CondicionCedulado" type="xs:string" minOccurs="0"/>
+<xs:element name="Conyuge" type="xs:string" minOccurs="0"/>
+<xs:element name="Domicilio" type="xs:string" minOccurs="0"/>
+<xs:element name="Error" type="xs:string" minOccurs="0"/>
+<xs:element name="EstadoCivil" type="xs:string" minOccurs="0"/>
+<xs:element name="EstadoMagna" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaActualizacion" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaCedulacion" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaInscripcionFallecimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaMatrimonio" type="xs:string" minOccurs="0"/>
+<xs:element name="FechaNacimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="Firma" type="xs:base64Binary" minOccurs="0"/>
+<xs:element name="FirmaElectronica" type="xs:string" minOccurs="0"/>
+<xs:element name="Fotografia" type="xs:base64Binary" minOccurs="0"/>
+<xs:element name="Genero" type="xs:string" minOccurs="0"/>
+<xs:element name="Huella" type="xs:base64Binary" minOccurs="0"/>
+<xs:element name="IndividualDactilar" type="xs:string" minOccurs="0"/>
+<xs:element name="Instruccion" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarInscripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarInscripcionFallecimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarMatrimonio" type="xs:string" minOccurs="0"/>
+<xs:element name="LugarNacimiento" type="xs:string" minOccurs="0"/>
+<xs:element name="Nacionalidad" type="xs:string" minOccurs="0"/>
+<xs:element name="NacionalidadMadre" type="xs:string" minOccurs="0"/>
+<xs:element name="NacionalidadPadre" type="xs:string" minOccurs="0"/>
+<xs:element name="Nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="NombreMadre" type="xs:string" minOccurs="0"/>
+<xs:element name="NombrePadre" type="xs:string" minOccurs="0"/>
+<xs:element name="NumeroCasa" type="xs:string" minOccurs="0"/>
+<xs:element name="Observacion" type="xs:string" minOccurs="0"/>
+<xs:element name="ObservacionInstitucion" type="xs:string" minOccurs="0"/>
+<xs:element name="Pagina" type="xs:string" minOccurs="0"/>
+<xs:element name="PaginaDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="PaginaMatrimonio" type="xs:string" minOccurs="0"/>
+<xs:element name="Profesion" type="xs:string" minOccurs="0"/>
+<xs:element name="Tomo" type="xs:string" minOccurs="0"/>
+<xs:element name="TomoDefuncion" type="xs:string" minOccurs="0"/>
+<xs:element name="TomoMatrimonio" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="WsUp">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="WsUpResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:persona" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BusquedaPorNombreInscrito">
+<xs:sequence>
+<xs:element name="Apellido1" type="xs:string" minOccurs="0"/>
+<xs:element name="Apellido2" type="xs:string" minOccurs="0"/>
+<xs:element name="Nombre1" type="xs:string" minOccurs="0"/>
+<xs:element name="Nombre2" type="xs:string" minOccurs="0"/>
+<xs:element name="EdadInicio" type="xs:string" minOccurs="0"/>
+<xs:element name="EdadFinal" type="xs:string" minOccurs="0"/>
+<xs:element name="Genero" type="xs:string" minOccurs="0"/>
+<xs:element name="Usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="Contrasenia" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BusquedaPorNombreInscritoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:ciudadanos" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BusquedaPorCedula">
+<xs:sequence>
+<xs:element name="Cedula" type="xs:string" minOccurs="0"/>
+<xs:element name="Usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="Contrasenia" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BusquedaPorCedulaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:persona" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

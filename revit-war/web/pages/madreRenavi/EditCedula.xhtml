@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="form_cont">
+                    <p:growl id="mssgsBusqueda" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+                    <h:panelGrid id="cntndrFormM" columns="1" cellspacing="1" styleClass="text-align-left" >
+                        <p:fieldset id="cntndrResultadosHijos" legend="Datos para editar" style="width: 1020px;">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <b>Cedula a actualizar</b>
+                                    </td>
+                                    <td>
+                                        <p:inputText id="c" value="#{madreRenaviDController.cedula}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:commandButton value="modificar cedula" action="#{madreRenaviDController.eliminar}" process="@this, c"/>
+                                        <p:commandButton value="generar pdf" action="#{madreRenaviDController.generaPDF()}" process="@this, c"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSolicitanteFallecimientoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_edadSolFal}" for="edadSolFal" />
+                    <h:inputText id="edadSolFal" value="#{solicitanteFallecimientoController.selected.edadSolFal}" title="#{bundle.CreateSolicitanteFallecimientoTitle_edadSolFal}" />
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_causaProbableMuerte}" for="causaProbableMuerte" />
+                    <h:inputText id="causaProbableMuerte" value="#{solicitanteFallecimientoController.selected.causaProbableMuerte}" title="#{bundle.CreateSolicitanteFallecimientoTitle_causaProbableMuerte}" />
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_sintomasSolFal}" for="sintomasSolFal" />
+                    <h:inputText id="sintomasSolFal" value="#{solicitanteFallecimientoController.selected.sintomasSolFal}" title="#{bundle.CreateSolicitanteFallecimientoTitle_sintomasSolFal}" />
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_direccionSolFal}" for="direccionSolFal" />
+                    <h:inputText id="direccionSolFal" value="#{solicitanteFallecimientoController.selected.direccionSolFal}" title="#{bundle.CreateSolicitanteFallecimientoTitle_direccionSolFal}" />
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_tipoInvolucrado}" for="tipoInvolucrado" />
+                    <h:selectOneMenu id="tipoInvolucrado" value="#{solicitanteFallecimientoController.selected.tipoInvolucrado}" title="#{bundle.CreateSolicitanteFallecimientoTitle_tipoInvolucrado}" required="true" requiredMessage="#{bundle.CreateSolicitanteFallecimientoRequiredMessage_tipoInvolucrado}">
+                        <f:selectItems value="#{tipoInvolucradoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_parentesco}" for="parentesco" />
+                    <h:selectOneMenu id="parentesco" value="#{solicitanteFallecimientoController.selected.parentesco}" title="#{bundle.CreateSolicitanteFallecimientoTitle_parentesco}" required="true" requiredMessage="#{bundle.CreateSolicitanteFallecimientoRequiredMessage_parentesco}">
+                        <f:selectItems value="#{parentescoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_fallecido}" for="fallecido" />
+                    <h:selectOneMenu id="fallecido" value="#{solicitanteFallecimientoController.selected.fallecido}" title="#{bundle.CreateSolicitanteFallecimientoTitle_fallecido}" required="true" requiredMessage="#{bundle.CreateSolicitanteFallecimientoRequiredMessage_fallecido}">
+                        <f:selectItems value="#{fallecidoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateSolicitanteFallecimientoLabel_ciudadanoInvolucrado}" for="ciudadanoInvolucrado" />
+                    <h:selectOneMenu id="ciudadanoInvolucrado" value="#{solicitanteFallecimientoController.selected.ciudadanoInvolucrado}" title="#{bundle.CreateSolicitanteFallecimientoTitle_ciudadanoInvolucrado}" required="true" requiredMessage="#{bundle.CreateSolicitanteFallecimientoRequiredMessage_ciudadanoInvolucrado}">
+                        <f:selectItems value="#{ciudadanoInvolucradoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{solicitanteFallecimientoController.create}" value="#{bundle.CreateSolicitanteFallecimientoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{solicitanteFallecimientoController.prepareList}" value="#{bundle.CreateSolicitanteFallecimientoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSolicitanteFallecimientoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:growl id="mssgsBusquedaD" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+    <div align="left" class="divAtras">
+        <h:panelGrid columns="1">
+            <p:commandLink id="btnAtrasD" action="#{madreRenaviEVController.atrasD}" title="#{campos.Atras}" process="@this" oncomplete="PF('statusDialog').hide();" onclick="if (!confirm('¿#{campos.ConfirmacionRegrTabNacViv}?'))return false">
+                <div class="atras"/>
+            </p:commandLink>
+        </h:panelGrid>
+    </div>
+    <p:fieldset legend="Profesional" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.ProfesionalL}" for="tblSauregUsuario" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:selectOneMenu id="tblSauregUsuario" value="#{madreRenaviEVController.nomUsuarioSaureg}"
+                                         required="true" requiredMessage="#{campos.ProfesionalM}" valueChangeListener="#{madreRenaviEVController.cambiarTblSauregUsuarioList}"
+                                         style="#{util.WidthCombo}" filter="true" filterMatchMode="contains" disabled="true">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{madreRenaviEVController.tblSauregUsuarioList}" var="item" itemLabel="#{item.apellido} #{item.nombre}" itemValue="#{item.nomUsuario}"/>
+                            <f:ajax render="@this doctor establecimiento btnCrearD"/>
+                        </p:selectOneMenu>
+                        <p:message for="tblSauregUsuario" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td width="12px"/>
+                <td width="135px"/>
+                <td width="245px"/>
+            </tr>
+        </table>       
+    </p:fieldset> 
+            
+            
+    <p:fieldset legend="#{campos.DatResultadosMadre}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NombreMadreL}" for="nombrMadD" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="nombrMadD" value="#{madreRenaviEVController.selected.nombrMad}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulMadD" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="cedulMadD" value="#{madreRenaviEVController.selected.cedulMad}" style="#{util.Width}" />
+                </td>
+                <td/>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset id="doctor" legend="#{campos.DatDoctor}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NombreL}" for="nombreUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="nombreUsu" value="#{madreRenaviEVController.tblSauregUsuario.apellido} #{madreRenaviEVController.tblSauregUsuario.nombre}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td width="12px"/>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NumRegProfesionalL}" for="regProfesionalUsu" style="#{util.outputTextTitulo}" rendered="false"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="regProfesionalUsu" value="" style="#{util.Width}" rendered="false"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CargoEmpleadoL}" for="fkIdTipAsiD" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fkIdTipAsiD" value="#{madreRenaviEVController.asistencia}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.CelularL}" for="telfcelUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="telfcelUsu" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.celularUsuario}" style="#{util.Width}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.TelfOficinaL}" for="telfconvenofiUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="telfconvenofiUsu" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.telefonoUsuario}" style="#{util.Width}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.ExtensionL}" for="telfconvenextUsu" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="telfconvenextUsu" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.telfExtensionUsuario}"/>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset id="establecimiento" legend="#{campos.DatLugOcurrioNacimNacidoVivo}" style="#{util.WidthPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.LugarNacL}" for="fkIdLugNac" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="fkIdLugNac" value="#{madreRenaviEVController.lugarNacimiento}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td width="12px"/>        
+                <td width="135px" />        
+                <td width="245px" />
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NombreEstablecimientoL}" for="nombrStblcNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nombrStblcNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.nomAgencia}" style="#{util.Width}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.CampoInecCodStblcNVL}" for="campoInecCodigStblcNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="campoInecCodigStblcNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.codMsp}" style="#{util.Width}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ProvinciaL}" for="proviEstbdsNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="proviEstbdsNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.idProvincia.derscripcion}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.CantonL}" for="cantnEstbdsNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="cantnEstbdsNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.idCanton.derscripcion}" style="#{util.UppercaseWidth}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ParroquiaL}" for="parrqEstbdsNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="parrqEstbdsNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.idParroquia.derscripcion}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.LocalidadL}" for="cddlocStblcNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="cddlocStblcNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.localidad}" style="#{util.UppercaseWidth}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.DireccionL}" for="direcStblcNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="direcStblcNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.direccion}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.TelefonoL}" for="telefStblcNacViv" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="telefStblcNacViv" value="#{madreRenaviEVController.tblSauregUsuario.agenciaInUser.telefono}" style="#{util.Width}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.AsistidoPorL}" for="fkIdTipAsi" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fkIdTipAsi" value="#{madreRenaviEVController.asistencia}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+            </tr>
+        </table>
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.ObservacionL}" for="observacion" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <h:panelGrid columns="3" cellspacing="0" styleClass="text-align-left">
+                            <p:inputText disabled="true" id="countdown" value="250" style="width: 22px; border: 0px;"/>
+                            <h:outputLabel value="de 250 caracteres." />
+                        </h:panelGrid>
+                        <p:inputTextarea cols="#{util.ColsParaNombre}" id="observacion" value="#{madreRenaviEVController.hijoAux.obsrvAtprtNacViv}" maxlength="250" style="#{util.UppercaseWidthCienPorCiento}" onkeydown="limitText(250);" onkeyup="limitText(250);" autoResize="false">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputTextarea>
+                        <p:message for="observacion" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+    <br />
+    <h:panelGrid columns="1" cellspacing="0" styleClass="text-align-left">
+        <p:commandLink id="btnCrearD" action="#{madreRenaviEVController.saveD}" title="#{campos.Finalizar}" process="@this,observacion"  oncomplete="PF('statusDialog').hide();" onclick="if (!saveD())return false;" disabled="#{madreRenaviEVController.tblSauregUsuario eq null ? true:false}">
+            <div class="guardar"/>
+        </p:commandLink>
+    </h:panelGrid>
+</html>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteRevit" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="b648b14d-b15d-44b0-b706-020bd405b8b9">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="749"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="New Dataset 1" uuid="8b6a1894-a37a-4c79-834a-04d93f0b985f"/>
+	<parameter name="fechaNacIni" class="java.util.Date"/>
+	<parameter name="fechaNacFin" class="java.util.Date"/>
+	<parameter name="query" class="java.lang.String"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="unidadMedica" class="java.lang.String"/>
+	<parameter name="tipoReporte" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{query}]]>
+	</queryString>
+	<field name="CEDUL_NAC_VIV" class="java.lang.String"/>
+	<field name="APELL_NAC_VIV" class="java.lang.String"/>
+	<field name="NOMBR_NAC_VIV" class="java.lang.String"/>
+	<field name="FECHA_NACIM_NAC_VIV" class="java.sql.Timestamp"/>
+	<field name="NOMBR_MAD" class="java.lang.String"/>
+	<field name="CEDUL_MAD" class="java.lang.String"/>
+	<field name="FK_USU_SAUREG" class="java.lang.String"/>
+	<field name="DESC_EST_FIR" class="java.lang.String"/>
+	<field name="FK_AGENCIA_SAUREG" class="java.math.BigDecimal"/>
+	<field name="USUARIO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="c29f667d-14ac-4375-8273-e27991e88a43" x="3" y="18" width="799" height="35"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="3b6c3abb-cec6-4407-86a3-1bee676faf40" x="3" y="0" width="799" height="14"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE NACIDOS VIVOS DEL SISTEMA DE REGISTRO  DE DATOS VITALES]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="9b7245b1-c4e1-4973-9a00-2cff1fd2b88e" x="207" y="13" width="391" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="3" y="21" width="157" height="14" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[USUARIO QUE GENERA EL REPORTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="060b4c61-a786-4f33-aa7d-fd5db42c64bf" x="160" y="21" width="149" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="599" y="21" width="151" height="14" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[FECHA DE GENERACIÓN DEL REPORTE:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="c309e703-0a0d-427a-8e4c-57d3e3c497d9" x="432" y="21" width="47" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaNacIni}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="680c843c-b415-4719-8953-c58020135ce9" x="490" y="21" width="47" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaNacFin}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="680c843c-b415-4719-8953-c58020135ce9" x="479" y="21" width="9" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="680c843c-b415-4719-8953-c58020135ce9" x="750" y="21" width="47" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="344" y="21" width="87" height="14" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[RANGO DE FECHAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="3" y="36" width="85" height="14" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[ESTAB. DE SALUD:  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="87050404-4d55-48be-b11b-fa31a63f84d8" x="88" y="36" width="449" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{unidadMedica}.equals(null) ? "TODAS." : $P{unidadMedica})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e52ade06-dd4c-4ec5-8227-207a0b22996c" stretchType="RelativeToBandHeight" x="599" y="36" width="65" height="14" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[TIPO REPORTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d89306f4-6cf4-4a9d-8114-f9603d11f7ba" x="679" y="35" width="100" height="15"/>
+				<textElement/>
+				<text><![CDATA[Reporte Detallado]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="2" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="0e056dea-f357-42cc-b790-01e3fd328567" x="537" y="23" width="265" height="22"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="99c75ea5-7d96-4384-84cf-041284d157f4" x="537" y="3" width="265" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="99c75ea5-7d96-4384-84cf-041284d157f4" x="313" y="3" width="224" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="313" y="3" width="224" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[DATOS DE LA MADRE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="0e056dea-f357-42cc-b790-01e3fd328567" x="313" y="23" width="224" height="22"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0e056dea-f357-42cc-b790-01e3fd328567" x="3" y="23" width="310" height="22"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0e056dea-f357-42cc-b790-01e3fd328567" x="3" y="3" width="310" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="3" y="3" width="310" height="20" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL NACIDO VIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="5" y="23" width="65" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="6" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[No.DE IDENTIFICACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ab4c133-9fd3-4393-b6f3-65b6f939d524" x="70" y="23" width="69" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d35ea483-6b8a-4eca-bea8-4a7317af262e" x="139" y="23" width="95" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8a7331af-7fcf-4442-9d20-0c29fdf05c20" x="235" y="23" width="78" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE NACIMIENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b645f55-f3e2-4565-a305-90c26da53ab9" stretchType="RelativeToBandHeight" x="537" y="3" width="265" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[DATOS DE REGISTRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="54ccc4be-d79c-4d40-b1f8-7e43aee87fbc" x="321" y="24" width="91" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRES Y APELLIDOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ce69429d-c85a-42c9-9c5a-69a5d9d92545" x="472" y="23" width="65" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. DE IDENTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4070286f-2dd1-42c0-9566-c9aee7dc20df" x="762" y="23" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTAB. DE SALUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e20f18e6-6839-413c-b605-7814e211054f" x="540" y="23" width="210" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USUARIO QUE REGISTRA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="0e056dea-f357-42cc-b790-01e3fd328567" x="537" y="0" width="265" height="14"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0e056dea-f357-42cc-b790-01e3fd328567" x="313" y="0" width="224" height="14"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0e056dea-f357-42cc-b790-01e3fd328567" x="3" y="0" width="310" height="14"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="63d66a4f-ce9f-4af6-95b7-2898f10ec1bb" x="5" y="0" width="65" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CEDUL_NAC_VIV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b1a3e91f-3fa7-435d-95cd-8b88134174b3" x="70" y="0" width="69" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBR_NAC_VIV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e07f19c3-6888-4c4f-9af6-91c64b3d80e2" x="139" y="0" width="95" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APELL_NAC_VIV}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="341f7b51-191a-488e-90bc-6be4be565781" x="235" y="0" width="78" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_NACIM_NAC_VIV}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7226053f-d81f-4ba0-a63a-3eee11dbb3e7" x="315" y="0" width="156" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBR_MAD}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7ca5227b-e8bf-499a-9adf-3fc1e6728eae" x="472" y="0" width="65" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CEDUL_MAD}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b00f667a-e58b-48cf-a2bf-2ad4add258ca" x="540" y="0" width="210" height="14"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{USUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="eff7395c-7e64-4b27-a1d1-d7116d76d3c3" x="762" y="0" width="40" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FK_AGENCIA_SAUREG}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="4da0e6e4-01c6-46b0-9708-7ef388996f1c" x="599" y="2" width="203" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="a8b8e7d0-4f90-4d23-8478-e4565dc42743" x="599" y="2" width="130" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE REGISTROS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6b2edf33-5faa-48ca-bb8a-b1ff8fdfaaed" mode="Transparent" x="729" y="2" width="73" height="20" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

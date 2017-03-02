@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTipoInvolucradoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTipoInvolucradoLabel_idTipInv}"/>
+                    <h:outputText value="#{tipoInvolucradoController.selected.idTipInv}" title="#{bundle.ViewTipoInvolucradoTitle_idTipInv}"/>
+                    <h:outputText value="#{bundle.ViewTipoInvolucradoLabel_nombreTipInv}"/>
+                    <h:outputText value="#{tipoInvolucradoController.selected.nombreTipInv}" title="#{bundle.ViewTipoInvolucradoTitle_nombreTipInv}"/>
+                    <h:outputText value="#{bundle.ViewTipoInvolucradoLabel_descripcionTipInv}"/>
+                    <h:outputText value="#{tipoInvolucradoController.selected.descripcionTipInv}" title="#{bundle.ViewTipoInvolucradoTitle_descripcionTipInv}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tipoInvolucradoController.destroyAndView}" value="#{bundle.ViewTipoInvolucradoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTipoInvolucradoEditLink}"/>
+                <br />
+                <h:commandLink action="#{tipoInvolucradoController.prepareCreate}" value="#{bundle.ViewTipoInvolucradoCreateLink}" />
+                <br />
+                <h:commandLink action="#{tipoInvolucradoController.prepareList}" value="#{bundle.ViewTipoInvolucradoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTipoInvolucradoIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

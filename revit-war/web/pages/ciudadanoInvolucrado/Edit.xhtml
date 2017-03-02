@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditCiudadanoInvolucradoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditCiudadanoInvolucradoLabel_idCiuInv}" for="idCiuInv" />
+                    <h:inputText id="idCiuInv" value="#{ciudadanoInvolucradoController.selected.idCiuInv}" title="#{bundle.EditCiudadanoInvolucradoTitle_idCiuInv}" required="true" requiredMessage="#{bundle.EditCiudadanoInvolucradoRequiredMessage_idCiuInv}"/>
+                    <h:outputLabel value="#{bundle.EditCiudadanoInvolucradoLabel_nombreCiuInv}" for="nombreCiuInv" />
+                    <h:inputText id="nombreCiuInv" value="#{ciudadanoInvolucradoController.selected.nombreCiuInv}" title="#{bundle.EditCiudadanoInvolucradoTitle_nombreCiuInv}" />
+                    <h:outputLabel value="#{bundle.EditCiudadanoInvolucradoLabel_cedulaCiuInv}" for="cedulaCiuInv" />
+                    <h:inputText id="cedulaCiuInv" value="#{ciudadanoInvolucradoController.selected.cedulaCiuInv}" title="#{bundle.EditCiudadanoInvolucradoTitle_cedulaCiuInv}" />
+                    <h:outputLabel value="#{bundle.EditCiudadanoInvolucradoLabel_pasaporteCiuInv}" for="pasaporteCiuInv" />
+                    <h:inputText id="pasaporteCiuInv" value="#{ciudadanoInvolucradoController.selected.pasaporteCiuInv}" title="#{bundle.EditCiudadanoInvolucradoTitle_pasaporteCiuInv}" />
+                    <h:outputLabel value="#{bundle.EditCiudadanoInvolucradoLabel_fechaNacimientoCiuInv}" for="fechaNacimientoCiuInv" />
+                    <h:inputText id="fechaNacimientoCiuInv" value="#{ciudadanoInvolucradoController.selected.fechaNacimientoCiuInv}" title="#{bundle.EditCiudadanoInvolucradoTitle_fechaNacimientoCiuInv}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{ciudadanoInvolucradoController.update}" value="#{bundle.EditCiudadanoInvolucradoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditCiudadanoInvolucradoViewLink}"/>
+                <br />
+                <h:commandLink action="#{ciudadanoInvolucradoController.prepareList}" value="#{bundle.EditCiudadanoInvolucradoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditCiudadanoInvolucradoIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

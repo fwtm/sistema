@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p:fieldset id="fieldsetgenerico" style="width:95%;"> 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:messages id="messages" autoUpdate="false" closable="true"/>
+                        <table width="100%" border="0">
+                            <tr>
+                                <td width="13%" align="left">
+                                    <p:outputLabel value="Fecha firma inicio:" for="filtroFechaIni" />
+                                </td>
+                                <td width="20%" align="left">
+                                    <h:panelGroup id="cntndrFiltroFechaIni">
+                                        <p:calendar id="filtroFechaIni" value="#{firmadosRenaviControler.fechaInicio}" title="#{campos.FechaDiaEspecialT}"  placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" pattern="dd/MM/yyyy" navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" yearRange="c-1:c-0" maxdate="#{firmadosRenaviControler.fechaFin}" >
+                                            <p:ajax event="dateSelect" update="filtroFechaFin" />
+                                        </p:calendar>    
+                                        <p:message for="filtroFechaIni" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                                <td width="11%" align="left">
+                                    <p:outputLabel value="Fecha firma fin:" for="filtroFechaFin" />
+                                </td>
+                                <td width="20%" align="left">
+                                    <h:panelGroup id="cntndrFiltroFechaFin">
+                                        <p:calendar id="filtroFechaFin" value="#{firmadosRenaviControler.fechaFin}" title="#{campos.FechaDiaEspecialT}"  placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" pattern="dd/MM/yyyy" navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" mindate="#{firmadosRenaviControler.fechaInicio}" maxdate="#{firmadosRenaviControler.fechaActual}">
+                                            <f:attribute name="finicial" value="#{firmadosRenaviControler.fechaInicio}"/>
+                                            <p:ajax event="dateSelect" update="filtroFechaIni" />
+                                            <f:validator validatorId="primeDateRangeValidator" />
+                                        </p:calendar>   
+                                        <p:message for="filtroFechaFin" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                                <td align="left">
+                                    <p:commandButton action="#{firmadosRenaviControler.buscarNacidoVivosFirmados}" title="#{campos.Buscar}" process="@this,filtroFechaIni,filtroFechaFin" update="checkboxDT cntndrFiltroFechaIni cntndrFiltroFechaFin" value="#{campos.Buscar}"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <p:dataTable id="checkboxDT" var="item" 
+                                     value="#{firmadosRenaviControler.listNacidoVivoFirmados}" 
+                                     style="margin-bottom:0"
+                                     emptyMessage="#{campos.NoHayDatos}" scrollable="false" scrollHeight="#{util.DlgTableHeightMediano}" paginator="true" 
+                                     paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowIndexVar="rowIndex">
+                            <f:facet name="header">
+                                REGISTROS FIRMADOS
+                            </f:facet>
+                            <p:column headerText="Nº" width="8" style="width:10px;font-size: 11px;">
+                                #{rowIndex+1}
+                            </p:column>
+                            <p:column headerText="PDF" width="15" style="width:10px;font-size: 11px;">
+                                <h:commandLink  action="#{firmadosRenaviControler.verPDFConFirma}"  value="#{campos.Ver}">
+                                    <f:param value="#{item.idNacViv}" name="id" />
+                                </h:commandLink>
+                            </p:column>
+
+                            <p:column headerText="Fecha de Nacimiento" width="70" style="width:10px;font-size: 11px;">
+                                <h:outputText value="#{item.fechaNacimNacViv}">
+                                    <f:convertDateTime parent="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column >
+                            <p:column headerText="Número Identificación" filterBy="#{item.cedulNacViv}" filterMatchMode="contains" width="95" style="width:10px;font-size: 11px;">
+                                <h:outputText value="#{item.cedulNacViv}"/>
+                            </p:column>
+                            <p:column headerText="Nombre Nacido Vivo" width="130" style="width:10px;font-size: 11px;">
+                                <h:outputText value="#{item.apellNacViv} #{item.nombrNacViv}"/>
+                            </p:column>
+                            <p:column headerText="Cédula de la Madre" filterBy="#{item.fkCedulMad.cedulMad}" filterMatchMode="contains" width="85" style="width:10px;font-size: 11px;">
+                                <h:outputText value="#{item.fkCedulMad.cedulMad}"/>
+                            </p:column>
+                            <!--CAMBIO MANTIS 1398--> 
+                            <p:column headerText="Identificación Madre" filterBy="#{item.fkCedulMad.idMad}" filterMatchMode="contains" width="85" style="width:10px;font-size: 11px;">
+                                <h:outputText value="#{item.fkCedulMad.cedulMad ne null ? ' ':item.fkCedulMad.idMad}"/>
+                            </p:column>
+                            <p:column headerText="Nombre de la Madre" filterBy="#{item.fkCedulMad.nombrMad}" filterMatchMode="contains" filterStyle="width:90%;" width="140" style="width:10px;font-size: 11px;">
+                                <h:outputText value="#{item.fkCedulMad.nombrMad} "/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

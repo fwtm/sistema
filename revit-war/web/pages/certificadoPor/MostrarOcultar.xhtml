@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Mostrar u Ocultar</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <table>
+                <tr>
+                    <td>
+                        <p:outputLabel value="Fecha nacimiento:" for="fechaNacim"/>
+                    </td>
+                    <td>
+                        <p:calendar id="fechaNacim" value="#{mostrarOcultarController.fechaNacimiento}" required="true" requiredMessage="campo obligatorio." 
+                                    pattern="dd/MM/yyyy" navigator="true" showOn="button" locale="es">
+                            <p:ajax event="dateSelect" listener="#{mostrarOcultarController.seleccionFechaNacimiento}" 
+                                    process="@this" update="contenedorLabel,contenedorComponente"/>
+                        </p:calendar>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:panelGroup id="contenedorLabel">
+                            <p:outputLabel value="Observación:" for="contenedorComponente" 
+                                           rendered="#{mostrarOcultarController.edad >= 18 ? true:false}"/>
+                        </h:panelGroup>
+                    </td>
+                    <td>
+                        <h:panelGroup id="contenedorComponente">
+                            <p:inputTextarea rows="2" value="#{mostrarOcultarController.mensaje}"
+                                             rendered="#{mostrarOcultarController.edad >= 18 ? true:false}"/>
+                        </h:panelGroup>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>
+

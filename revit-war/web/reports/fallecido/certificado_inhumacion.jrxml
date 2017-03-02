@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificado_inhumacion" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af2718e2-e189-4641-b8d0-2d8251a2aa45">
+	<property name="ireport.zoom" value="0.9558924531310734"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="436"/>
+	<style name="Rotated180" mode="Opaque" forecolor="#FF33CC" hAlign="Center" vAlign="Middle" rotation="UpsideDown" fontName="Curlz MT" fontSize="40"/>
+	<style name="Rotated270" mode="Opaque" forecolor="#FF33CC" hAlign="Center" vAlign="Middle" rotation="Left" fontName="Curlz MT" fontSize="40"/>
+	<style name="Rotated90" mode="Opaque" forecolor="#FF33CC" hAlign="Center" vAlign="Middle" rotation="Left" fontName="Curlz MT" fontSize="40"/>
+	<style name="NotRotated" mode="Opaque" forecolor="#FF33CC" hAlign="Center" vAlign="Middle" rotation="None" fontName="Curlz MT" fontSize="40"/>
+	<style name="style1" mode="Opaque" forecolor="#000000" backcolor="#FFFFFF" rotation="None">
+		<paragraph lineSpacing="Single" spacingBefore="4" spacingAfter="8"/>
+	</style>
+	<parameter name="codigoBarras" class="java.lang.Object"/>
+	<parameter name="codigoQR" class="java.lang.Object"/>
+	<parameter name="institucion" class="java.lang.String"/>
+	<parameter name="usuarioLogeado" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombreFal" class="java.lang.String"/>
+	<field name="fkIdNacionalidad" class="java.lang.Object"/>
+	<field name="cedulaFal" class="java.lang.String"/>
+	<field name="sexoFal" class="java.lang.String"/>
+	<field name="fechaNacimientoFal" class="java.util.Date"/>
+	<field name="fkIdEstadoCivilFal" class="java.lang.Object"/>
+	<field name="edadFal" class="java.lang.Short"/>
+	<field name="fkIdTipEda" class="java.lang.Object"/>
+	<field name="fechaFallecimientoFal" class="java.util.Date"/>
+	<field name="fkIdAlfabetismo" class="java.lang.Object"/>
+	<field name="fkIdNivelInstruccion" class="java.lang.Object"/>
+	<field name="fkIdEtnia" class="java.lang.Object"/>
+	<field name="causaMuertaAFal" class="java.lang.String"/>
+	<field name="tiempoMuerteAFal" class="java.lang.String"/>
+	<field name="causaMuertaBFal" class="java.lang.String"/>
+	<field name="tiempoMuerteBFal" class="java.lang.String"/>
+	<field name="causaMuerteCFal" class="java.lang.String"/>
+	<field name="tiempoMuerteCFal" class="java.lang.String"/>
+	<field name="causaMuerteDFal" class="java.lang.String"/>
+	<field name="tiempoMuerteDFal" class="java.lang.String"/>
+	<field name="otrosMotivosPatologicosFal" class="java.lang.String"/>
+	<field name="tiempoMuerteOtrsMotivFal" class="java.lang.String"/>
+	<field name="observacionProfesionalFal" class="java.lang.String"/>
+	<field name="fechaFirmaFal" class="java.util.Date"/>
+	<field name="nombrePadreFal" class="java.lang.String"/>
+	<field name="nombreMadreFal" class="java.lang.String"/>
+	<field name="conyugeFal" class="java.lang.String"/>
+	<field name="provinciaDsFllcmntFal" class="java.lang.String"/>
+	<field name="cantonDsFllcmntFal" class="java.lang.String"/>
+	<field name="ciudadFllcmntFal" class="java.lang.String"/>
+	<field name="parroquiaDsFllcmntFal" class="java.lang.String"/>
+	<field name="localidadFllcmntFal" class="java.lang.String"/>
+	<background>
+		<band height="802" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="8bc2cb84-eaad-4596-af4f-41875c0bc320" mode="Transparent" x="0" y="0" width="555" height="82" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<image>
+				<reportElement uuid="93f5d2f7-d2d8-4e2c-8f14-86cd268783da" x="7" y="27" width="44" height="46"/>
+				<imageExpression><![CDATA["logo_registro_civil.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="f11d896d-eede-4472-8592-7d840fe96d55" mode="Transparent" x="0" y="3" width="555" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO SIMPLE GRATUITO PARA INHUMACIÓN Y SEPULTURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="86573b85-69e8-4f9b-8cd5-0cab7d18647d" mode="Transparent" x="65" y="26" width="167" height="11"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE CREACIÓN DEL REGISTRO:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="32b37c91-44d4-47be-8dcc-e24cfa9f1714" x="133" y="55" width="217" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="32b37c91-44d4-47be-8dcc-e24cfa9f1714" x="236" y="37" width="114" height="2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="86573b85-69e8-4f9b-8cd5-0cab7d18647d" mode="Transparent" x="65" y="45" width="58" height="14"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUCIÓN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="86573b85-69e8-4f9b-8cd5-0cab7d18647d" mode="Transparent" x="65" y="63" width="43" height="14"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USUARIO:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="32b37c91-44d4-47be-8dcc-e24cfa9f1714" x="128" y="74" width="217" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="034489b6-9d00-41da-b3d4-a82e7e16fa80" x="133" y="44" width="212" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{institucion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9d45ca56-5027-4766-9601-942f546d092a" x="133" y="62" width="212" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuarioLogeado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="bcf3765c-8ede-4760-928c-bd94e3fe1d94" x="239" y="26" width="106" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f11d896d-eede-4472-8592-7d840fe96d55" mode="Opaque" x="1" y="3" width="554" height="16" backcolor="#F0F0F0"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL FALLECIDO O FALLECIDA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="8bc2cb84-eaad-4596-af4f-41875c0bc320" mode="Transparent" x="0" y="0" width="555" height="20" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="672" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="48fdf292-fd60-4fa1-ae6a-6f08c50b473d" x="0" y="533" width="555" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="8bc2cb84-eaad-4596-af4f-41875c0bc320" mode="Transparent" x="0" y="553" width="555" height="113" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="87aac44a-e998-4d00-96d4-e03d92c3ebde" mode="Opaque" x="9" y="561" width="151" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO ÚNICO DE IDENTIFICACIÓN:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="32b37c91-44d4-47be-8dcc-e24cfa9f1714" x="157" y="570" width="393" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed" lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="f11d896d-eede-4472-8592-7d840fe96d55" mode="Opaque" x="1" y="534" width="554" height="18" backcolor="#F0F0F0"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DATOS DE IDENTIFICACIÓN ÚNICA DEL DOCUMENTO]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="c7f70a5a-f3d4-46b0-90af-b1ee64baad92" x="44" y="588" width="116" height="58"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $P{codigoBarras})]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="98f2bd1b-22f4-4dc1-a149-a60ac5e72e57" x="217" y="589" width="116" height="58"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $P{codigoQR})]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement uuid="6221d972-9834-4489-b766-e02bc81b4c5a" x="0" y="0" width="555" height="533"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="879210fe-1352-4dd5-9a98-514c8734b83c" x="5" y="8" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRES Y APELLIDOS:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2f7660c3-f059-4d58-8701-f3f9d210dcab" x="160" y="8" width="390" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreFal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="87e82a0a-7cba-4177-a5c4-55b5c016ebdc" x="5" y="31" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NACIONALIDAD:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e0f56c25-3f64-4503-ace1-cd870bb33862" x="161" y="31" width="389" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fkIdNacionalidad}.descNac]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fb640e0d-0d64-43dd-8d10-684840ca5f18" x="5" y="55" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO CIVIL:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="dafe40ae-950e-422c-a8b6-f4c6d6b05917" x="161" y="55" width="389" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fkIdEstadoCivilFal}.descEstCiv]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f38cfdc-fba4-44ea-81c0-b58659055a33" x="5" y="101" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEXO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c6444aa1-dfc9-48e7-aaaa-fd74873ab926" x="161" y="101" width="389" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexoFal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3032a61d-649f-48f6-a772-f40f51e3606e" x="5" y="124" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDAD:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="12bd11d9-c365-4192-861b-ac74ac1a1624" x="161" y="124" width="30" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edadFal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="10320881-509f-44b8-92e3-4a7dfc193922" x="191" y="124" width="359" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fkIdTipEda}.nombreTipEda]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d76d827a-54e7-46b3-8af3-cb860f221075" x="5" y="78" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONYUGE/CONVIVIENTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3474750c-c796-485a-ab37-d9f8be8b5b6c" x="5" y="148" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MADRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="717009bd-cc5f-4c0c-9964-af4d5e17dd27" x="5" y="172" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PADRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8e261d9e-fbf2-40fd-9d03-6daf096c5d94" x="5" y="197" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA FALLECIMIENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="09771687-50cb-4a7b-be55-e2195624b3ae" x="5" y="221" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LUGAR FALLECIMIENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="025e8ccd-3a1b-4796-8e64-f8f0042f7a2b" x="5" y="286" width="152" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAUSA FALLECIMIENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6ee0cb39-a9fc-44ff-880f-51bb86b47d88" x="6" y="311" width="151" height="34"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCTOR QUE DECLARA LA DEFUNCIÓN:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="55c421fa-6a2c-43e1-b5cf-76b59b78a5b1" x="161" y="78" width="389" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conyugeFal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f82734e9-43a7-4c7e-84b9-2934631359ca" x="161" y="148" width="389" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreMadreFal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="91b859d3-be22-48c1-b103-7f08639da463" x="161" y="172" width="389" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrePadreFal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement uuid="abc056a3-cda9-40ae-830c-43847df6bde7" x="161" y="197" width="389" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaFallecimientoFal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="eb48d316-b5ad-485f-9fdd-064bd6416fe0" x="164" y="221" width="386" height="60"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ECUADOR PROVINCIA DE " + $F{provinciaDsFllcmntFal} + ", CANTÓN  " + $F{cantonDsFllcmntFal} + ", PARROQUIA " + $F{parroquiaDsFllcmntFal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a7ce0791-4ffa-48a6-9443-b037a4c1b531" x="165" y="286" width="385" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{causaMuertaAFal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e1bd0246-608f-4528-a2a4-068bf78349ff" x="164" y="311" width="386" height="34"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dr(a). " + $P{usuarioLogeado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateRespuestaMuerteenestablecimTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateRespuestaMuerteenestablecimLabel_idResMueEnest}" for="idResMueEnest" />
+                    <h:inputText id="idResMueEnest" value="#{respuestaMuerteenestablecimController.selected.idResMueEnest}" title="#{bundle.CreateRespuestaMuerteenestablecimTitle_idResMueEnest}" required="true" requiredMessage="#{bundle.CreateRespuestaMuerteenestablecimRequiredMessage_idResMueEnest}"/>
+                    <h:outputLabel value="#{bundle.CreateRespuestaMuerteenestablecimLabel_valorReMueEnest}" for="valorReMueEnest" />
+                    <h:inputText id="valorReMueEnest" value="#{respuestaMuerteenestablecimController.selected.valorReMueEnest}" title="#{bundle.CreateRespuestaMuerteenestablecimTitle_valorReMueEnest}" required="true" requiredMessage="#{bundle.CreateRespuestaMuerteenestablecimRequiredMessage_valorReMueEnest}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{respuestaMuerteenestablecimController.create}" value="#{bundle.CreateRespuestaMuerteenestablecimSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{respuestaMuerteenestablecimController.prepareList}" value="#{bundle.CreateRespuestaMuerteenestablecimShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateRespuestaMuerteenestablecimIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

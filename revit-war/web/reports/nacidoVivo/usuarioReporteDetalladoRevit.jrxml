@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuarioReporteDetalladoRevit" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8e03aa2-1824-4cf3-b341-625151da702d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="138" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9139c271-8927-453a-930f-fb386c1599c0" x="10" y="10" width="780" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DETALLADO POR USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5c8b2df2-acd3-4c3a-96de-43379b17f7e7" x="22" y="49" width="208" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USUARIO QUE GENERA EL REPORTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e416ca23-dfd5-4595-8069-c0080725a082" x="236" y="49" width="145" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="11dbfe0c-76ef-4fe3-a255-98cf7b1d8f79" x="436" y="49" width="219" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE GENERACIÓN DEL REPORTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6425a483-e095-4ae1-9629-7f1b72b6ed10" x="669" y="49" width="121" height="20"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="909a303e-b2ee-4417-bbfc-63d8c688cc2a" x="22" y="77" width="113" height="20"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RANGO DE FECHAS:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="353e4199-2b08-4606-8591-88107412d381" x="248" y="79" width="89" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaNacFin}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="2defa5c5-a48c-4ebd-bd4c-95b6acfc171d" x="145" y="79" width="85" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaNacIni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6c0a2154-8ffd-478e-ac12-ce3d2fb5a9b3" x="234" y="79" width="10" height="15"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e271e9e5-561e-4e7e-815c-f9aa03c60ec2" x="435" y="80" width="80" height="15"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUCIÓN:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="6c834479-9cf6-42d2-a927-9a508ad62798" x="526" y="77" width="264" height="17"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{institucion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7fc08020-ba85-4854-8025-790ddc0d431c" x="145" y="106" width="645" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{unidadMedica}.equals(null) ? "TODAS." : $P{unidadMedica})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a5da226d-af3d-400d-91a0-d462b0ad304e" stretchType="RelativeToBandHeight" x="22" y="106" width="113" height="15" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[  ESTAB. DE SALUD:  ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p/>
+
+                <p:fieldset id="fieldsetgenerico" style="#{util.WidthPfieldset}" legend="Editar registro" > 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false" >
+                        <p:growl id="growl" sticky="false" life="3000" autoUpdate="false"/>  
+
+                        <br/> 
+                        <p:fieldset  style="width: 800px;  height: 72px; padding: 5px; " legend="Datos Actuales del Nacido Vivo">
+                            <table id="tabla">
+                                <tr>
+                                    <td style=" width: 350px;" align="left">
+                                        <h:outputText value="Nombre: " style="font-weight: bold; font-size: 11px;"/>
+                                        <h:outputText id="nombrNV1" value="#{editarAnulacionController.nacidoAEditar.nombrNacViv} #{editarAnulacionController.nacidoAEditar.apellNacViv}" style=" font-size: 11px;" />
+                                    </td>
+                                    <td></td>
+                                    <td  align="left">
+                                        <h:outputText value="Número de Identificación: " style="font-weight: bold; font-size: 11px;"/>
+                                        <h:outputText id="cedNV1" value="#{editarAnulacionController.nacidoAEditar.cedulNacViv}" style=" font-size: 11px;" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style=" width: 350px;" align="left">
+                                        <h:outputText value="Nombre Madre: " style="font-weight: bold; font-size: 11px;"/>
+                                        <h:outputText id="nombrMadNV" value="#{editarAnulacionController.nacidoAEditar.fkCedulMad.nombrMad} " style=" font-size: 11px;" />
+                                    </td>
+                                    <td></td>
+                                    <td  align="left">
+                                        <h:outputText value="Cédula Madre: " style="font-weight: bold; font-size: 11px;"/>
+                                        <h:outputText id="cedMadNV1" value="#{editarAnulacionController.nacidoAEditar.fkCedulMad.cedulMad}" style=" font-size: 11px;" />
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td style=" width: 350px;" align="left">
+                                        <h:outputText value="Sexo: " style="font-weight: bold; font-size: 11px;"/>
+                                        <h:outputText id="sexoNV1" value="#{editarAnulacionController.nacidoAEditar.fkIdSexoNv.descrSexo} " style=" font-size: 11px;" />
+                                    </td>
+                                    <td></td>
+                                    <td  align="left">
+                                        <h:outputText value="Fecha de Nacimiento: " style="font-weight: bold; font-size: 11px;"/>
+                                        <h:outputText id="fechNacNV1" value="#{editarAnulacionController.formatoFecha(editarAnulacionController.nacidoAEditar.fechaNacimNacViv) }" style=" font-size: 11px;" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </p:fieldset> 
+                        <br/>
+                        <ui:repeat id="renderizaComponentes" value="#{editarAnulacionController.anulacion.err}" var="err">
+                            <p:fieldset  id="fechaNacNV" style="width: 800px;  height: 52px; padding: 5px;" legend="Datos de Fecha de Nacimiento del Nacido Vivo" rendered="#{(err.id) eq 4}">
+                                <table id="tabla1">
+                                    <tr>
+                                        <td style=" width: 350px;" align="left">
+                                            <h:outputText value="Fecha de Nacimiento: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:calendar id="fechaNacimiento" value="#{editarAnulacionController.fechaAControlar}" 
+                                                        placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" 
+                                                        pattern="dd/MM/yyyy" navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" 
+                                                        style="#{util.WidthCalendar}" maxdate="#{editarAnulacionController.fechaSuperior}" mindate="#{editarAnulacionController.fechaInferior}"
+                                                        title="Selección de fecha nacimiento del nacido vivo">
+                                                <f:attribute value="#{editarAnulacionController.nacidoAEditar.fechaNacimNacViv}" name="fechaSis"/>
+                                                <f:validator id="fechaNacAnu" validatorId="fechaNacimientoAnulacionValidator"/>
+                                            </p:calendar>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:fieldset> 
+                            <h:panelGroup rendered="#{(err.id) eq 4}">
+                                <br/>
+                            </h:panelGroup>
+                            <p:fieldset id="sexoNacNV" style="width: 800px;  height: 52px; padding: 5px; " legend="Datos del Sexo del Nacido Vivo" rendered="#{(err.id) eq 3}">
+                                <table id="tabla11">
+                                    <tr>
+                                        <td  align="left">
+                                            <h:outputText value="Sexo: " style="font-weight: bold; font-size: 11px;"/>
+
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="fkIdSexoNv" value="#{editarAnulacionController.sexoAControlar}" required="true" requiredMessage="#{campos.SexoM}" style="#{util.WidthCombo}">
+                                                    <f:selectItems value="#{sexoRenaviCDLController.itemsAvailableSelectOne}"/>
+                                                    <f:ajax execute="@this"/>
+                                                    <f:attribute value="#{editarAnulacionController.nacidoAEditar.fkIdSexoNv}" name="sexoSis"/>
+                                                    <f:validator id="sexoNacAnu" validatorId="sexoAnulacionValidator"/>
+                                                </p:selectOneMenu>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:fieldset> 
+                            <h:panelGroup  rendered="#{(err.id) eq 3}">
+                                <br/>
+                            </h:panelGroup>
+                            <p:fieldset id="madreNacNV" style="width: 800px;   padding: 5px; " legend="Datos de la Madre" rendered="#{(err.id) eq 1}">
+                                <table id="tabla2">
+                                    <tr>
+                                        <td style=" width: 400px;height:21px " align="left">
+                                            <h:outputText value="Nombre: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="nombrMad" value="#{editarAnulacionController.nacidoAEditar.fkCedulMad.nombrMad}" style="#{util.UppercaseWidth};font-size: 11px;"  >
+                                                <f:converter converterId="uperCaseConverter"/>
+                                            </p:outputLabel>
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Cédula: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="cedulMad" value="#{editarAnulacionController.nacidoAEditar.fkCedulMad.cedulMad}" style="#{util.Width};font-size: 11px;"  />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style=" width: 350px;height:21px" align="left">
+                                            <h:outputText value="Fecha de Nacimiento: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="fechaNacimMad" value="#{editarAnulacionController.nacidoAEditar.fkCedulMad.fechaNacimMad}" style="#{util.Width};font-size: 11px;"  >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:outputLabel>
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Edad: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="edadMad" value="#{editarAnulacionController.nacidoAEditar.edadMad}" style="#{util.Width};font-size: 11px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style=" width: 350px;height:21px" align="left">
+                                            <h:outputText value="Sexo: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="sexoMad" value="#{editarAnulacionController.nacidoAEditar.sexoMad}" style=" font-size: 11px;" >
+                                                <f:converter converterId="uperCaseConverter"/>
+                                            </p:outputLabel>
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Estado Civil: " style="font-weight: bold; font-size: 11px;"/>
+                                            <h:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <p:selectOneMenu id="fkIdEstCivMad" value="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad}"
+                                                             required="true" requiredMessage="#{campos.EstadoCivilM}"
+                                                             style="width: 200px;height: 20px; font-size: 11px;" >
+                                                <f:selectItems value="#{estadoCivilRenaviCDLController.itemsAvailableSelectOne}" var="item"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="fkIdEstCivMad" display="#{util.DisplayMessage}"/>
+                                        </td>
+                                    </tr>   
+                                    <tr>
+                                        <td style=" width: 350px;height:21px" align="left">
+                                            <h:outputText value="Condición Ciudadania: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="condicCedMad" value="#{editarAnulacionController.nacidoAEditar.condicCedMad}" style="#{util.UppercaseWidth} #{madreRenaviCDLController.hijoAux.condicCedMad.contains('FALLECIDO') ? 'background-color: #F7FE2E;':''};  font-size: 11px;">
+                                                <f:converter converterId="uperCaseConverter"/>
+                                            </p:outputLabel>
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Fecha Fallecimiento: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="fecFallecMad" value="#{editarAnulacionController.nacidoAEditar.fecFallecMad}" style="#{util.UppercaseWidth} #{not madreRenaviCDLController.hijoAux.fecFallecMad eq null ? 'background-color: #F7FE2E;':''};   font-size: 11px;">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:outputLabel>
+                                        </td>
+                                    </tr>   
+                                    <tr>
+                                        <td style=" width: 350px;height:21px" align="left">
+                                            <h:outputText value="Nombre de la Madre: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="nomMadreMad" value="#{editarAnulacionController.nacidoAEditar.fkCedulMad.nomMadreMad}" style="#{util.UppercaseWidth}; font-size: 11px;"  >
+                                                <f:converter converterId="uperCaseConverter"/>
+                                            </p:outputLabel> 
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Nombre del Padre: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="nomPadreMad" value="#{editarAnulacionController.nacidoAEditar.fkCedulMad.nomPadreMad}" style="#{util.UppercaseWidth}; font-size: 11px;">
+                                                <f:converter converterId="uperCaseConverter"/>
+                                            </p:outputLabel> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style=" width: 350px;height:20px" align="left">
+                                            <h:outputText value="Nacionalidad: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="fkIdNacionalidad" value="#{editarAnulacionController.nacidoAEditar.fkIdNacMad}" style="#{util.UppercaseWidth}; font-size: 11px;">
+                                                <f:converter converterId="uperCaseConverter"/>
+                                            </p:outputLabel> 
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Identidad étnica: " style="font-weight: bold; font-size: 11px;"/>
+                                            <h:outputText value="&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="fkIdIdeEtnMad" value="#{editarAnulacionController.nacidoAEditar.fkIdIdeEtnMad}" required="true" requiredMessage="#{campos.EtniaM}" style="width: 200px;height: 20px; font-size: 11px;" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null ? true:false}">
+                                                    <f:selectItems value="#{identificacionEtnicaRenaviCDLController.itemsAvailableSelectOne}"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="fkIdIdeEtnMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>  
+                                    <tr>
+                                        <td style=" width:350px;height:20px;" align="left">
+                                            <h:outputText value="Cod Pais: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="fkIdPaisMad" value="#{editarAnulacionController.nacidoAEditar.fkIdPaisMad}" style="#{util.UppercaseWidth}; font-size: 11px;">
+                                                <f:converter converterId="uperCaseConverter"/>
+                                            </p:outputLabel>
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Cod. Pais INEC: " style="font-weight: bold; font-size: 11px;"/>
+                                            <p:outputLabel id="campoInecCodPaisMad" value="#{editarAnulacionController.nacidoAEditar.campoInecCodPaisMad}" style="#{util.Width}; font-size: 11px;"/>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style=" width: 350px;height:20px;" align="left">
+                                            <h:outputText value="Sabe Leer: " style="font-weight: bold; font-size: 11px;"/>
+                                            <h:outputText value="&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="fkIdSabeLeerMad" value="#{editarAnulacionController.nacidoAEditar.fkIdSabeLeerMad}" required="true" requiredMessage="#{campos.SabeLeerEscribirM}"  valueChangeListener="#{editarAnulacionController.cambiarSabeLeer}" disabled="#{editarAnulacionController.nacidoAEditar.edadMad eq null or editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}" style="width: 200px;height: 20px; font-size: 11px;" >
+                                                    <f:selectItems value="#{alfabetismoRenaviCDLController.itemsAvailableSelectOne}"/>
+                                                    <f:ajax render="fkIdNivelInstr"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="fkIdSabeLeerMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td  align="left">
+                                            <h:outputText value="Instrucción: " style="font-weight: bold; font-size: 11px;"/>
+                                            <h:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                             <h:panelGroup>
+                                                <p:selectOneMenu id="fkIdNivelInstr" value="#{editarAnulacionController.nacidoAEditar.fkIdNivelInstr}" required="true" requiredMessage="#{campos.InstruccionAlcanzadaM}" style="width: 200px;height: 20px; font-size: 11px;" disabled="#{editarAnulacionController.nacidoAEditar.fkIdSabeLeerMad.idAlfb eq 2 or editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null ? true:false}">
+                                                    <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{editarAnulacionController.nivelesInstruccion}" var="item" itemLabel="#{item.descrNivInst}" itemValue="#{item}"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="fkIdNivelInstr" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>  
+                                </table>
+                            </p:fieldset> 
+                            <h:panelGroup rendered="#{(err.id) eq 1}">
+                                <br/>
+                            </h:panelGroup>
+                            <p:fieldset id="residMacNV" legend="Residencia Habitual de la Madre" rendered="#{err.id eq 1}" style="width: 800px; padding: 5px; " >
+                                <table id="tabla3">
+                                    <tr>
+                                        <td style=" width: 400px;height:21px " align="left">
+                                            <p:outputLabel value="#{campos.NomPaisL}" for="fkIdPaisResidnMad"/>
+                                            <h:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="fkIdPaisResidnMad" value="#{editarAnulacionController.nacidoAEditar.fkIdPaisResidnMad}" filter="true" filterMatchMode="contains" required="true" requiredMessage="#{campos.PaisM}"
+                                                                 valueChangeListener="#{editarAnulacionController.cambiarPaisResidnMad}"
+                                                                 style="width: 200px;height: 20px; font-size: 11px;">
+                                                    <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{editarAnulacionController.listPais}" var="itemPais" itemLabel="#{itemPais.descPais}" itemValue="#{itemPais}"/>
+                                                    <f:ajax render="residnProvdsMad residnCantdsMad residnParrdsMad"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="fkIdPaisResidnMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td></td>
+                                        <td align="left" >
+                                            <h:outputText value="Dirección:"  style="font-weight: bold; font-size: 11px;" />
+                                            <h:outputText value="&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="residnDirecMad" value="#{editarAnulacionController.nacidoAEditar.residnDirecMad}" required="true" requiredMessage="#{campos.DireccionM}" style="#{util.UppercaseWidth};font-size: 11px;" maxlength="50" >
+                                                    <f:converter converterId="uperCaseConverter"/>
+                                                    <f:ajax execute="@this"/>
+                                                </p:inputText>
+                                                <p:message for="residnDirecMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style=" width: 400px;height:21px " align="left">
+                                            <h:outputText value="Provincia:"  style="font-weight: bold; font-size: 11px;" />
+                                            <h:outputText value="&nbsp;&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="residnProvdsMad" value="#{editarAnulacionController.provincia}"
+                                                                 required="true" requiredMessage="#{campos.ProvinciaM}" valueChangeListener="#{editarAnulacionController.cambiarProvincia}"
+                                                                 style="width: 200px;height: 20px; font-size: 11px;" 
+                                                                 filter="true" filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{editarAnulacionController.provincias}" var="itemProv" itemLabel="#{itemProv.derscripcion}" itemValue="#{itemProv.codDpa}.- #{itemProv.derscripcion}"/>
+                                                    <f:ajax render="residnCantdsMad residnParrdsMad"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="residnProvdsMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>  
+                                        <td></td>
+                                        <td>
+                                            <h:outputText value="Localidad"  style="font-weight: bold; font-size: 11px;" />
+                                            <h:outputText value="&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:inputText id="residnLocalMad" value="#{editarAnulacionController.nacidoAEditar.residnLocalMad}" style="#{util.UppercaseWidth};font-size: 11px;" maxlength="50" >
+                                                    <f:converter converterId="uperCaseConverter"/>
+                                                    <f:ajax execute="@this"/>
+                                                </p:inputText>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="Cantón:"  style="font-weight: bold; font-size: 11px;" />
+                                            <h:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="residnCantdsMad" value="#{editarAnulacionController.canton}"
+                                                                 required="true" requiredMessage="#{campos.CantonM}" valueChangeListener="#{editarAnulacionController.cambiarCanton}"
+                                                                 style="width: 200px;height: 20px; font-size: 11px;" 
+                                                                 filter="true" filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{editarAnulacionController.cantones}" var="itemCant" itemLabel="#{itemCant.derscripcion}" itemValue="#{itemCant.codDpa}.- #{itemCant.derscripcion}"/>
+                                                    <f:ajax render="residnParrdsMad"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="residnCantdsMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="Parroquia:"  style="font-weight: bold; font-size: 11px;" />
+                                            <h:outputText value="&nbsp;" style="font-weight: bold; font-size: 11px;"/>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="residnParrdsMad" value="#{editarAnulacionController.parroquia}"
+                                                                 required="true" requiredMessage="#{campos.ParroquiaM}" valueChangeListener="#{editarAnulacionController.cambiarParroquia}"
+                                                                 style="width: 200px;height: 20px; font-size: 11px;" 
+                                                                 filter="true" filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{editarAnulacionController.parroquias}" var="itemParr" itemLabel="#{itemParr.derscripcion}" itemValue="#{itemParr.codDpa}.- #{itemParr.derscripcion}"/>
+                                                    <f:ajax render="@this"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="residnParrdsMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </p:fieldset>
+                            <h:panelGroup rendered="#{(err.id) eq 1}">
+                                <br/>
+                            </h:panelGroup>
+                            <p:fieldset id="datGestAct" legend="Datos gestacionales actuales" rendered="#{err.id eq 2 }" >   
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.NumeroPartoSistemaL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel id="numPartoSistema" value="#{editarAnulacionController.nacidoAEditar.numPartoSistema}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="Semanas de Gestación:"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                            <p:inputText id="semanGstcnNacViv" value="#{editarAnulacionController.nacidoAEditar.semanGstcnNacViv}" placeholder="#{campos.SemanasGestacionPH}" onblur="valSemGestacionAnulacion();" required="true" requiredMessage="#{campos.SemanasGestacionM}" maxlength="2" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                            <p:message id="semanGstcnNacVivMsg" for="semanGstcnNacViv" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            <h:outputText value="#{campos.ControlesPrenatalesL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="cntrlPrntlNacViv" placeholder="#{campos.ControlesPrenatalesPH}" onblur="valContPrenatalesAnulacion();"  maxlength="2" value="#{editarAnulacionController.nacidoAEditar.cntrlPrntlNacViv}" required="true" requiredMessage="#{campos.ControlesPrenatalesM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                                <p:message id="cntrlPrntlNacVivMsg" for="cntrlPrntlNacViv" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.ProductoEmbarazoL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:selectOneMenu id="fkIdProEmb" value="#{editarAnulacionController.nacidoAEditar.fkIdProEmb}" required="true" requiredMessage="#{campos.ProductoEmbarazoM}" style="#{util.WidthPreguntaCombo}" disabled="true">
+                                                    <f:selectItems value="#{productoEmbarazoRenaviCDLController.itemsAvailableSelectOne}"/>
+                                                </p:selectOneMenu>
+                                                <p:message for="fkIdProEmb" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 360px;height:20px">
+                                            <h:outputLabel value="#{campos.NumHijosNacierVivSistemaL}" style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="hijosNacierVivSistema" placeholder="#{campos.NumHijosNacierVivSistemaPH}" onblur="valHijosVivSistemaAnulacion();" maxlength="2" value="#{editarAnulacionController.nacidoAEditar.hijosNaciervivSistema}" required="true" requiredMessage="#{campos.NumHijosNacierVivSistemaM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                                <p:message id="hijosNacierVivSistemaMsg" for="hijosNacierVivSistema" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.NumHijosNacierMuertSistemaL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="hijosNacierMuertSistema" placeholder="#{campos.NumHijosNacierMuertSistemaPH}" onblur="valHijosMuertSistemaAnulacion();" maxlength="2" value="#{editarAnulacionController.nacidoAEditar.hijosNaciermuertSistema}" required="true" requiredMessage="#{campos.NumHijosNacierMuertSistemaM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                                <p:message id="hijosNacierMuertSistemaMsg" for="hijosNacierMuertSistema" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:fieldset>
+                            <h:panelGroup rendered="#{(err.id) eq 2}">
+                                <br/>
+                            </h:panelGroup>
+                            <p:fieldset id="datGestHist" legend="Datos gestacionales históricos" rendered="#{err.id eq 2 }" >  
+                                <table id="tabla5">
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.NumeroPartoL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="numerPartoNacViv" placeholder="#{campos.NumeroPartosPH}" onblur="valNumeroPartoAnulacion();" maxlength="2" value="#{editarAnulacionController.nacidoAEditar.numerPartoNacViv}" required="true" requiredMessage="#{campos.NumeroPartoM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}" />
+                                                <p:message id="numerPartoNacVivMsg" for="numerPartoNacViv" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td>
+                                            <h:panelGroup id="lblnumerPartoNacViv">
+                                                <h:outputLabel value="Parto anterior: #{editarAnulacionController.numParto}" rendered="#{editarAnulacionController.numParto eq null or editarAnulacionController.numParto == 0 ?false:true}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.NumeroEmbarazosL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="numeroEmbarazosMad" value="#{editarAnulacionController.nacidoAEditar.numeroEmbarazosMad}" placeholder="#{campos.NumeroEmbarazosPH}" onblur="valNumEmbarazosAnulacion();" required="true" requiredMessage="#{campos.NumeroEmbarazosM}" maxlength="2" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                                <p:message id="numeroEmbarazosMadMsg" for="numeroEmbarazosMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.NumHijosVivosActualmenteL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="hijosVivsaMad" placeholder="#{campos.NumHijosVivosActualmentePH}" onblur="valHijosVivAnulacion();" maxlength="2" value="#{editarAnulacionController.nacidoAEditar.hijosVivsaMad}" required="true" requiredMessage="#{campos.NumHijosVivosActualmenteM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                                <p:message id="hijosVivsaMadMsg" for="hijosVivsaMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td>
+                                            <h:panelGroup id="lblhijosVivsaMad">
+                                                <h:outputLabel value="Hijos vivos: #{editarAnulacionController.numHijosvivos}" rendered="#{editarAnulacionController.numHijosvivos eq null or editarAnulacionController.numHijosvivos == 0 ?false:true}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.NumHijosNacieronVivosHanMuertoL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="hijosNvmrtMad" placeholder="#{campos.NumHijosNacieronVivosHanMuertoPH}" onblur="valHijosVivHanMuertAnulacion();" maxlength="2" value="#{editarAnulacionController.nacidoAEditar.hijosNvmrtMad}" required="true" requiredMessage="#{campos.NumHijosNacieronVivosHanMuertoM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                                <p:message id="hijosNvmrtMadMsg" for="hijosNvmrtMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td>
+                                            <h:panelGroup id="lblhijosNvmrtMad">
+                                                <h:outputLabel value="Hijos vivos que han muerto: #{editarAnulacionController.numHijosVivMuertos}" rendered="#{editarAnulacionController.numHijosVivMuertos eq null or editarAnulacionController.numHijosVivMuertos == 0 ?false:true}"/>
+                                            </h:panelGroup> 
+                                        </td>
+                                    </tr>    
+                                    <tr>
+                                        <td>
+                                            <h:outputText value="#{campos.HijosNacieronMuertosL}"  style="font-weight: bold; font-size: 11px;" />
+                                        </td>
+                                        <td>
+                                            <h:panelGroup>
+                                                <p:inputText id="hijosNmrtsMad" placeholder="#{campos.NumHijosNacieronMuertosPH}" onblur="valHijosMuertAnulacion();" maxlength="2" value="#{editarAnulacionController.nacidoAEditar.hijosNmrtsMad}" required="true" requiredMessage="#{campos.HijosNacieronMuertosM}" style="#{util.WidthPregunta}" onkeypress="return permite(event, 'num')" disabled="#{editarAnulacionController.nacidoAEditar.fkIdEstCivMad.descEstCiv eq null? true:false}"/>
+                                                <p:message id="hijosNmrtsMadMsg" for="hijosNmrtsMad" display="#{util.DisplayMessage}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                        <td>
+                                            <h:panelGroup id="lblhijosNmrtsMad">
+                                                <h:outputLabel value="Hijos que nacieron muertos: #{editarAnulacionController.numHijosNacierMuertos}" rendered="#{editarAnulacionController.numHijosNacierMuertos eq null or editarAnulacionController.numHijosNacierMuertos == 0 ? false:true}"/>
+                                            </h:panelGroup>
+                                        </td>
+                                    </tr>    
+                                </table>
+                            </p:fieldset>
+                            <h:panelGroup rendered="#{(err.id) eq 2}">
+                                <br/>
+                            </h:panelGroup>
+                        </ui:repeat>
+                        <h:panelGroup rendered="#{(err.id) eq 2}">
+                            <br/>
+                        </h:panelGroup>
+                        <p:commandButton id="btnEdit" value="Editar" action="#{editarAnulacionController.editar()}" process="@this @form" update="@form" onclick="if (!saveMAnulacion())return false;" title="Editar registro"/>
+                        <p:commandButton id="btnCancel" value="Cancelar" action="#{editarAnulacionController.cancelar() }" immediate="true" title="Cancelar edición"/>
+                   </h:form>
+                </p:fieldset>
+
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

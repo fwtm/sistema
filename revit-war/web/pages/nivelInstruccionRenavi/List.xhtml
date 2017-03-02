@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:fieldset legend="#{campos.VerNivelInstruccionL}" style="#{util.WidthPfieldset}" >
+                   
+                    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                    <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                              draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                        <h:graphicImage library="images" name="cargando.gif"/> 
+                    </p:dialog>
+                    <h:form id="hfrmList">
+                        <p:growl id="messages" autoUpdate="true" life="#{util.GrowlLifeMin}"/>
+                        <div align="left">
+                            <p:commandLink action="#{nivelInstruccionRenaviCDLController.prepareCreate}" title="#{campos.Crear}" style="margin-bottom: 2px" >
+                                <p:graphicImage library="images/icons" name="mas.png"/>
+                            </p:commandLink>
+                        </div>
+                        <p:dataTable id="pdtTblItems" value="#{nivelInstruccionRenaviCDLController.items}" var="item" emptyMessage="#{campos.NoHayDatos}" scrollable="true" scrollHeight="200" resizableColumns="true" paginator="true" paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                            <f:facet name="header">
+                                <h:outputText value="#{campos.ListaNivelInstruccion}"/>
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{campos.ListNivelInstruccionRenaviTitle_descrNivInst}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descrNivInst}"/>
+                            </p:column>
+                            <p:column headerText="#{campos.OpcionesT}" style="#{util.Opciones}">
+                                <p:commandLink action="#{nivelInstruccionRenaviCDLController.prepareView}" value="#{campos.Ver}">
+                                    <f:param value="#{item.idNivIns}" name="idNivIns" />
+                                    <f:param value="ver" name="operacion"/>
+                                </p:commandLink>
+                                <h:outputText value=" "/>
+                                <p:commandLink action="#{nivelInstruccionRenaviCDLController.prepareEdit}" onclick="if (!confirm('¿ #{campos.ConfirmacionEdicion} #{item.descrNivInst} ?')) return false" value="#{campos.Editar}">
+                                    <f:param value="#{item.idNivIns}" name="idNivIns" />
+                                    <f:param value="editar" name="operacion"/>
+                                </p:commandLink>
+                                <h:outputText value=" "/>
+                                
+                            </p:column>
+                        </p:dataTable>
+                        <br />
+                    </h:form>
+               </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

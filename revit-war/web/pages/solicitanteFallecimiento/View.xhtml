@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSolicitanteFallecimientoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_edadSolFal}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.edadSolFal}" title="#{bundle.ViewSolicitanteFallecimientoTitle_edadSolFal}"/>
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_causaProbableMuerte}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.causaProbableMuerte}" title="#{bundle.ViewSolicitanteFallecimientoTitle_causaProbableMuerte}"/>
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_sintomasSolFal}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.sintomasSolFal}" title="#{bundle.ViewSolicitanteFallecimientoTitle_sintomasSolFal}"/>
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_direccionSolFal}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.direccionSolFal}" title="#{bundle.ViewSolicitanteFallecimientoTitle_direccionSolFal}"/>
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_tipoInvolucrado}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.tipoInvolucrado}" title="#{bundle.ViewSolicitanteFallecimientoTitle_tipoInvolucrado}"/>
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_parentesco}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.parentesco}" title="#{bundle.ViewSolicitanteFallecimientoTitle_parentesco}"/>
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_fallecido}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.fallecido}" title="#{bundle.ViewSolicitanteFallecimientoTitle_fallecido}"/>
+                    <h:outputText value="#{bundle.ViewSolicitanteFallecimientoLabel_ciudadanoInvolucrado}"/>
+                    <h:outputText value="#{solicitanteFallecimientoController.selected.ciudadanoInvolucrado}" title="#{bundle.ViewSolicitanteFallecimientoTitle_ciudadanoInvolucrado}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{solicitanteFallecimientoController.destroyAndView}" value="#{bundle.ViewSolicitanteFallecimientoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSolicitanteFallecimientoEditLink}"/>
+                <br />
+                <h:commandLink action="#{solicitanteFallecimientoController.prepareCreate}" value="#{bundle.ViewSolicitanteFallecimientoCreateLink}" />
+                <br />
+                <h:commandLink action="#{solicitanteFallecimientoController.prepareList}" value="#{bundle.ViewSolicitanteFallecimientoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSolicitanteFallecimientoIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

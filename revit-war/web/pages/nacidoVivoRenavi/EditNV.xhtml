@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:growl id="mssgsBusquedaNV" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+    <div align="left" class="divAtras">
+        <h:panelGrid columns="1">
+            <p:commandLink id="btnAtrasNV" action="#{madreRenaviEVController.atrasNV}" title="#{campos.Atras}" process="@this" oncomplete="PF('statusDialog').hide();" onclick="if (!confirm('¿#{campos.ConfirmacionRegrTabMadre}?'))
+                        return false">
+                <div class="atras"/>
+            </p:commandLink>
+        </h:panelGrid>    
+    </div>
+    <p:fieldset legend="#{campos.DatResultadosMadre}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NombreMadreL}" for="nombrMadNV" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="nombrMadNV" value="#{madreRenaviEVController.selected.nombrMad}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulMadNV" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="cedulMadNV" value="#{madreRenaviEVController.selected.cedulMad}" style="#{util.Width}"/>
+                </td>
+                <td/>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset legend="#{campos.DatGenNacidoVivo}" style="#{util.WidthPfieldset}">
+        <p:dataTable id="pdtTblHijos" value="#{madreRenaviEVController.hijosAux}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                     scrollable="true" scrollHeight="#{util.DlgTableHeightMediano}" resizableColumns="true"
+                     paginator="true" paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+            <f:facet name="header">
+                <h:outputText value="#{campos.Hijos}"/>
+            </f:facet>
+            <p:column width="#{util.OpcionesSeleccionar}">
+                <p:commandLink action="#{madreRenaviEVController.completarDatosNV}" title="#{campos.Editar}" process="@this" oncomplete="PF('statusDialog').hide();">
+                    <div class="editar"/>
+                    <f:param name="numeroProducto" value="#{item.numeroProductoNacViv}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column headerText="#{campos.NumeroProductoT}" width="#{util.Codigo}">
+                <h:outputText value="#{item.numeroProductoNacViv}"/>
+            </p:column>
+            <p:column headerText="#{campos.FechaNacimientoT}" width="#{util.Fecha}">
+                <h:outputText value="#{item.fechaNacimNacViv}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="#{campos.NombresT}" width="#{util.Nombre}">
+                <h:outputText value="#{item.apellNacViv} #{item.nombrNacViv}"/>
+            </p:column>
+            <p:column headerText="#{campos.SexoT}" width="#{util.Codigo}">
+                <h:outputText value="#{item.fkIdSexoNv.descrSexo}"/>
+            </p:column>
+            <p:column headerText="#{campos.DetalleT}" width="#{util.OpcionesSeleccionar}">
+                <div>
+                    <p:graphicImage id="img" library="images/icons" name="hijo.png" width="12px" height="12px"/>
+                    <p:tooltip for="img" styleClass="tooltip" showEffect="clip" hideEffect="fade" style="height:auto; width:235px;">
+                        <table>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    #{campos.FechaNacimientoL}
+                                </td>
+                                <td>
+                                    <h:outputText value="#{item.fechaNacimNacViv}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    #{campos.PesoL}
+                                </td>
+                                <td>
+                                    #{item.pesoNacViv}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    #{campos.TallaL}
+                                </td>
+                                <td>
+                                    #{item.tallaNacViv}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    #{campos.Apgar1L}
+                                </td>
+                                <td>
+                                    #{item.apgar1NacViv}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    #{campos.Apgar2L}
+                                </td>
+                                <td>
+                                    #{item.apgar2NacViv}
+                                </td>
+                            </tr>
+                            <tr style="text-align: left;">
+                                <td style="font-weight: bold;">
+                                    #{campos.SemanasGestacionL}
+                                </td>
+                                <td>
+                                    #{item.semanGstcnNacViv}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    #{campos.TipoPartoL}
+                                </td>
+                                <td>
+                                    #{item.fkIdTipPar.descrTipPar}
+                                </td>
+                            </tr>
+                        </table>
+                    </p:tooltip>
+                </div>
+            </p:column>
+        </p:dataTable>
+    </p:fieldset>
+    <br />
+    <h:panelGrid id="cntndrBotonesNV" columns="1" cellspacing="0" styleClass="text-align-left">
+        <p:commandLink id="btnCreateNV" action="#{madreRenaviEVController.saveNV}" title="#{campos.Guardar}" process="@this" oncomplete="PF('statusDialog').hide();" onclick="if (!saveN())
+                    return false;">
+            <div class="guardar"/>
+        </p:commandLink>
+    </h:panelGrid>
+
+    <p:dialog id="idHijoDialog" header="#{campos.IngresoDatos}" widgetVar="hijoDialog" modal="true" closable="false" draggable="false" width="#{util.DlgWidthPequenio}" height="500px">
+        <div align="center" class="cntndrTableDlg">
+            <fieldset>
+                <table width="100%" style="text-align-left" border="0">
+                    <tr>
+                        <td width="135px">
+                            <p:outputLabel value="#{campos.NombresL}" for="nombrNacViv" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td width="245px">
+                            <h:panelGroup>
+                                <p:inputText id="nombrNacViv" value="#{madreRenaviEVController.hijoAux.nombrNacViv}" required="true" requiredMessage="#{campos.NombresM}" maxlength="50" style="#{util.UppercaseWidth}" onblur="asignarNombre();" onfocus="asignarNombreFocus();">
+                                    <f:converter converterId="uperCaseConverter"/>
+                                </p:inputText>
+                                <p:message id="nombrNacVivMsg" for="nombrNacViv" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup>
+                        </td>
+                        <td width="12px"/>
+                        <td width="135px">
+                            <p:outputLabel value="#{campos.ApellidosL}" for="apellNacViv" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td width="245px">
+                            <p:outputLabel id="apellNacViv" value="#{madreRenaviEVController.hijoAux.apellNacViv}">
+                                <f:converter converterId="uperCaseConverter"/>
+                            </p:outputLabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135px">
+                            <p:outputLabel value="#{campos.FechaNacimientoL}" for="fechaNacimiento" style="#{util.outputTextTitulo}"/> 
+                        </td>
+                        <td width="245px">
+                            <h:panelGroup>
+                                <p:calendar id="fechaNacimiento" value="#{madreRenaviEVController.hijoAux.fechaNacimNacViv}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" pattern="dd/MM/yyyy" navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" mindate="#{madreRenaviEVController.fechaPrenacimiento}" maxdate="#{madreRenaviEVController.fechaP}" >
+                                    <f:attribute name="fechaPrenacimiento" value="#{madreRenaviEVController.fechaPrenacimiento}" />
+                                    <f:attribute name="fechaCreacion" value="#{madreRenaviEVController.hijoAux.fechaCreacionNacViv}" />
+                                </p:calendar>
+                                <p:message id="fechaNacimientoMsg" for="fechaNacimiento" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup> 
+                        </td>
+                        <td/>
+                        <td>
+                            <p:outputLabel value="#{campos.TipoPartoL}" for="fkIdTipPar" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td>
+                            <h:panelGroup>
+                                <p:selectOneMenu id="fkIdTipPar" value="#{madreRenaviEVController.hijoAux.fkIdTipPar}" required="true" requiredMessage="#{campos.TipoPartoM}" style="#{util.WidthCombo}">
+                                    <f:selectItems value="#{madreRenaviCDLController.itemp}"/>
+                                </p:selectOneMenu>
+                                <p:message id="fkIdTipParMsg" for="fkIdTipPar" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="#{campos.Apgar1L}" for="apgar1NacViv" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td>
+                            <h:panelGroup>
+                                <p:inputText id="apgar1NacViv" value="#{madreRenaviEVController.hijoAux.apgar1NacViv}" placeholder="#{campos.ApgarPH}" onblur="valApgar1();" required="true" requiredMessage="#{campos.Apgar1M}" maxlength="2" style="#{util.Width}" onkeypress="return permite(event, 'num')"/>
+                                <p:message id="apgar1NacVivMsg" for="apgar1NacViv" display="#{util.DisplayMessage}" />
+                            </h:panelGroup>
+                        </td>
+                        <td/>
+                        <td>
+                            <p:outputLabel value="#{campos.Apgar2L}" for="apgar2NacViv" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td>
+                            <h:panelGroup>
+                                <p:inputText id="apgar2NacViv" value="#{madreRenaviEVController.hijoAux.apgar2NacViv}" placeholder="#{campos.ApgarPH}" onblur="valApgar2();" required="true" requiredMessage="#{campos.Apgar2M}" maxlength="2" style="#{util.Width}" onkeypress="return permite(event, 'num')"/>
+                                <p:message id="apgar2NacVivMsg" for="apgar2NacViv" display="#{util.DisplayMessage}" />
+                            </h:panelGroup>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="#{campos.TallaL}" for="tallaNacViv" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td>
+                            <h:panelGroup>
+                                <p:inputText id="tallaNacViv" value="#{madreRenaviEVController.hijoAux.tallaNacViv}" placeholder="#{campos.TallaPH}" onblur="valTalla();" required="true" requiredMessage="#{campos.TallaM}" maxlength="2" style="#{util.Width}" onkeypress="return permite(event, 'num')"/>
+                                <p:message id="tallaNacVivMsg" for="tallaNacViv" display="#{util.DisplayMessage}" />
+                            </h:panelGroup>
+                        </td>
+                        <td/>
+                        <td>
+                            <p:outputLabel value="#{campos.PesoL}" for="pesoNacViv" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td>
+                            <h:panelGroup>
+                                <p:inputText id="pesoNacViv" value="#{madreRenaviEVController.hijoAux.pesoNacViv}" placeholder="#{campos.PesoPH}" onblur="valPeso();" required="true" requiredMessage="#{campos.PesoM}" maxlength="4" style="#{util.Width}" onkeypress="return permite(event, 'num')"/>
+                                <p:message id="pesoNacVivMsg" for="pesoNacViv" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="#{campos.SexoL}" for="fkIdSexoNv" style="#{util.outputTextTitulo}"/>
+                            <br/>  
+                            <br/>
+                            <p:outputLabel value="#{campos.TipoSangreL}" for="fkTipoSangre" style="#{util.outputTextTitulo}"/>
+
+                        </td>
+                        <td>
+                            <h:panelGroup>
+                                <h:panelGroup>
+                                    <h:selectOneRadio id="fkIdSexoNv" value="#{madreRenaviEVController.hijoAux.fkIdSexoNv}" required="true" requiredMessage="#{campos.SexoM}" style="#{util.WidthCombo}">
+                                        <f:selectItems value="#{sexoRenaviCDLController.items}"/>
+                                        <p:ajax event="change" listener="#{madreRenaviEVController.cambiarTieneMalformacion}" process="@this"   update="frmMalformaciones"   />
+                                    </h:selectOneRadio>
+                                    <p:message id="fkIdSexoNvMsg" for="fkIdSexoNv" display="#{util.DisplayMessage}"/>
+                                </h:panelGroup>
+                                <br/>
+
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="fkTipoSangre" value="#{madreRenaviEVController.hijoAux.tipoSangreNacViv}"   required="true" requiredMessage="#{campos.TipoSangreM}" style="#{util.WidthCombo}"                                            
+                                                     filter="true"  filterMatchMode="contains">                                   
+                                        <f:selectItem   itemLabel="SELECCIONAR" />
+                                        <f:selectItems value="#{madreRenaviEVController.listTipoSangre}" var="item" itemLabel="#{item.nombreCatRenavi}" itemValue="#{item.valorCatRenavi}"/>
+                                    </p:selectOneMenu>
+                                    <p:message id="fkTipoSangreMsg" for="fkTipoSangre" display="#{util.DisplayMessage}"/>
+
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </td>
+                        <td/>
+                        <td width="135px">
+                            <p:outputLabel value="#{campos.ObservacionL}" for="observacionNV" style="#{util.outputTextTitulo}"/>
+                        </td>
+                        <td>
+                            <h:panelGroup>
+                                <p:inputTextarea rows="2" cols="#{util.ColsParaNombre}" id="observacionNV" value="#{madreRenaviEVController.hijoAux.obsrvNacViv}" maxlength="250" style="#{util.UppercaseWidthCienPorCiento}" onkeydown="limitText(250);" onkeyup="limitText(250);" autoResize="false">
+                                    <f:converter converterId="uperCaseConverter"/>
+                                </p:inputTextarea>
+                                <p:message for="observacionNV" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup>
+                        </td>
+                    </tr>
+
+                </table>
+                <!--INICIO DFJ  -->
+                <fieldset >                   
+
+                    <h:panelGroup id="frmMalformaciones" >
+                        <table  width="80%" style="text-align:left"  border="0">
+                            <tr>
+                                <td width="200px">
+                                    <p:outputLabel value="#{campos.TieneMalforL}&nbsp;" for="tieneMalformacionesC" style="#{util.outputTextTitulo}"/>                           
+
+                                </td>
+                                <td width="160px">
+                                    <h:selectOneRadio id="tieneMalformacionesC"  value="#{madreRenaviEVController.tieneMalformacion}"  
+                                                      style="width: 105px;"
+                                                      disabled="#{madreRenaviEVController.hijoAux.fkIdSexoNv==null}" >
+                                        <f:selectItem itemValue="true" itemLabel="&nbsp;SI"/>
+                                        <f:selectItem itemValue="false" itemLabel="&nbsp;NO"/>
+                                        <p:ajax event="change" listener="#{madreRenaviEVController.cambiarTieneMalformacion}" process="@this,fkIdSexoNv"   update="frmMalformaciones,fkIdSexoNv,inhTieneMalformacion"   />
+                                    </h:selectOneRadio>
+                                    <h:inputHidden id="inhTieneMalformacion"  value="#{madreRenaviEVController.tieneMalformacion}"  />
+                                </td>
+
+                            </tr>
+
+                            <tr >
+                                <td width="200px">
+                                    <p:outputLabel rendered="#{madreRenaviEVController.tieneMalformacion}" value="Tipo Malformación Congénita :&nbsp;" style="#{util.outputTextTitulo}"/>                           
+                                </td>
+                                <td width="160px">
+                                    <h:selectOneRadio id="tipMalformacion" rendered="#{madreRenaviEVController.tieneMalformacion}" value="#{madreRenaviEVController.malformaciones}"  
+                                                      style="width: 195px;"
+                                                      disabled="#{madreRenaviEVController.hijoAux.fkIdSexoNv==null}" >
+                                        <f:selectItem itemValue="ÚNICA" itemLabel="ÚNICA"/>
+                                        <f:selectItem itemValue="MULTIPLE" itemLabel="MULTIPLE"/>                                       
+                                        <p:ajax event="change"  process="@this" listener="#{madreRenaviEVController.cambiarTipoMalformacion}"   update="frmMalformaciones"   />
+                                    </h:selectOneRadio>                                    
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <h:panelGroup rendered="#{madreRenaviEVController.tieneMalformacion}">                               
+                            <h:inputHidden id="inhNumSeleccionadas"  value="#{madreRenaviEVController.numMalformacionReal}" />
+                            <h:inputHidden id="inhMalformacion"  value="#{madreRenaviEVController.malformaciones}" />
+                            <p:message id="NumMalformacionesMsg"  for="inhNumSeleccionadas" display="#{util.DisplayMessage}"/>    
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{madreRenaviEVController.tieneMalformacion}">
+                            <p:selectManyMenu id="fkIdMalformacionesC" value="#{madreRenaviEVController.malformacionesSeleccionadas}"                                             
+                                              style="width: 530px; text-align:left;height: 125px;  "  scrollHeight="100" filter="true"  filterMatchMode="contains" showCheckbox="#{madreRenaviEVController.malformaciones eq 'MULTIPLE' ?true:false}" >                                   
+                                <f:selectItems value="#{madreRenaviEVController.listcat}" var="item" itemLabel="#{item.nombreCatRenavi}" itemValue="#{item.idCatRenavi}"/>
+                                <p:ajax update="pngMalformaciones,inhNumSeleccionadas,tipMalformacion" listener="#{madreRenaviEVController.seleccionarMalformacion}" />
+                            </p:selectManyMenu>
+                        </h:panelGroup>
+
+                        <h:panelGroup id="pngMalformaciones">                                    
+                            <p:message rendered="#{madreRenaviEVController.tieneMalformacion and madreRenaviEVController.malformaciones!=null}" for="inhfkIdMalformacionesC" display="#{util.DisplayMessage}"/>
+                            <h:inputHidden rendered="#{madreRenaviEVController.tieneMalformacion and madreRenaviEVController.malformaciones!=null}" id="inhfkIdMalformacionesC" value="#{madreRenaviEVController.malformaciones}" required="true" requiredMessage="#{campos.MalformacionesM}" />
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                </fieldset>
+                <!--FIN  DFJ  --> 
+                <br/>
+                <h:panelGrid columns="2" cellspacing="0" styleClass="text-align-left">
+                    <p:commandLink action="#{madreRenaviEVController.updateHijo}" title="#{campos.Guardar}" process="@this,nombrNacViv,fkIdSexoNv,tallaNacViv,pesoNacViv,semanGstcnNacVivMsg,fechaNacimiento,fechaNacimientoMsg,fkIdTipPar,fkIdTipParMsg,apgar1NacViv,apgar1NacVivMsg,apgar2NacViv,apgar2NacVivMsg,observacionNV,frmMalformaciones,fkTipoSangre" update="nombrNacViv,nombrNacVivMsg,fkIdSexoNv,fkIdSexoNvMsg,tallaNacViv,tallaNacVivMsg,pesoNacViv,pesoNacVivMsg,fechaNacimiento,fechaNacimientoMsg,fkIdTipPar,fkIdTipParMsg,apgar1NacViv,apgar1NacVivMsg,apgar2NacViv,apgar2NacVivMsg,observacionNV,frmMalformaciones,fkTipoSangre,fkTipoSangreMsg" oncomplete="PF('statusDialog').hide();" onclick="if (!saveDatosNV())
+                                return false;">
+                        <div class="guardar"/>
+                    </p:commandLink>
+                    <p:commandLink action="#{madreRenaviEVController.cancelUpdateHijo}" title="#{campos.Cerrar}" process="@this" update="apellNacViv,nombrNacViv,nombrNacVivMsg,fkIdSexoNv,fkIdSexoNvMsg,tallaNacViv,tallaNacVivMsg,pesoNacViv,pesoNacVivMsg,apgar1NacViv,apgar1NacVivMsg,apgar2NacViv,apgar2NacVivMsg,observacionNV,frmMalformaciones,fkTipoSangre" onclick="PF('hijoDialog').hide();">
+                        <div class="regresar"/>
+                    </p:commandLink>
+                </h:panelGrid>
+            </fieldset>    
+        </div>
+    </p:dialog>
+
+    <script type="text/javascript">
+        function asignarNombre() {
+            nombre = document.getElementById('form_cont:contTab:nombrNacViv').value;
+            //alert(nombre);
+            if (nombre == "") {
+                document.getElementById('form_cont:contTab:nombrNacViv').value = 'NN';
+            }
+        }
+        function asignarNombreFocus() {
+            nombre = document.getElementById('form_cont:contTab:nombrNacViv').value;
+            //alert(nombre);
+            if (nombre == "") {
+                document.getElementById('form_cont:contTab:nombrNacViv').value = '';
+            }
+        }
+    </script>
+</html>

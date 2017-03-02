@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:fieldset legend="Cambio de clave" style="width: 600px;">
+                    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                    <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                              draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                        <h:graphicImage library="images" name="cargando.gif"/> 
+                    </p:dialog>
+                    <div align="left" style="margin-bottom: 7px; text-align : justify;">
+                        <h:panelGrid columns="2">
+                            <h:graphicImage library="images/icons" name="informacion.png"/>
+                            <h:outputText value="Por su seguridad, la clave debe contener: mínimo 6 caracteres y máximo 15;
+                                            almenos, un caracter en minúscula, mayúscula, número y un caracter especial."/>
+                        </h:panelGrid>
+                    </div>
+                    <h:form id="frm">
+                        <p:growl id="msg" autoUpdate="false" life="#{util.GrowlLifeMin}"/>
+                        <h:panelGrid id="cntndrCmbPss" columns="2" cellspacing="2">
+                            <h:outputText value="#{campos.NombresL}"/>
+                            <h:outputText id="nombrUsu" value="#{usuarioRenaviLoginController.userLogin.apellido} #{usuarioRenaviLoginController.userLogin.nombre}" />
+                            <h:outputText value="#{campos.UsuarioL}"/>
+                            <h:outputText id="userUsu" value="#{usuarioRenaviLoginController.userLogin.nomUsuario}"/>
+                            <p:outputLabel value="#{campos.ContraseniaActualL}" for="passwUsuActual" />
+                            <h:panelGroup>
+                                <p:password id="passwUsuActual" value="#{usuarioRenaviLoginController.password}" required="true" requiredMessage="#{campos.ContraseniaActualM}" maxlength="50" size="30" />
+                                <p:message id="mssgpasswUsuActual" for="passwUsuActual" display="#{util.DisplayMessage}"/>                                
+                            </h:panelGroup>
+                            <p:outputLabel value="#{campos.ContraseniaNuevaL}" for="passwUsu" />
+                            <h:panelGroup>
+                                <p:password id="passwUsu" value="#{usuarioRenaviLoginController.nuevoPassword}" binding="#{passwordComponent}" required="true" requiredMessage="#{campos.ContraseniaNuevaM}" maxlength="50" size="30" feedback="true" goodLabel="Seguridad Media" strongLabel="Seguridad Alta" weakLabel="Seguridad Baja" promptLabel="Por favor, ingrese la contraseña"/>
+                                <p:message id="mssgpasswUsu" for="passwUsu" display="#{util.DisplayMessage}"/>
+                            </h:panelGroup>
+                           <p:outputLabel value="#{campos.RepitaContrasenaiaL}" for="passwordConfirm" />
+                           <h:panelGroup>                               
+                               <p:password id="passwordConfirm" required="true" requiredMessage="Ingrese la confirmación de la nueva contraseña" maxlength="50" size="30">
+                                   <f:validator validatorId="passwordValidator"/>
+                                   <f:attribute name="passwordComponent" value="#{passwordComponent}"/>
+                               </p:password>
+                                <p:message id="mssgpasswordConfirm" for="passwordConfirm" display="#{util.DisplayMessage}"/>
+                           </h:panelGroup>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1">
+                            <p:commandLink id="btnCambioPass" action="#{usuarioRenaviLoginController.cambiarContraseniaUserLogin}" title="#{campos.Guardar}" process="@this cntndrCmbPss" update="cntndrCmbPss" oncomplete="PF('statusDialog').hide();" onclick="if (!confirm('¿Está seguro de cambiar su contraseña?'))return false;">
+                                <div class="guardar"/>
+                            </p:commandLink>
+                        </h:panelGrid>                        
+                        <p:dialog modal="true" widgetVar="cntrsnCmbd" header="Cambio de contraseña"   
+                                draggable="false" closable="false" height="100" width="323"> 
+                            <fieldset>
+                                <h:panelGrid columns="2">
+                                    <h:graphicImage library="images/icons" name="informacion.png"/>
+                                    <h:outputText value="Cambio de contraseña exitoso. Por favor vuelva a iniciar sesión en el sistema."/>
+                                </h:panelGrid>
+                                <h:link value="Iniciar sesión" outcome="#{facesContext.externalContext.requestPathInfo}/login" onclick="PF('cntrsnCmbd').hide();"/> 
+                            </fieldset>  
+                       </p:dialog>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFallecidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_idFal}" for="idFal" />
+                    <h:inputText id="idFal" value="#{fallecidoController.selected.idFal}" title="#{bundle.CreateFallecidoTitle_idFal}" required="true" requiredMessage="#{bundle.CreateFallecidoRequiredMessage_idFal}"/>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fechaCreacionFal}" for="fechaCreacionFal" />
+                    <h:inputText id="fechaCreacionFal" value="#{fallecidoController.selected.fechaCreacionFal}" title="#{bundle.CreateFallecidoTitle_fechaCreacionFal}" required="true" requiredMessage="#{bundle.CreateFallecidoRequiredMessage_fechaCreacionFal}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_oficinaRcNscrpcnFal}" for="oficinaRcNscrpcnFal" />
+                    <h:inputText id="oficinaRcNscrpcnFal" value="#{fallecidoController.selected.oficinaRcNscrpcnFal}" title="#{bundle.CreateFallecidoTitle_oficinaRcNscrpcnFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_provinciaIdNscrpcnFal}" for="provinciaIdNscrpcnFal" />
+                    <h:inputText id="provinciaIdNscrpcnFal" value="#{fallecidoController.selected.provinciaIdNscrpcnFal}" title="#{bundle.CreateFallecidoTitle_provinciaIdNscrpcnFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_provinciaDsNscrpcnFal}" for="provinciaDsNscrpcnFal" />
+                    <h:inputText id="provinciaDsNscrpcnFal" value="#{fallecidoController.selected.provinciaDsNscrpcnFal}" title="#{bundle.CreateFallecidoTitle_provinciaDsNscrpcnFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_cantonIdNscrpcnFals}" for="cantonIdNscrpcnFals" />
+                    <h:inputText id="cantonIdNscrpcnFals" value="#{fallecidoController.selected.cantonIdNscrpcnFals}" title="#{bundle.CreateFallecidoTitle_cantonIdNscrpcnFals}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_cantonDsNscrpcnFals}" for="cantonDsNscrpcnFals" />
+                    <h:inputText id="cantonDsNscrpcnFals" value="#{fallecidoController.selected.cantonDsNscrpcnFals}" title="#{bundle.CreateFallecidoTitle_cantonDsNscrpcnFals}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_parroquiaIdNscrpcnFal}" for="parroquiaIdNscrpcnFal" />
+                    <h:inputText id="parroquiaIdNscrpcnFal" value="#{fallecidoController.selected.parroquiaIdNscrpcnFal}" title="#{bundle.CreateFallecidoTitle_parroquiaIdNscrpcnFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_parroquiaDsNscrpcnFal}" for="parroquiaDsNscrpcnFal" />
+                    <h:inputText id="parroquiaDsNscrpcnFal" value="#{fallecidoController.selected.parroquiaDsNscrpcnFal}" title="#{bundle.CreateFallecidoTitle_parroquiaDsNscrpcnFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fechaNscrpcnFal}" for="fechaNscrpcnFal" />
+                    <h:inputText id="fechaNscrpcnFal" value="#{fallecidoController.selected.fechaNscrpcnFal}" title="#{bundle.CreateFallecidoTitle_fechaNscrpcnFal}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_actaNscrpcnFal}" for="actaNscrpcnFal" />
+                    <h:inputText id="actaNscrpcnFal" value="#{fallecidoController.selected.actaNscrpcnFal}" title="#{bundle.CreateFallecidoTitle_actaNscrpcnFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_cedulaFal}" for="cedulaFal" />
+                    <h:inputText id="cedulaFal" value="#{fallecidoController.selected.cedulaFal}" title="#{bundle.CreateFallecidoTitle_cedulaFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_nombreFal}" for="nombreFal" />
+                    <h:inputText id="nombreFal" value="#{fallecidoController.selected.nombreFal}" title="#{bundle.CreateFallecidoTitle_nombreFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_nombrePadreFal}" for="nombrePadreFal" />
+                    <h:inputText id="nombrePadreFal" value="#{fallecidoController.selected.nombrePadreFal}" title="#{bundle.CreateFallecidoTitle_nombrePadreFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_nombreMadreFal}" for="nombreMadreFal" />
+                    <h:inputText id="nombreMadreFal" value="#{fallecidoController.selected.nombreMadreFal}" title="#{bundle.CreateFallecidoTitle_nombreMadreFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fechaNacimientoFal}" for="fechaNacimientoFal" />
+                    <h:inputText id="fechaNacimientoFal" value="#{fallecidoController.selected.fechaNacimientoFal}" title="#{bundle.CreateFallecidoTitle_fechaNacimientoFal}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fechaFallecimientoFal}" for="fechaFallecimientoFal" />
+                    <h:inputText id="fechaFallecimientoFal" value="#{fallecidoController.selected.fechaFallecimientoFal}" title="#{bundle.CreateFallecidoTitle_fechaFallecimientoFal}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_edadFal}" for="edadFal" />
+                    <h:inputText id="edadFal" value="#{fallecidoController.selected.edadFal}" title="#{bundle.CreateFallecidoTitle_edadFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_provinciaIdFllcmntFal}" for="provinciaIdFllcmntFal" />
+                    <h:inputText id="provinciaIdFllcmntFal" value="#{fallecidoController.selected.provinciaIdFllcmntFal}" title="#{bundle.CreateFallecidoTitle_provinciaIdFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_provinciaDsFllcmntFal}" for="provinciaDsFllcmntFal" />
+                    <h:inputText id="provinciaDsFllcmntFal" value="#{fallecidoController.selected.provinciaDsFllcmntFal}" title="#{bundle.CreateFallecidoTitle_provinciaDsFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_cantonIdFllcmntFal}" for="cantonIdFllcmntFal" />
+                    <h:inputText id="cantonIdFllcmntFal" value="#{fallecidoController.selected.cantonIdFllcmntFal}" title="#{bundle.CreateFallecidoTitle_cantonIdFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_cantonDsFllcmntFal}" for="cantonDsFllcmntFal" />
+                    <h:inputText id="cantonDsFllcmntFal" value="#{fallecidoController.selected.cantonDsFllcmntFal}" title="#{bundle.CreateFallecidoTitle_cantonDsFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_ciudadFllcmntFal}" for="ciudadFllcmntFal" />
+                    <h:inputText id="ciudadFllcmntFal" value="#{fallecidoController.selected.ciudadFllcmntFal}" title="#{bundle.CreateFallecidoTitle_ciudadFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_parroquiaIdFllcmntFal}" for="parroquiaIdFllcmntFal" />
+                    <h:inputText id="parroquiaIdFllcmntFal" value="#{fallecidoController.selected.parroquiaIdFllcmntFal}" title="#{bundle.CreateFallecidoTitle_parroquiaIdFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_parroquiaDsFllcmntFal}" for="parroquiaDsFllcmntFal" />
+                    <h:inputText id="parroquiaDsFllcmntFal" value="#{fallecidoController.selected.parroquiaDsFllcmntFal}" title="#{bundle.CreateFallecidoTitle_parroquiaDsFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_localidadFllcmntFal}" for="localidadFllcmntFal" />
+                    <h:inputText id="localidadFllcmntFal" value="#{fallecidoController.selected.localidadFllcmntFal}" title="#{bundle.CreateFallecidoTitle_localidadFllcmntFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_provinciaIdRsdncFal}" for="provinciaIdRsdncFal" />
+                    <h:inputText id="provinciaIdRsdncFal" value="#{fallecidoController.selected.provinciaIdRsdncFal}" title="#{bundle.CreateFallecidoTitle_provinciaIdRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_provinciaDsRsdncFal}" for="provinciaDsRsdncFal" />
+                    <h:inputText id="provinciaDsRsdncFal" value="#{fallecidoController.selected.provinciaDsRsdncFal}" title="#{bundle.CreateFallecidoTitle_provinciaDsRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_cantonIdRsdncFal}" for="cantonIdRsdncFal" />
+                    <h:inputText id="cantonIdRsdncFal" value="#{fallecidoController.selected.cantonIdRsdncFal}" title="#{bundle.CreateFallecidoTitle_cantonIdRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_cantonDsRsdncFal}" for="cantonDsRsdncFal" />
+                    <h:inputText id="cantonDsRsdncFal" value="#{fallecidoController.selected.cantonDsRsdncFal}" title="#{bundle.CreateFallecidoTitle_cantonDsRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_ciudadRsdncFal}" for="ciudadRsdncFal" />
+                    <h:inputText id="ciudadRsdncFal" value="#{fallecidoController.selected.ciudadRsdncFal}" title="#{bundle.CreateFallecidoTitle_ciudadRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_parroquiaIdRsdncFal}" for="parroquiaIdRsdncFal" />
+                    <h:inputText id="parroquiaIdRsdncFal" value="#{fallecidoController.selected.parroquiaIdRsdncFal}" title="#{bundle.CreateFallecidoTitle_parroquiaIdRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_parroquiaDsRsdncFal}" for="parroquiaDsRsdncFal" />
+                    <h:inputText id="parroquiaDsRsdncFal" value="#{fallecidoController.selected.parroquiaDsRsdncFal}" title="#{bundle.CreateFallecidoTitle_parroquiaDsRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_localidadRsdncFal}" for="localidadRsdncFal" />
+                    <h:inputText id="localidadRsdncFal" value="#{fallecidoController.selected.localidadRsdncFal}" title="#{bundle.CreateFallecidoTitle_localidadRsdncFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_otrosMotivosPatologicosFal}" for="otrosMotivosPatologicosFal" />
+                    <h:inputText id="otrosMotivosPatologicosFal" value="#{fallecidoController.selected.otrosMotivosPatologicosFal}" title="#{bundle.CreateFallecidoTitle_otrosMotivosPatologicosFal}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkUsuSaureg}" for="fkUsuSaureg" />
+                    <h:inputText id="fkUsuSaureg" value="#{fallecidoController.selected.fkUsuSaureg}" title="#{bundle.CreateFallecidoTitle_fkUsuSaureg}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkAgenciaSaureg}" for="fkAgenciaSaureg" />
+                    <h:inputText id="fkAgenciaSaureg" value="#{fallecidoController.selected.fkAgenciaSaureg}" title="#{bundle.CreateFallecidoTitle_fkAgenciaSaureg}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkUsuFirmaSaureg}" for="fkUsuFirmaSaureg" />
+                    <h:inputText id="fkUsuFirmaSaureg" value="#{fallecidoController.selected.fkUsuFirmaSaureg}" title="#{bundle.CreateFallecidoTitle_fkUsuFirmaSaureg}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkAgenciaFirmaSaureg}" for="fkAgenciaFirmaSaureg" />
+                    <h:inputText id="fkAgenciaFirmaSaureg" value="#{fallecidoController.selected.fkAgenciaFirmaSaureg}" title="#{bundle.CreateFallecidoTitle_fkAgenciaFirmaSaureg}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_especifiqueAccidenteTransito}" for="especifiqueAccidenteTransito" />
+                    <h:inputText id="especifiqueAccidenteTransito" value="#{fallecidoController.selected.especifiqueAccidenteTransito}" title="#{bundle.CreateFallecidoTitle_especifiqueAccidenteTransito}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_claseAccidente}" for="claseAccidente" />
+                    <h:inputText id="claseAccidente" value="#{fallecidoController.selected.claseAccidente}" title="#{bundle.CreateFallecidoTitle_claseAccidente}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_lugarOcurrioAccidente}" for="lugarOcurrioAccidente" />
+                    <h:inputText id="lugarOcurrioAccidente" value="#{fallecidoController.selected.lugarOcurrioAccidente}" title="#{bundle.CreateFallecidoTitle_lugarOcurrioAccidente}" />
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdTipMueVio}" for="fkIdTipMueVio" />
+                    <h:selectOneMenu id="fkIdTipMueVio" value="#{fallecidoController.selected.fkIdTipMueVio}" title="#{bundle.CreateFallecidoTitle_fkIdTipMueVio}" >
+                        <f:selectItems value="#{tipoMuerteViolentaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdTipEda}" for="fkIdTipEda" />
+                    <h:selectOneMenu id="fkIdTipEda" value="#{fallecidoController.selected.fkIdTipEda}" title="#{bundle.CreateFallecidoTitle_fkIdTipEda}" >
+                        <f:selectItems value="#{tipoEdadController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdSexo}" for="fkIdSexo" />
+                    <h:selectOneMenu id="fkIdSexo" value="#{fallecidoController.selected.fkIdSexo}" title="#{bundle.CreateFallecidoTitle_fkIdSexo}" >
+                        <f:selectItems value="#{sexoRenaviController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdResMueVio}" for="fkIdResMueVio" />
+                    <h:selectOneMenu id="fkIdResMueVio" value="#{fallecidoController.selected.fkIdResMueVio}" title="#{bundle.CreateFallecidoTitle_fkIdResMueVio}" >
+                        <f:selectItems value="#{respuestaMuerteViolentaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdResMueEnest}" for="fkIdResMueEnest" />
+                    <h:selectOneMenu id="fkIdResMueEnest" value="#{fallecidoController.selected.fkIdResMueEnest}" title="#{bundle.CreateFallecidoTitle_fkIdResMueEnest}" >
+                        <f:selectItems value="#{respuestaMuerteenestablecimController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdResdioaluzsixsemantsfal}" for="fkIdResdioaluzsixsemantsfal" />
+                    <h:selectOneMenu id="fkIdResdioaluzsixsemantsfal" value="#{fallecidoController.selected.fkIdResdioaluzsixsemantsfal}" title="#{bundle.CreateFallecidoTitle_fkIdResdioaluzsixsemantsfal}" >
+                        <f:selectItems value="#{respuestaMuerteEmbarazoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdResembrazadaalfallecer}" for="fkIdResembrazadaalfallecer" />
+                    <h:selectOneMenu id="fkIdResembrazadaalfallecer" value="#{fallecidoController.selected.fkIdResembrazadaalfallecer}" title="#{bundle.CreateFallecidoTitle_fkIdResembrazadaalfallecer}" >
+                        <f:selectItems value="#{respuestaMuerteEmbarazoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdResfalleciodandoaluz}" for="fkIdResfalleciodandoaluz" />
+                    <h:selectOneMenu id="fkIdResfalleciodandoaluz" value="#{fallecidoController.selected.fkIdResfalleciodandoaluz}" title="#{bundle.CreateFallecidoTitle_fkIdResfalleciodandoaluz}" >
+                        <f:selectItems value="#{respuestaMuerteEmbarazoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdAlfabetismo}" for="fkIdAlfabetismo" />
+                    <h:selectOneMenu id="fkIdAlfabetismo" value="#{fallecidoController.selected.fkIdAlfabetismo}" title="#{bundle.CreateFallecidoTitle_fkIdAlfabetismo}" >
+                        <f:selectItems value="#{alfabetismoRenaviController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdMueA}" for="fkIdMueA" />
+                    <h:selectOneMenu id="fkIdMueA" value="#{fallecidoController.selected.fkIdMueA}" title="#{bundle.CreateFallecidoTitle_fkIdMueA}" >
+                        <f:selectItems value="#{causaMuerteAController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdMueB}" for="fkIdMueB" />
+                    <h:selectOneMenu id="fkIdMueB" value="#{fallecidoController.selected.fkIdMueB}" title="#{bundle.CreateFallecidoTitle_fkIdMueB}" >
+                        <f:selectItems value="#{causaMuerteBController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdMueC}" for="fkIdMueC" />
+                    <h:selectOneMenu id="fkIdMueC" value="#{fallecidoController.selected.fkIdMueC}" title="#{bundle.CreateFallecidoTitle_fkIdMueC}" >
+                        <f:selectItems value="#{causaMuerteCController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdMueD}" for="fkIdMueD" />
+                    <h:selectOneMenu id="fkIdMueD" value="#{fallecidoController.selected.fkIdMueD}" title="#{bundle.CreateFallecidoTitle_fkIdMueD}" >
+                        <f:selectItems value="#{causaMuerteDController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdCerPor}" for="fkIdCerPor" />
+                    <h:selectOneMenu id="fkIdCerPor" value="#{fallecidoController.selected.fkIdCerPor}" title="#{bundle.CreateFallecidoTitle_fkIdCerPor}" >
+                        <f:selectItems value="#{certificadoPorController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdEstadoCivilFal}" for="fkIdEstadoCivilFal" />
+                    <h:selectOneMenu id="fkIdEstadoCivilFal" value="#{fallecidoController.selected.fkIdEstadoCivilFal}" title="#{bundle.CreateFallecidoTitle_fkIdEstadoCivilFal}" >
+                        <f:selectItems value="#{estadoCivilRenaviController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdEstadoFirma}" for="fkIdEstadoFirma" />
+                    <h:selectOneMenu id="fkIdEstadoFirma" value="#{fallecidoController.selected.fkIdEstadoFirma}" title="#{bundle.CreateFallecidoTitle_fkIdEstadoFirma}" required="true" requiredMessage="#{bundle.CreateFallecidoRequiredMessage_fkIdEstadoFirma}">
+                        <f:selectItems value="#{estadoFirmaRenaviController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdEstRegFal}" for="fkIdEstRegFal" />
+                    <h:selectOneMenu id="fkIdEstRegFal" value="#{fallecidoController.selected.fkIdEstRegFal}" title="#{bundle.CreateFallecidoTitle_fkIdEstRegFal}" required="true" requiredMessage="#{bundle.CreateFallecidoRequiredMessage_fkIdEstRegFal}">
+                        <f:selectItems value="#{estadoRegistroFallecidoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdEtnia}" for="fkIdEtnia" />
+                    <h:selectOneMenu id="fkIdEtnia" value="#{fallecidoController.selected.fkIdEtnia}" title="#{bundle.CreateFallecidoTitle_fkIdEtnia}" >
+                        <f:selectItems value="#{identificacionEtnicaRenaviController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdNivelInstruccion}" for="fkIdNivelInstruccion" />
+                    <h:selectOneMenu id="fkIdNivelInstruccion" value="#{fallecidoController.selected.fkIdNivelInstruccion}" title="#{bundle.CreateFallecidoTitle_fkIdNivelInstruccion}" >
+                        <f:selectItems value="#{nivelInstruccionRenaviController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFallecidoLabel_fkIdResAut}" for="fkIdResAut" />
+                    <h:selectOneMenu id="fkIdResAut" value="#{fallecidoController.selected.fkIdResAut}" title="#{bundle.CreateFallecidoTitle_fkIdResAut}" >
+                        <f:selectItems value="#{respuestaAutopsiaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{fallecidoController.create}" value="#{bundle.CreateFallecidoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{fallecidoController.prepareList}" value="#{bundle.CreateFallecidoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFallecidoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

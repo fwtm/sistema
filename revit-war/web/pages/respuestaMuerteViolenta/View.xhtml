@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewRespuestaMuerteViolentaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewRespuestaMuerteViolentaLabel_idResMueVio}"/>
+                    <h:outputText value="#{respuestaMuerteViolentaController.selected.idResMueVio}" title="#{bundle.ViewRespuestaMuerteViolentaTitle_idResMueVio}"/>
+                    <h:outputText value="#{bundle.ViewRespuestaMuerteViolentaLabel_valorResMueVio}"/>
+                    <h:outputText value="#{respuestaMuerteViolentaController.selected.valorResMueVio}" title="#{bundle.ViewRespuestaMuerteViolentaTitle_valorResMueVio}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{respuestaMuerteViolentaController.destroyAndView}" value="#{bundle.ViewRespuestaMuerteViolentaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewRespuestaMuerteViolentaEditLink}"/>
+                <br />
+                <h:commandLink action="#{respuestaMuerteViolentaController.prepareCreate}" value="#{bundle.ViewRespuestaMuerteViolentaCreateLink}" />
+                <br />
+                <h:commandLink action="#{respuestaMuerteViolentaController.prepareList}" value="#{bundle.ViewRespuestaMuerteViolentaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewRespuestaMuerteViolentaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

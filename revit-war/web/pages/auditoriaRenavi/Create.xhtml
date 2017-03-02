@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAuditoriaRenaviTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_idAud}" for="idAud" />
+                    <h:inputText id="idAud" value="#{auditoriaRenaviController.selected.idAud}" title="#{bundle.CreateAuditoriaRenaviTitle_idAud}" required="true" requiredMessage="#{bundle.CreateAuditoriaRenaviRequiredMessage_idAud}"/>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_idNacViv}" for="idNacViv" />
+                    <h:inputText id="idNacViv" value="#{auditoriaRenaviController.selected.idNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_idNacViv}" required="true" requiredMessage="#{bundle.CreateAuditoriaRenaviRequiredMessage_idNacViv}"/>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_proviRcdscNacViv}" for="proviRcdscNacViv" />
+                    <h:inputText id="proviRcdscNacViv" value="#{auditoriaRenaviController.selected.proviRcdscNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_proviRcdscNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_cantnRcdscNacViv}" for="cantnRcdscNacViv" />
+                    <h:inputText id="cantnRcdscNacViv" value="#{auditoriaRenaviController.selected.cantnRcdscNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_cantnRcdscNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_paarqRcdscNacViv}" for="paarqRcdscNacViv" />
+                    <h:inputText id="paarqRcdscNacViv" value="#{auditoriaRenaviController.selected.paarqRcdscNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_paarqRcdscNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_oficiRcNacViv}" for="oficiRcNacViv" />
+                    <h:inputText id="oficiRcNacViv" value="#{auditoriaRenaviController.selected.oficiRcNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_oficiRcNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdTipIns}" for="fkIdTipIns" />
+                    <h:inputText id="fkIdTipIns" value="#{auditoriaRenaviController.selected.fkIdTipIns}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdTipIns}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fechaInscrNacViv}" for="fechaInscrNacViv" />
+                    <h:inputText id="fechaInscrNacViv" value="#{auditoriaRenaviController.selected.fechaInscrNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_fechaInscrNacViv}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_actaInscrNacViv}" for="actaInscrNacViv" />
+                    <h:inputText id="actaInscrNacViv" value="#{auditoriaRenaviController.selected.actaInscrNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_actaInscrNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_nombrNacViv}" for="nombrNacViv" />
+                    <h:inputText id="nombrNacViv" value="#{auditoriaRenaviController.selected.nombrNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_nombrNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_apellNacViv}" for="apellNacViv" />
+                    <h:inputText id="apellNacViv" value="#{auditoriaRenaviController.selected.apellNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_apellNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_cedulNacViv}" for="cedulNacViv" />
+                    <h:inputText id="cedulNacViv" value="#{auditoriaRenaviController.selected.cedulNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_cedulNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdSexoNv}" for="fkIdSexoNv" />
+                    <h:inputText id="fkIdSexoNv" value="#{auditoriaRenaviController.selected.fkIdSexoNv}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdSexoNv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_tallaNacViv}" for="tallaNacViv" />
+                    <h:inputText id="tallaNacViv" value="#{auditoriaRenaviController.selected.tallaNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_tallaNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_pesoNacViv}" for="pesoNacViv" />
+                    <h:inputText id="pesoNacViv" value="#{auditoriaRenaviController.selected.pesoNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_pesoNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_semanGstcnNacViv}" for="semanGstcnNacViv" />
+                    <h:inputText id="semanGstcnNacViv" value="#{auditoriaRenaviController.selected.semanGstcnNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_semanGstcnNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdTipPar}" for="fkIdTipPar" />
+                    <h:inputText id="fkIdTipPar" value="#{auditoriaRenaviController.selected.fkIdTipPar}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdTipPar}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fechaNacimNacViv}" for="fechaNacimNacViv" />
+                    <h:inputText id="fechaNacimNacViv" value="#{auditoriaRenaviController.selected.fechaNacimNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_fechaNacimNacViv}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdProEmb}" for="fkIdProEmb" />
+                    <h:inputText id="fkIdProEmb" value="#{auditoriaRenaviController.selected.fkIdProEmb}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdProEmb}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdLugNac}" for="fkIdLugNac" />
+                    <h:inputText id="fkIdLugNac" value="#{auditoriaRenaviController.selected.fkIdLugNac}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdLugNac}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_lugNacEspecifique}" for="lugNacEspecifique" />
+                    <h:inputText id="lugNacEspecifique" value="#{auditoriaRenaviController.selected.lugNacEspecifique}" title="#{bundle.CreateAuditoriaRenaviTitle_lugNacEspecifique}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_nombrStblcNacViv}" for="nombrStblcNacViv" />
+                    <h:inputText id="nombrStblcNacViv" value="#{auditoriaRenaviController.selected.nombrStblcNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_nombrStblcNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_proviEstbdsNacViv}" for="proviEstbdsNacViv" />
+                    <h:inputText id="proviEstbdsNacViv" value="#{auditoriaRenaviController.selected.proviEstbdsNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_proviEstbdsNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_cantnEstbdsNacViv}" for="cantnEstbdsNacViv" />
+                    <h:inputText id="cantnEstbdsNacViv" value="#{auditoriaRenaviController.selected.cantnEstbdsNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_cantnEstbdsNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_parrqEstbdsNacViv}" for="parrqEstbdsNacViv" />
+                    <h:inputText id="parrqEstbdsNacViv" value="#{auditoriaRenaviController.selected.parrqEstbdsNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_parrqEstbdsNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_cddlocStblcNacViv}" for="cddlocStblcNacViv" />
+                    <h:inputText id="cddlocStblcNacViv" value="#{auditoriaRenaviController.selected.cddlocStblcNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_cddlocStblcNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_direcStblcNacViv}" for="direcStblcNacViv" />
+                    <h:inputText id="direcStblcNacViv" value="#{auditoriaRenaviController.selected.direcStblcNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_direcStblcNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_telefStblcNacViv}" for="telefStblcNacViv" />
+                    <h:inputText id="telefStblcNacViv" value="#{auditoriaRenaviController.selected.telefStblcNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_telefStblcNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdTipAsi}" for="fkIdTipAsi" />
+                    <h:inputText id="fkIdTipAsi" value="#{auditoriaRenaviController.selected.fkIdTipAsi}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdTipAsi}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_tipAsiEspecifique}" for="tipAsiEspecifique" />
+                    <h:inputText id="tipAsiEspecifique" value="#{auditoriaRenaviController.selected.tipAsiEspecifique}" title="#{bundle.CreateAuditoriaRenaviTitle_tipAsiEspecifique}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdEstFir}" for="fkIdEstFir" />
+                    <h:inputText id="fkIdEstFir" value="#{auditoriaRenaviController.selected.fkIdEstFir}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdEstFir}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdEstReg}" for="fkIdEstReg" />
+                    <h:inputText id="fkIdEstReg" value="#{auditoriaRenaviController.selected.fkIdEstReg}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdEstReg}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_obsrvAtprtNacViv}" for="obsrvAtprtNacViv" />
+                    <h:inputText id="obsrvAtprtNacViv" value="#{auditoriaRenaviController.selected.obsrvAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_obsrvAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_idMad}" for="idMad" />
+                    <h:inputText id="idMad" value="#{auditoriaRenaviController.selected.idMad}" title="#{bundle.CreateAuditoriaRenaviTitle_idMad}" required="true" requiredMessage="#{bundle.CreateAuditoriaRenaviRequiredMessage_idMad}"/>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_nombrMad}" for="nombrMad" />
+                    <h:inputText id="nombrMad" value="#{auditoriaRenaviController.selected.nombrMad}" title="#{bundle.CreateAuditoriaRenaviTitle_nombrMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdPaisMad}" for="fkIdPaisMad" />
+                    <h:inputText id="fkIdPaisMad" value="#{auditoriaRenaviController.selected.fkIdPaisMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdPaisMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdNacMad}" for="fkIdNacMad" />
+                    <h:inputText id="fkIdNacMad" value="#{auditoriaRenaviController.selected.fkIdNacMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdNacMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_cedulMad}" for="cedulMad" />
+                    <h:inputText id="cedulMad" value="#{auditoriaRenaviController.selected.cedulMad}" title="#{bundle.CreateAuditoriaRenaviTitle_cedulMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_pasapMad}" for="pasapMad" />
+                    <h:inputText id="pasapMad" value="#{auditoriaRenaviController.selected.pasapMad}" title="#{bundle.CreateAuditoriaRenaviTitle_pasapMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fechaNacimMad}" for="fechaNacimMad" />
+                    <h:inputText id="fechaNacimMad" value="#{auditoriaRenaviController.selected.fechaNacimMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fechaNacimMad}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_edadMad}" for="edadMad" />
+                    <h:inputText id="edadMad" value="#{auditoriaRenaviController.selected.edadMad}" title="#{bundle.CreateAuditoriaRenaviTitle_edadMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fotoMad}" for="fotoMad" />
+                    <h:inputTextarea rows="4" cols="30" id="fotoMad" value="#{auditoriaRenaviController.selected.fotoMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fotoMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_condicCedMad}" for="condicCedMad" />
+                    <h:inputText id="condicCedMad" value="#{auditoriaRenaviController.selected.condicCedMad}" title="#{bundle.CreateAuditoriaRenaviTitle_condicCedMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_conyugeMad}" for="conyugeMad" />
+                    <h:inputText id="conyugeMad" value="#{auditoriaRenaviController.selected.conyugeMad}" title="#{bundle.CreateAuditoriaRenaviTitle_conyugeMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fecFallecMad}" for="fecFallecMad" />
+                    <h:inputText id="fecFallecMad" value="#{auditoriaRenaviController.selected.fecFallecMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fecFallecMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_nomPadreMad}" for="nomPadreMad" />
+                    <h:inputText id="nomPadreMad" value="#{auditoriaRenaviController.selected.nomPadreMad}" title="#{bundle.CreateAuditoriaRenaviTitle_nomPadreMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_nomMadreMad}" for="nomMadreMad" />
+                    <h:inputText id="nomMadreMad" value="#{auditoriaRenaviController.selected.nomMadreMad}" title="#{bundle.CreateAuditoriaRenaviTitle_nomMadreMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_cntrlPrntlNacViv}" for="cntrlPrntlNacViv" />
+                    <h:inputText id="cntrlPrntlNacViv" value="#{auditoriaRenaviController.selected.cntrlPrntlNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_cntrlPrntlNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_numerPartoNacViv}" for="numerPartoNacViv" />
+                    <h:inputText id="numerPartoNacViv" value="#{auditoriaRenaviController.selected.numerPartoNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_numerPartoNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_hijosVivsaMad}" for="hijosVivsaMad" />
+                    <h:inputText id="hijosVivsaMad" value="#{auditoriaRenaviController.selected.hijosVivsaMad}" title="#{bundle.CreateAuditoriaRenaviTitle_hijosVivsaMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_hijosNvmrtMad}" for="hijosNvmrtMad" />
+                    <h:inputText id="hijosNvmrtMad" value="#{auditoriaRenaviController.selected.hijosNvmrtMad}" title="#{bundle.CreateAuditoriaRenaviTitle_hijosNvmrtMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_hijosNmrtsMad}" for="hijosNmrtsMad" />
+                    <h:inputText id="hijosNmrtsMad" value="#{auditoriaRenaviController.selected.hijosNmrtsMad}" title="#{bundle.CreateAuditoriaRenaviTitle_hijosNmrtsMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdIdeEtn}" for="fkIdIdeEtn" />
+                    <h:inputText id="fkIdIdeEtn" value="#{auditoriaRenaviController.selected.fkIdIdeEtn}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdIdeEtn}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdEstCivMad}" for="fkIdEstCivMad" />
+                    <h:inputText id="fkIdEstCivMad" value="#{auditoriaRenaviController.selected.fkIdEstCivMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdEstCivMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdSabeLeerMad}" for="fkIdSabeLeerMad" />
+                    <h:inputText id="fkIdSabeLeerMad" value="#{auditoriaRenaviController.selected.fkIdSabeLeerMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdSabeLeerMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdNivelInstr}" for="fkIdNivelInstr" />
+                    <h:inputText id="fkIdNivelInstr" value="#{auditoriaRenaviController.selected.fkIdNivelInstr}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdNivelInstr}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_residnProvdsMad}" for="residnProvdsMad" />
+                    <h:inputText id="residnProvdsMad" value="#{auditoriaRenaviController.selected.residnProvdsMad}" title="#{bundle.CreateAuditoriaRenaviTitle_residnProvdsMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_residnCantdsMad}" for="residnCantdsMad" />
+                    <h:inputText id="residnCantdsMad" value="#{auditoriaRenaviController.selected.residnCantdsMad}" title="#{bundle.CreateAuditoriaRenaviTitle_residnCantdsMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_residnParrdsMad}" for="residnParrdsMad" />
+                    <h:inputText id="residnParrdsMad" value="#{auditoriaRenaviController.selected.residnParrdsMad}" title="#{bundle.CreateAuditoriaRenaviTitle_residnParrdsMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_residnLocalMad}" for="residnLocalMad" />
+                    <h:inputText id="residnLocalMad" value="#{auditoriaRenaviController.selected.residnLocalMad}" title="#{bundle.CreateAuditoriaRenaviTitle_residnLocalMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_residnDirecMad}" for="residnDirecMad" />
+                    <h:inputText id="residnDirecMad" value="#{auditoriaRenaviController.selected.residnDirecMad}" title="#{bundle.CreateAuditoriaRenaviTitle_residnDirecMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_nombrAtprtNacViv}" for="nombrAtprtNacViv" />
+                    <h:inputText id="nombrAtprtNacViv" value="#{auditoriaRenaviController.selected.nombrAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_nombrAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_numregprfsnlAtprtNacViv}" for="numregprfsnlAtprtNacViv" />
+                    <h:inputText id="numregprfsnlAtprtNacViv" value="#{auditoriaRenaviController.selected.numregprfsnlAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_numregprfsnlAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_telefcelAtprtNacViv}" for="telefcelAtprtNacViv" />
+                    <h:inputText id="telefcelAtprtNacViv" value="#{auditoriaRenaviController.selected.telefcelAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_telefcelAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_telefconvenofiAtprtNacViv}" for="telefconvenofiAtprtNacViv" />
+                    <h:inputText id="telefconvenofiAtprtNacViv" value="#{auditoriaRenaviController.selected.telefconvenofiAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_telefconvenofiAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_telfconvenextAtprtNacViv}" for="telfconvenextAtprtNacViv" />
+                    <h:inputText id="telfconvenextAtprtNacViv" value="#{auditoriaRenaviController.selected.telfconvenextAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_telfconvenextAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_emailAtprtNacViv}" for="emailAtprtNacViv" />
+                    <h:inputText id="emailAtprtNacViv" value="#{auditoriaRenaviController.selected.emailAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_emailAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_estadoAtprtNacViv}" for="estadoAtprtNacViv" />
+                    <h:inputText id="estadoAtprtNacViv" value="#{auditoriaRenaviController.selected.estadoAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_estadoAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_usernameAtprtNacViv}" for="usernameAtprtNacViv" />
+                    <h:inputText id="usernameAtprtNacViv" value="#{auditoriaRenaviController.selected.usernameAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_usernameAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdTipUsuAtprtNacViv}" for="fkIdTipUsuAtprtNacViv" />
+                    <h:inputText id="fkIdTipUsuAtprtNacViv" value="#{auditoriaRenaviController.selected.fkIdTipUsuAtprtNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdTipUsuAtprtNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecRcPcpNacViv}" for="campoInecRcPcpNacViv" />
+                    <h:inputText id="campoInecRcPcpNacViv" value="#{auditoriaRenaviController.selected.campoInecRcPcpNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecRcPcpNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecRcOfiNacViv}" for="campoInecRcOfiNacViv" />
+                    <h:inputText id="campoInecRcOfiNacViv" value="#{auditoriaRenaviController.selected.campoInecRcOfiNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecRcOfiNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecFecCriNacViv}" for="campoInecFecCriNacViv" />
+                    <h:inputText id="campoInecFecCriNacViv" value="#{auditoriaRenaviController.selected.campoInecFecCriNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecFecCriNacViv}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecCodigStblcNacViv}" for="campoInecCodigStblcNacViv" />
+                    <h:inputText id="campoInecCodigStblcNacViv" value="#{auditoriaRenaviController.selected.campoInecCodigStblcNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecCodigStblcNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecCodPaisMad}" for="campoInecCodPaisMad" />
+                    <h:inputText id="campoInecCodPaisMad" value="#{auditoriaRenaviController.selected.campoInecCodPaisMad}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecCodPaisMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdTipoAreaNv}" for="fkIdTipoAreaNv" />
+                    <h:inputText id="fkIdTipoAreaNv" value="#{auditoriaRenaviController.selected.fkIdTipoAreaNv}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdTipoAreaNv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecAreaNacViv}" for="campoInecAreaNacViv" />
+                    <h:inputText id="campoInecAreaNacViv" value="#{auditoriaRenaviController.selected.campoInecAreaNacViv}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecAreaNacViv}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fkIdTipoAreaMad}" for="fkIdTipoAreaMad" />
+                    <h:inputText id="fkIdTipoAreaMad" value="#{auditoriaRenaviController.selected.fkIdTipoAreaMad}" title="#{bundle.CreateAuditoriaRenaviTitle_fkIdTipoAreaMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecAreaMad}" for="campoInecAreaMad" />
+                    <h:inputText id="campoInecAreaMad" value="#{auditoriaRenaviController.selected.campoInecAreaMad}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecAreaMad}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_campoInecCodCriCod}" for="campoInecCodCriCod" />
+                    <h:inputText id="campoInecCodCriCod" value="#{auditoriaRenaviController.selected.campoInecCodCriCod}" title="#{bundle.CreateAuditoriaRenaviTitle_campoInecCodCriCod}" />
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_fechaAudit}" for="fechaAudit" />
+                    <h:inputText id="fechaAudit" value="#{auditoriaRenaviController.selected.fechaAudit}" title="#{bundle.CreateAuditoriaRenaviTitle_fechaAudit}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAuditoriaRenaviLabel_usuarioCambio}" for="usuarioCambio" />
+                    <h:inputText id="usuarioCambio" value="#{auditoriaRenaviController.selected.usuarioCambio}" title="#{bundle.CreateAuditoriaRenaviTitle_usuarioCambio}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{auditoriaRenaviController.create}" value="#{bundle.CreateAuditoriaRenaviSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{auditoriaRenaviController.prepareList}" value="#{bundle.CreateAuditoriaRenaviShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAuditoriaRenaviIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

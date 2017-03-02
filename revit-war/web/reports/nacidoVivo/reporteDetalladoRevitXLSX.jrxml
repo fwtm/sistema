@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteDetalladoRevitXLSX" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="597cc3e6-bcb5-48a2-a1ee-e1c18c0f6e01">
+	<property name="ireport.zoom" value="8.954302432552423"/>
+	<property name="ireport.x" value="6703"/>
+	<property name="ireport.y" value="502"/>
+	<parameter name="unidadMedica" class="java.lang.String"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="fechaNacFin" class="java.util.Date"/>
+	<parameter name="fechaNacIni" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="provincia" class="java.lang.String"/>
+	<field name="agencia" class="java.lang.String"/>
+	<field name="codMSP" class="java.lang.String"/>
+	<field name="incompletos" class="java.math.BigDecimal"/>
+	<field name="noFirmados" class="java.math.BigDecimal"/>
+	<field name="firmados" class="java.math.BigDecimal"/>
+	<field name="inscritos" class="java.math.BigDecimal"/>
+	<field name="anulados" class="java.math.BigDecimal"/>
+	<field name="totalPorAgencia" class="java.math.BigDecimal"/>
+	<field name="institucion" class="java.lang.String"/>
+	<variable name="firmados_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{firmados}]]></variableExpression>
+	</variable>
+	<variable name="noFirmados_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{noFirmados}]]></variableExpression>
+	</variable>
+	<variable name="inscritos_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{inscritos}]]></variableExpression>
+	</variable>
+	<variable name="anulados_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{anulados}]]></variableExpression>
+	</variable>
+	<variable name="incompletos_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{incompletos}]]></variableExpression>
+	</variable>
+	<variable name="totalPorAgencia_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalPorAgencia}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a951c09c-aa56-4166-816f-4114e76e91e0" x="0" y="0" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE NACIDOS VIVOS DEL SISTEMA DE REGISTRO  DE DATOS VITALES]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0348a592-d8aa-43fb-8ac8-434e098cff43" x="187" y="20" width="197" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="34dbe488-40bc-490c-8fd1-a62d0934b9ba" x="280" y="36" width="104" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaNacFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="855af496-e558-4eb5-9a78-f8f0d0fd761f" stretchType="RelativeToBandHeight" x="383" y="20" width="212" height="15" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[FECHA DE GENERACIÓN DEL REPORTE:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="994aa6b1-3d82-4358-8756-785ae3f08e86" x="187" y="36" width="81" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaNacIni}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="573072fe-fd7c-485c-9e66-01c58a651e74" x="594" y="20" width="208" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1a292eda-4067-47b4-b0ff-d3067bd35d59" x="267" y="36" width="14" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8ed4f936-5083-4ab5-934b-8e79e0892434" x="187" y="52" width="615" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{unidadMedica}.equals(null) ? "TODAS." : $P{unidadMedica})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3cb3b296-136f-474a-a15f-fc92ccf9792e" stretchType="RelativeToBandHeight" x="0" y="52" width="188" height="15" isRemoveLineWhenBlank="true" forecolor="#000000"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[  ESTAB. DE SALUD:  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b69c310a-e0c3-4f21-9bd6-0f8bb90c6ea9" x="383" y="36" width="69" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUCIÓN:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="9be0a031-d655-4b1f-80bd-956ad0c1299c" x="451" y="36" width="351" height="15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{institucion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="768f66e2-e305-430f-92a7-10ba5d1eabd7" x="0" y="36" width="188" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RANGO DE FECHAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="db8f2264-695b-48f1-9863-2cd5250ec4f0" x="0" y="20" width="188" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USUARIO QUE GENERA EL REPORTE:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="91328a71-8a9d-4692-b12e-9eb0b1808478" x="449" y="0" width="79" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO FIRMADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8e0e834-a43b-4eec-b635-b6421d7bab85" x="594" y="0" width="68" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANULADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43ea796c-4303-43cf-a7ed-c55bd6333882" x="745" y="0" width="57" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18959f60-c21e-40ba-a7c0-5239c93bbdc3" x="107" y="0" width="81" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD. MSP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8e1cc0e1-5cbc-4843-9955-34679c8819fd" x="187" y="0" width="197" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTABLECIMIENTO DE SALUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="77576d14-3d3d-4804-9fd2-1ba4893d3488" x="383" y="0" width="66" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e448cccd-e939-43e6-bf11-440b26617583" x="527" y="0" width="68" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSCRITOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="44b31add-633a-401e-8c95-b6e721b817b5" x="661" y="0" width="85" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INCOMPLETOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91dea634-724d-427b-a056-ba38cbfbe71d" x="0" y="0" width="108" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROVINCIA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="65258819-8f1d-456c-b389-28943a22f924" x="0" y="0" width="108" height="35"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provincia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42ddd1d3-f355-4a51-ac83-1760bf0ef1bd" x="107" y="0" width="81" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codMSP}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7fc06cae-556d-4830-ab45-9a06abed1c0d" x="187" y="0" width="197" height="35"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{agencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9ef6bb7a-53db-4532-bf60-d0433f9f5b37" x="383" y="0" width="67" height="35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firmados}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="03fbc942-b96d-40ad-8d09-7c2a48682616" x="449" y="0" width="79" height="35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noFirmados}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3b6a0491-e928-43a1-8477-8c4c1a52004a" x="527" y="0" width="68" height="35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inscritos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4bffe9a6-341e-4796-a775-211297c28711" x="594" y="0" width="68" height="35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anulados}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f3fd2942-513d-4375-b0a5-c0eff7349fad" x="661" y="0" width="85" height="35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{incompletos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8450e572-6775-4b2d-a044-6517d3df40d2" x="745" y="0" width="57" height="35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalPorAgencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="40">
+			<staticText>
+				<reportElement uuid="ff05341d-00c4-4354-9f18-56eff6650e5e" x="187" y="0" width="197" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE REGISTROS:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8c7891bb-8f65-4c70-8f74-0705a840534f" x="383" y="0" width="67" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{firmados_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="07e25dc3-3836-451f-8029-4da417036ae8" x="449" y="0" width="79" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{noFirmados_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ba86d50d-281d-4392-9f2a-1a93cfa17fc4" x="527" y="0" width="68" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{inscritos_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="03a16549-d69f-4689-94b9-00ea7513b4e2" x="594" y="0" width="68" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{anulados_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8998f7f8-221d-44b5-affb-ddad61cd9a26" x="661" y="0" width="85" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{incompletos_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="17b7e422-c80c-4a18-915c-cb1335289ee3" x="745" y="0" width="57" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPorAgencia_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

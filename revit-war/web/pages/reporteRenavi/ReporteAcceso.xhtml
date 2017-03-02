@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p/>
+                <div align="center" style="margin-bottom: 7px; font-weight: bold; color: #565656; font-size: 1.1em;">
+                    Reporte de Acceso
+                </div>
+                <p:fieldset id="fieldsetgenerico" style="#{util.WidthPfieldset}" legend="Reporte"> 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:growl id="growl" sticky="false" life="3000"/>  
+                        <!--<p:messages id="messages"  closable="true" />-->
+                        <h:panelGrid columns="4" cellspacing="3" styleClass="text-align-left">
+                            <p:outputLabel value="Fecha de Acceso:" style="#{util.outputTextTitulo}"  />
+                            <h:panelGrid id="cntndrFiltroFechaAcceso" columns="1" cellspacing="0" styleClass="text-align-left">
+                                <p:calendar id="filtroFechaAcceso" value="#{reporteController.fechaAcceso}" title="#{campos.FechaDiaEspecialT}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="Campo Requerido" pattern="dd/MM/yyyy " navigator="false" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" maxdate="#{reporteController.fechaNacFin}" yearRange="c-1:c-0" >
+                                </p:calendar>    
+                            </h:panelGrid>
+                               <!--<p:message  id="errorfiltroFechaNacFin" for="filtroFechaNacFin" display="#{util.DisplayMessage}"/>-->
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <p:commandButton action="#{reporteController.generaReporteAcceso}" title="#{campos.EjecutarL}" process="filtroFechaAcceso  @this  " update="filtroFechaAcceso,growl,tblResultados"  value="Ejecutar"  />
+                            <h:panelGroup id="btnReporte">
+                                <h:panelGrid columns="2" cellspacing="3">
+                                </h:panelGrid> 
+                            </h:panelGroup>
+                        </h:panelGrid>
+                        <br/> 
+                        <p:fieldset id="fieldsetRes" style="#{util.WidthPfieldset}" legend="Resultados"> 
+                            <p:dataTable  id="tblResultados" var="log" value="#{reporteController.listObj}" emptyMessage="No se han encontrado Resultados"
+                                          scrollWidth="810px"  scrollHeight="250" resizableColumns="true" paginator="true" 
+                                          paginatorPosition="bottom" rows="10"  
+                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                          rowIndexVar="rowIndex">
+                                <p:column headerText="No." style="width:22px;font-size: 11px;">
+                                    #{rowIndex+1}
+                                </p:column>
+                                <p:column headerText="Nombre de la Institucion" style="width:50px;font-size: 11px;" filterBy="#{log[0]} ">
+                                    <h:outputText value="#{log[0]}" style="font-size: 10px; "/>
+                                </p:column>                               
+                                <p:column headerText="Nombre de la Agencia" style="width:100px;font-size: 11px;"  filterBy="#{log[1]}">
+                                    <h:outputText value="#{log[1]}" style="font-size: 10px; "/>
+                                </p:column>
+                                <p:column  headerText="Numero de Accesos" style="width:60px;font-size: 11px; "  >
+                                    <div align="right">
+                                        <p:commandButton id="count" action="#{reporteController.generaRepoAcceDetailed}"  process="@this"   value="#{log[2]}"  >
+                                            <f:param value="#{log[1]}" name="AgenciaNom" />
+                                            <p:overlayPanel id="LogsAccesDetail" for="count" hideEffect="fade" dynamic="true" style="width:1000px" at="left bottom" >
+
+                                                <p:dataTable id="tblResultDetail" var="logDetail" value="#{reporteController.listObjDeta}"  paginator="true" emptyMessage="No se han encontrado Resultados"
+                                                             paginatorPosition="bottom" rows="10"   rowIndexVar="rowIndex" resizableColumns="true" >
+                                                    <p:column headerText="No." style="width:22px;font-size: 11px;">
+                                                        #{rowIndex+1}
+                                                    </p:column>
+                                                    <p:column headerText="Nombre de la Institución">
+                                                        <h:outputText value="#{logDetail[0]}" />
+                                                    </p:column>
+                                                    <p:column headerText="Nombre de la Agencia">
+                                                        <h:outputText value="#{logDetail[1]}" />
+                                                    </p:column>
+                                                    <p:column headerText="Usuario" style="width:105px;" filterBy="#{logDetail[2]}">
+                                                        <h:outputText value="#{logDetail[2]}" />
+                                                    </p:column>
+                                                    <p:column headerText="Nombre">
+                                                        <h:outputText value="#{logDetail[3]}" style="width:53px;"  />
+                                                    </p:column>
+                                                    <p:column headerText="Apellido">
+                                                        <h:outputText value="#{logDetail[4]}" />
+                                                    </p:column> 
+                                                </p:dataTable>
+                                            </p:overlayPanel>
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>
+                                <f:facet name="footer" >  
+                                    <h:outputText value="TOTAL: #{reporteController.listObj.size()}" style="font-size: 11px; " /> 
+                                </f:facet>  
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

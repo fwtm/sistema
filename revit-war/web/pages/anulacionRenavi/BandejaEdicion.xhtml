@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p/>
+                <p:fieldset id="fieldsetgenerico" style="width: 100%;" legend="Bandeja de Consulta de Anulaciones"> 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:growl id="growl" sticky="false" life="3000"/>  
+
+                        <br/> 
+
+                        <p:dataTable  id="tblResultados" var="nv" value="#{bandejaAnulacionController.resultado}" emptyMessage="No se han encontrado Resultados"
+                                      scrollWidth="810px"  scrollHeight="#{util.DlgTableHeightMediano}" paginator="true" 
+                                      paginatorPosition="bottom" rows="20"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      scrollable="false" rowIndexVar="rowIndex">                               
+
+                            <p:column headerText="No." style="width:10px; font-size: 11px;"  >
+                                #{rowIndex+1}
+                            </p:column>
+                            <p:column style="width:18px; font-size: 11px;" >
+                                <p:commandLink value="Editar" rendered="#{nv.estAnulNacViv  == '2' or nv.estAnulNacViv  == '4'}" disabled="true" >
+                                </p:commandLink>
+                                <p:commandLink  title="#{campos.Seleccionar}"  value="Rechazado" style="width:15px; font-size: 11px;"
+                                                rendered="#{nv.estAnulNacViv  == '3'}" disabled="true">
+                                </p:commandLink>
+
+                            </p:column>
+                            <p:column headerText="Estado " style="width:100px; font-size: 11px;" filterBy="#{nv.estAnulNacViv  == '1' ? 'EN ANÁLISIS' : '' || nv.estAnulNacViv  == '2' ? 'APROBADO' : '' || nv.estAnulNacViv  == '3' ? 'RECHAZADO' : '' || nv.estAnulNacViv  == '4' ? 'FINALIZADO' : ''}">
+                                <h:outputText value="#{nv.estAnulNacViv  == '1' ? 'EN ANÁLISIS' : ''} "  style="font-size: 10px;"/>
+                                <h:outputText value="#{nv.estAnulNacViv  == '2' ? 'APROBADO' : ''} "  style="font-size: 10px;"/>
+                                <h:outputText value="#{nv.estAnulNacViv  == '3' ? 'RECHAZADO' : ''} "  style="font-size: 10px;"/>
+                                <h:outputText value="#{nv.estAnulNacViv  == '4' ? 'FINALIZADO' : ''} "  style="font-size: 10px;"/>
+                            </p:column >
+                            <p:column headerText="Médico que Registra" style="width:100px;font-size: 11px;"  filterBy="#{nv.nomMedicoAnulNacViv}" >
+                                <h:outputText value="#{nv.nomMedicoAnulNacViv} #{nv.apellMedicoAnulNacViv} " style="font-size: 10px; "/>
+                            </p:column>
+                            <p:column headerText="No. de Identificación" style="width:100px;font-size: 11px;"  filterBy="#{nv.fkCedNacViv.cedulNacViv}">
+                                <h:outputText value="#{(fn:substring(nv.fkCedNacViv.cedulNacViv,0,10)) eq 0 ? 'MADRE INDOCUMENTADA' :(fn:substring(nv.fkCedNacViv.cedulNacViv,0,10))}" style="font-size: 10px; "/>
+                            </p:column>
+                            <p:column  headerText="Nombre Nacido Vivo" style="width:80px;font-size: 11px;"  >
+                                <h:outputText value="#{nv.fkCedNacViv.nombrNacViv}  #{nv.fkCedNacViv.apellNacViv}" style="font-size: 10px; "/>
+                            </p:column>
+                            <p:column    headerText="Fecha de Anulación" style="width:50px;font-size: 11px;" >
+                                <h:outputText value="#{bandejaAnulacionController.cambiaFormatoFecha(nv.fechaAnul)}" style="font-size: 10px; ">
+                                    <f:convertDateTime parent="dd/MM/yyyy"/>
+                                </h:outputText>    
+                            </p:column>
+                            <p:column  headerText="Nombre de la Madre" style="width:80px;font-size: 11px;"  >
+                                <h:outputText value="#{nv.fkCedNacViv.fkCedulMad.nombrMad}" style="font-size: 10px; "/>
+                            </p:column>
+                            <p:column headerText="Cédula de la Madre" style="width:100px;font-size: 11px;"  filterBy="#{nv.fkCedNacViv.fkCedulMad.cedulMad}" >
+                                <h:outputText value="#{nv.fkCedNacViv.fkCedulMad.cedulMad  eq null ? 'MADRE INDOCUMENTADA' :nv.fkCedNacViv.fkCedulMad.cedulMad} "  style="font-size: 10px;"/>
+                            </p:column>
+                            <p:column headerText="Justificación" style="width:80px;font-size: 11px;"  >
+                                <h:outputText value="#{nv.justificacion}" style="font-size: 10px; text-transform: uppercase;" />
+                            </p:column>
+                            <p:column headerText="Errores Reportados" style="width:75px;font-size: 11px;"  >
+
+                                <ui:repeat value="#{nv.err}" var="value">
+                                    - #{value} <br/>
+                                </ui:repeat> 
+
+                            </p:column>
+                            <f:facet name="footer" >  
+                                <h:outputText value="TOTAL: #{bandejaAnulacionController.resultado.size()}" style="font-size: 11px; " /> 
+                            </f:facet>  
+                            <f:facet name="footer">
+                                <div align="left">
+
+                                </div>    
+                            </f:facet>                              
+                        </p:dataTable>
+                        <p:dialog id="dlgAnul" header="Motivo del rechazo" widgetVar="dialogMotRech"  showEffect="fade" hideEffect="fade" resizable="false" style="width: 500px;" position="center">
+                            <fieldset>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Motivo:"/>
+                                        </td>
+                                        <td>
+                                            <p:inputTextarea  id="motRec" value="#{bandejaAnulacionController.selectionCurrent.obsRech}" cols="70" 
+                                                              style=" text-transform: uppercase;" disabled="true"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <p:commandLink action="#{bandejaAnulacionController.marcarComoLeido}" title="#{campos.Guardar}" process="@this" update="motRec,tblResultados" oncomplete="PF('dialogMotRech').hide();">
+                                                <div class="guardar"/>
+                                            </p:commandLink>
+                                        </td>
+                                        <td>
+                                            <p:commandLink title="#{campos.Cerrar}" onclick="PF('dialogMotRech').hide();">
+                                                <div class="regresar"/>
+                                            </p:commandLink>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </p:dialog>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

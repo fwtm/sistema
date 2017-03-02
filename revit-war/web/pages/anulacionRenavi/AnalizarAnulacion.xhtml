@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p/>
+                <div align="center" style="margin-bottom: 7px; font-weight: bold; color: #565656; font-size: 1.1em;">
+                    Analizar Anulaciones
+                </div>
+
+                <h:form id="form" styleClass="jsfcrud_list_form" prependId="false" onkeypress="if (event.keyCode == 13) { return false; }">
+                    <p:growl id="growl" sticky="false" life="4500"/>  
+                    <!-- aqui retiro los filtros para que por default dalgan todos los que el supervisor debe revisar-->
+                    <br/> 
+                    <p:fieldset id="fieldsetRes" style="width: 90%;" legend="Listado de solicitudes de anulación"> 
+                        <p:dataTable  id="tblResultados" var="nv" value="#{autAnulacionController.resultado}" emptyMessage="No se han encontrado Resultados"
+                                      scrollWidth="810px"  scrollHeight="#{util.DlgTableHeightMediano}" paginator="true" 
+                                      paginatorPosition="bottom" rows="20"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      scrollable="FALSE" rowIndexVar="rowIndex" >
+
+                            <p:column headerText="No." style="width:10px;font-size: 11px;">
+                                #{rowIndex+1}
+                            </p:column>
+                            <p:column style="width:15px;">
+                                <p:commandLink process="@this" update=":form:carDetail" oncomplete="PF('nvDialog').show()" title="Seleccionar"
+                                               disabled="#{ nv.estAnulNacViv  != '1'}">
+                                    <div class="seleccionar"/>
+                                    <f:setPropertyActionListener value="#{nv}" target="#{autAnulacionController.registroSeleccionado}" />
+                                </p:commandLink>
+                            </p:column>        
+                            <p:column headerText="Estado " style="width:100px;font-size: 11px;" filterBy="#{nv.estAnulNacViv  == '1' ? 'PARA ANÁLISIS' : '' || nv.estAnulNacViv  == '2' ? 'APROBADO' : '' || nv.estAnulNacViv  == '3' ? 'RECHAZADO' : '' || nv.estAnulNacViv  == '4' ? 'FINALIZADO' : ''}" >
+                                <h:outputText value="#{nv.estAnulNacViv  == '1' ? 'PARA ANÁLISIS' : ''} "  style="font-size: 10px;"/>
+                                <h:outputText value="#{nv.estAnulNacViv  == '2' ? 'APROBADO' : ''} "  style="font-size: 10px;"/>
+                                <h:outputText value="#{nv.estAnulNacViv  == '3' ? 'RECHAZADO' : ''} "  style="font-size: 10px;"/>
+                                <h:outputText value="#{nv.estAnulNacViv  == '4' ? 'FINALIZADO' : ''} "  style="font-size: 10px;"/>
+                            </p:column >
+                            <p:column headerText="PDF" style="width:15px;font-size: 11px;">
+                                <h:commandLink  action="#{autAnulacionController.verPDFConFirma}"  value="Ver" style="float:left" immediate="true"
+                                                title="Ver pdf en su estado actual">
+                                    <f:param value="#{nv.fkCedNacViv.idNacViv}" name="id" />
+                                </h:commandLink>
+                            </p:column>
+                            <p:column headerText="Médico que Registra"   style="width:100px;font-size: 11px;"  filterBy="#{nv.nomMedicoAnulNacViv}" >
+                                <h:outputText value="#{nv.nomMedicoAnulNacViv} #{nv.apellMedicoAnulNacViv} " style="font-size: 10px; "/>
+                            </p:column>
+                            <p:column headerText="No. de Identificación"  style="width:100px;font-size: 11px; "  filterBy="#{nv.fkCedNacViv.cedulNacViv}">
+                                <h:outputText value="#{nv.fkCedNacViv.cedulNacViv eq null ? 'MADRE INDOCUMENTADA' : fn:substring(nv.fkCedNacViv.cedulNacViv, 0, 10)}"  style="font-size: 10px;"/>
+                            </p:column>
+                            <p:column  headerText="Nombre Nacido Vivo"  style="width:70px;font-size: 11px;"  >
+                                <h:outputText value="#{nv.fkCedNacViv.nombrNacViv}  #{nv.fkCedNacViv.apellNacViv}" style="font-size: 10px; "/>
+                            </p:column>
+                            <p:column headerText="Fecha de Solicitud"  style="width:50px;font-size: 11px;" >
+                                <h:outputText value="#{autAnulacionController.cambiaFormatoFecha(nv.fechaAnul)} " style="font-size: 10px; ">
+                                    <f:convertDateTime  parent="dd/MM/yyyy"/>
+                                </h:outputText>    
+                            </p:column>
+                            <p:column  headerText="Nombre de la Madre"  style="width:80px;font-size: 11px;"  >
+                                <h:outputText value="#{nv.fkCedNacViv.fkCedulMad.nombrMad}" style="font-size: 10px; "/>
+                            </p:column>
+                            <p:column headerText="Cédula de la Madre"  style="width:100px;font-size: 11px;"  filterBy="#{nv.fkCedNacViv.fkCedulMad.cedulMad}" >
+                                <h:outputText value="#{nv.fkCedNacViv.fkCedulMad.cedulMad eq null ? 'MADRE INDOCUMENTADA' : nv.fkCedNacViv.fkCedulMad.cedulMad} "  style="font-size: 10px;"/>
+                            </p:column>
+                            <p:column headerText="Justificación"  style="width:80px;font-size: 11px;"  >
+                                <h:outputText value="#{nv.justificacion}" style="font-size: 10px; text-transform: uppercase;" />
+                            </p:column>
+                            <p:column headerText="Errores Reportados"  style="width:75px;font-size: 11px;"  >
+                                <ui:repeat value="#{nv.err}" var="value">
+                                    - #{value} <br/>
+                                </ui:repeat> 
+                            </p:column>
+                            <f:facet name="footer" >  
+                                <h:outputText value="TOTAL: #{autAnulacionController.resultado.size()}" style="font-size: 11px; " /> 
+                            </f:facet>  
+
+                        </p:dataTable>
+
+                        <p:dialog id="dlgAnul" header="Formulario de Autorización/Rechazo de Anulación" widgetVar="nvDialog"  showEffect="fade" hideEffect="fade" resizable="false" style="width: 500px;" position="center">
+                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                <p:fieldset style="width: 500px; height: 30px; padding: 5px;" legend="Datos de la Madre">
+                                    <table>
+                                        <tr>
+                                            <td style=" width: 350px;" align="left">
+                                                <h:outputText value="Nombre: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="nombrMad" value="#{autAnulacionController.registroSeleccionado.fkCedNacViv.fkCedulMad.nombrMad}" style=" font-size: 11px;"/>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td align="left">
+                                                <h:outputText value="Cédula: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="cedulMad" value="#{autAnulacionController.registroSeleccionado.fkCedNacViv.fkCedulMad.cedulMad} " style=" font-size: 11px;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p:fieldset>    
+                                <br/>
+                                <p:fieldset style="width: 500px;  height: 52px; padding: 5px;" legend="Datos del Nacido Vivo">
+                                    <table>
+                                        <tr>
+                                            <td style=" width: 350px;" align="left">
+                                                <h:outputText value="Nombre: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="nombrNV" value="#{autAnulacionController.registroSeleccionado.fkCedNacViv.nombrNacViv} #{autAnulacionController.registroSeleccionado.fkCedNacViv.apellNacViv}" style=" font-size: 11px;" />
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td  align="left">
+                                                <h:outputText value="No. Ident.: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="cedNV" value="#{autAnulacionController.registroSeleccionado.fkCedNacViv.cedulNacViv}" style=" font-size: 11px;" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style=" width: 350px;" align="left">
+                                                <h:outputText value="Fecha nacimiento: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="fec" value="#{autAnulacionController.getFechaFormato()} " style=" font-size: 11px;" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </h:outputText>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td  align="left">
+                                                <h:outputText value="Sexo: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="sexoNV" value="#{autAnulacionController.registroSeleccionado.fkCedNacViv.fkIdSexoNv.descrSexo}" style=" font-size: 11px;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p:fieldset> 
+                                <br/>
+                                <p:fieldset style="width: 500px; height: 52px; padding: 5px;" legend="Datos del Médico que reporta el error">
+                                    <table>
+                                        <tr>
+                                            <td style=" width: 350px;" align="left">
+                                                <h:outputText value="Nombre: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="nombrDr" value="#{autAnulacionController.registroSeleccionado.nomMedicoAnulNacViv} #{autAnulacionController.registroSeleccionado.apellMedicoAnulNacViv}"  style=" font-size: 11px;" />
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td style="" align="left">
+                                                <h:outputText value="Cédula: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText  id="cedDr" value="#{autAnulacionController.registroSeleccionado.userMedicoAnulNacViv}" style=" font-size: 11px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style=" width: 350px;" align="left">
+                                                <h:outputText value="Unidad Médica: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="unidadMed" value="#{autAnulacionController.userLgn.getAgenciaInUser().getNomAgencia()}" style=" font-size: 11px;"/>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td style="" align="left">
+                                                <h:outputText value="Estado: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText  id="estadoDr" value="#{autAnulacionController.buscarInactivo()}" style=" font-size: 11px;"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p:fieldset>
+                                <br/>
+                                <!-- > -->
+                                <p:fieldset style="width: 500px; height: 52px; padding: 5px;" legend="Asignación del Médico Responsable" rendered="#{autAnulacionController.buscarInactivo() eq 'ACTIVO' ? false:true}">
+                                    <table>
+                                        <tr>
+                                            <td style=" width: 350px;" align="left">
+                                                <h:outputText value="Nombre: " style="font-weight: bold; font-size: 11px;"/>
+                                                <p:selectOneMenu id="profesionalReasig" value="#{reasignacionRenaviController.userReasigCedula}" filter="true" filterMatchMode="contains"  style="width: 190px;"   required="true"  requiredMessage="Es oblogatorio seleccionar el profesional a reasignar" >
+                                                    <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{reasignacionRenaviController.listProfAsig}"  var="prof" 
+                                                                   itemLabel="#{prof.apellido} #{prof.nombre} " 
+                                                                   itemValue="#{prof.nomUsuario.toString()}" />
+                                                    <f:ajax render="@this cedProf"/>
+                                                </p:selectOneMenu>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td style="" align="left">
+                                                <h:outputText value="Cédula: " style="font-weight: bold; font-size: 11px;"/>
+                                                <h:outputText id="cedProf" value="#{reasignacionRenaviController.userReasigCedula}" style=" font-size: 11px;"/>                                                    
+                                            </td>
+                                        </tr>
+                                        <td>
+
+                                        </td>
+                                    </table>
+                                </p:fieldset>
+                                <!-- > -->
+                                <br/>
+                                <h:commandLink id="link"    action="#{autAnulacionController.verPDFConFirma}"  value="Ver Formulario Firmado Electrónicamente" style="float: left;" immediate="true" title="Ver PDF firmado electrónicamente">
+                                    <div class="download" style="float:left;"/>    
+                                    <f:param value="#{autAnulacionController.registroSeleccionado.fkCedNacViv.idNacViv}" name="id" />
+                                </h:commandLink>
+
+                                <hr/> 
+                                <p:fieldset style="width: 500px; height: auto; padding: 5px;" legend="Notificación para la anulación"> 
+                                    <!-- <table>
+                                         <tr>
+                                             <td valign="top">
+                                                 <h:outputText value="Errores registrados para la anulación: " style="font-weight: bold; font-size: 11px; float:left;"/>
+                                             </td>
+                                             <td align="left" >
+                                                 <h:selectManyCheckbox id="grid" value="#{autAnulacionController.registroSeleccionado.err}" layout="pageDirection" disabled="true">
+                                                     <f:selectItems value="#{autAnulacionController.erroresAnulacion}" />
+                                                 </h:selectManyCheckbox>
+                                             </td>
+                                         </tr>
+                                     </table> -->
+
+                                    <table>
+                                        <tr>
+                                            <td valign="top">
+                                                <h:outputText id="txtJstf" value="Justificación: " style="font-weight: bold; font-size: 11px; float:left;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <p:inputTextarea  id="justif" value="#{autAnulacionController.registroSeleccionado.justificacion}" cols="70" disabled="true"
+                                                                  style=" text-transform: uppercase;"/>
+                                                <div align="right">
+                                                    <p:message for="justif"/>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p:fieldset>   
+                                <br/>
+                                <p:commandButton value="Aprobar" 
+                                                 process="@this"
+                                                 update="growl" onclick="PF('dlg2').show();"  title="Aprobar Anulación">
+                                    <p:confirm header="Confirmación" message="¿Esta seguro que desea aprobar la solicitud?" icon="ui-icon-alert" />
+                                    <f:setPropertyActionListener target="#{autAnulacionController.cedulaProf}" value="#{reasignacionRenaviController.userReasigCedula}" />
+                                </p:commandButton>
+                                <p:commandButton value="Rechazar"  
+                                                 process="@this"
+                                                 update="growl" onclick="PF('dlg1').show();" title="Rechazar anulación">
+                                    <p:confirm header="Confirmación" message="¿Esta seguro que desea rechazar la solicitud?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+
+
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="delete">
+                                    <div align="center">
+                                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    </div>
+                                </p:confirmDialog>
+
+
+                                <p:commandButton value="#{campos.Cancelar}"  process="@this" oncomplete="PF('nvDialog').hide()" title="Cancelar"/>
+                            </p:outputPanel>
+
+                            <p:dialog header="Motivo de Rechazo" widgetVar="dlg1" minHeight="40"  >
+                                <p:outputPanel id="bdia" style="text-align:center;">
+                                    <table>
+                                        <tr>
+                                            <td  align="left">
+                                                <h:outputText value="Motivo de rechazo: " style="font-weight: bold; font-size: 11px;"/>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <p:inputTextarea  id="motRec" value="#{autAnulacionController.registroSeleccionado.obsRech}" cols="70" 
+                                                                  style=" text-transform: uppercase;" disabled="false"
+                                                                  required="true" requiredMessage="Debe ingresar el motivo del rechazo."
+                                                                  converter="uperCaseConverter"/>
+                                            </td>   
+                                        </tr>
+                                    </table>
+                                    <p:commandButton value="Rechazar"  
+                                                     process="@this, motRec"
+                                                     update="growl" 
+                                                     actionListener="#{autAnulacionController.rechazar()}">
+                                    </p:commandButton>
+                                </p:outputPanel>
+                            </p:dialog>
+                            <p:dialog header="Motivo de Aprobación" widgetVar="dlg2" minHeight="40"  >
+                                <p:outputPanel id="bdia2" style="text-align:center;">
+                                    <table>
+                                        <tr>
+                                            <td  align="left">
+                                                <h:outputText value="Motivo de aprobación: " style="font-weight: bold; font-size: 11px;"/>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <p:inputTextarea  id="motAprob" value="#{autAnulacionController.registroSeleccionado.obsRech}" cols="70" 
+                                                                  style=" text-transform: uppercase;" disabled="false"
+                                                                  converter="uperCaseConverter"
+                                                                  required="true" requiredMessage="Debe ingresar el motivo de apr."/>
+                                            </td>   
+                                        </tr>
+                                    </table>
+                                    <p:commandButton value="Aprobar"  
+                                                     process="@this, motAprob, nombrMad, nombrNV, cedNV, nombrDr, cedDr, unidadMed, justif"
+                                                     update="growl" 
+                                                     actionListener="#{autAnulacionController.aprobar()}">
+                                        <f:param value="#{autAnulacionController.registroSeleccionado.fkCedNacViv.cedulNacViv}" name="registroAnul" />
+                                    </p:commandButton>
+                                </p:outputPanel>
+                            </p:dialog>
+
+                            <p:ajax event="close" update=":form:tblResultados" process="@this"
+                                    listener="#{autAnulacionController.actualizaTablaAnulaciones(event)}" global="false" />
+                        </p:dialog>
+
+
+
+                    </p:fieldset>
+                </h:form>
+
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

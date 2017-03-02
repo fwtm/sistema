@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCierreRenaviTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_idCierre}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.idCierre}" title="#{bundle.ViewCierreRenaviTitle_idCierre}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_usuario}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.usuario}" title="#{bundle.ViewCierreRenaviTitle_usuario}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_fkUsuSaureg}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.fkUsuSaureg}" title="#{bundle.ViewCierreRenaviTitle_fkUsuSaureg}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_fechaCierre}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.fechaCierre}" title="#{bundle.ViewCierreRenaviTitle_fechaCierre}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_numPartos}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.numPartos}" title="#{bundle.ViewCierreRenaviTitle_numPartos}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_numNacimientos}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.numNacimientos}" title="#{bundle.ViewCierreRenaviTitle_numNacimientos}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_numNacVivFe}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.numNacVivFe}" title="#{bundle.ViewCierreRenaviTitle_numNacVivFe}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_numRegFisicos}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.numRegFisicos}" title="#{bundle.ViewCierreRenaviTitle_numRegFisicos}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_numRegIncompletos}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.numRegIncompletos}" title="#{bundle.ViewCierreRenaviTitle_numRegIncompletos}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_numRegAnulNacVivFe}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.numRegAnulNacVivFe}" title="#{bundle.ViewCierreRenaviTitle_numRegAnulNacVivFe}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_diferPartos}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.diferPartos}" title="#{bundle.ViewCierreRenaviTitle_diferPartos}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_diferNacViv}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.diferNacViv}" title="#{bundle.ViewCierreRenaviTitle_diferNacViv}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_observacion}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.observacion}" title="#{bundle.ViewCierreRenaviTitle_observacion}"/>
+                    <h:outputText value="#{bundle.ViewCierreRenaviLabel_estatus}"/>
+                    <h:outputText value="#{cierreRenaviController.selected.estatus}" title="#{bundle.ViewCierreRenaviTitle_estatus}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{cierreRenaviController.destroyAndView}" value="#{bundle.ViewCierreRenaviDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewCierreRenaviEditLink}"/>
+                <br />
+                <h:commandLink action="#{cierreRenaviController.prepareCreate}" value="#{bundle.ViewCierreRenaviCreateLink}" />
+                <br />
+                <h:commandLink action="#{cierreRenaviController.prepareList}" value="#{bundle.ViewCierreRenaviShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewCierreRenaviIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

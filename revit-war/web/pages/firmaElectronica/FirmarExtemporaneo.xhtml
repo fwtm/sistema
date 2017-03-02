@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p:fieldset id="fieldsetgenerico" style="width: 1020px;" > 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:growl id="messages" autoUpdate="false" life="#{util.GrowlLifeMax}"/>
+                        <div style="margin-bottom: 8px;">
+                            <table width="100%">
+                                <tr>
+                                    <td width="3%">
+                                        <div class="informacion"/> 
+                                    </td>
+                                   
+                                </tr>
+                            </table>
+                        </div>
+                        <table width="100%" border="0">
+                            <tr>
+                                <td width="15%" align="left">
+                                    <p:outputLabel value="Fecha creación inicio:" for="filtroFechaIni" />
+                                </td>
+                                <td width="20%" align="left">
+                                    <h:panelGroup id="cntndrFiltroFechaIni">
+                                        <p:calendar id="filtroFechaIni" value="#{firmaExtemporaneoRenaviController.fechaFin}" title="#{campos.FechaDiaEspecialT}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" pattern="dd/MM/yyyy" navigator="false" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" mindate="#{firmaExtemporaneoRenaviController.fechaPreFirma}" maxdate="#{firmaExtemporaneoRenaviController.fechaInicio}" yearRange="c-1:c-0" >
+                                            <p:ajax event="dateSelect" update="filtroFechaFin" />
+                                        </p:calendar>    
+                                        <p:message for="filtroFechaIni" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                                <td width="15%" align="left">
+                                    <p:outputLabel value="Fecha creación fin:" for="filtroFechaFin" />
+                                </td>
+                                <td width="20%" align="left">
+                                    <h:panelGroup id="cntndrFiltroFechaFin">
+                                        <p:calendar id="filtroFechaFin" value="#{firmaExtemporaneoRenaviController.fechaInicio}" title="#{campos.FechaDiaEspecialT}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaNacimientoM}" pattern="dd/MM/yyyy" navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" mindate="#{firmaExtemporaneoRenaviController.fechaPreFirma}" maxdate="#{firmaExtemporaneoRenaviController.fechaInicio}">
+                                            
+                                            <p:ajax event="dateSelect" update="filtroFechaIni" />
+                                        </p:calendar>   
+                                        <p:message for="filtroFechaFin" display="#{util.DisplayMessage}"/>
+                                    </h:panelGroup>
+                                </td>
+                                <td align="left">
+                                    <p:commandButton action="#{firmaExtemporaneoRenaviController.buscarNacidoVivosNoFirmados}" title="#{campos.Buscar}" process="@this,filtroFechaIni,filtroFechaFin" update="checkboxDT cntndrFiltroFechaIni cntndrFiltroFechaFin " value="#{campos.Buscar}"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <p:dataTable id="checkboxDT" var="item" 
+                                     value="#{firmaExtemporaneoRenaviController.listNacidoVivoPorFirmar}" 
+                                     selection="#{firmaExtemporaneoRenaviController.listSelectNacidoVivo}" 
+                                     rowKey="#{item.idNacViv}" 
+                                     style="margin-bottom:0"
+                                     emptyMessage="#{campos.NoHayDatos}" scrollable="true" scrollHeight="150px"
+                                     paginator="true" paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowIndexVar="rowIndex">
+                            <f:facet name="header">
+                                REGISTROS ANULADOS Y REASIGNADOS POR FIRMAR
+                            </f:facet>
+                            <p:column  selectionMode="multiple" width="7"  style="text-align:center"/>
+                            <p:ajax event="toggleSelect"  update="btnEnviarFirma" />
+                            <p:ajax event="rowSelectCheckbox"  update="btnEnviarFirma" />
+                            <p:ajax event="rowUnselectCheckbox" update="btnEnviarFirma" />
+                            <p:column headerText="Nº" width="9" style="text-align: center;">
+                                #{rowIndex+1}
+                            </p:column>
+                            <p:column headerText="PDF" width="10" style="text-align: center;">
+                                <h:commandLink  action="#{firmaExtemporaneoRenaviController.verPDFSinFirma}"  value="#{campos.Ver}">
+                                    <f:param value="#{item.idNacViv}" name="idNacViv" />
+                                </h:commandLink>
+                            </p:column>
+                            <p:column headerText="#{campos.NombreT}" width="120">
+                                <h:outputText value="#{item.apellNacViv} #{item.nombrNacViv}" style="font-size: 11px;"/>
+                            </p:column>
+                            <p:column headerText="#{campos.FechaNacimientoT}" width="100" style="text-align: center;" filterBy="#{item.fechaNacimNacViv}" filterMatchMode="contains"  > 
+                                <h:outputText value="#{item.fechaNacimNacViv}" style="font-size: 11px;">
+                                    <f:convertDateTime parent="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column >
+                            <p:column headerText="#{campos.CedulaMadreT}" filterBy="#{item.fkCedulMad.cedulMad}" width="80" style="text-align: center;"> 
+                                <h:outputText value="#{item.fkCedulMad.cedulMad}"/>
+                            </p:column >
+                            <p:column headerText="#{campos.Madre}" filterBy="#{item.fkCedulMad.nombrMad}" filterMatchMode="contains" filterStyle="width:90%;" width="120">
+                                <h:outputText value="#{item.fkCedulMad.nombrMad}" style="float:left"/>
+                            </p:column>
+                            <p:column headerText="#{campos.EstadoT}" width="45" style="text-align:center">
+                                <p:graphicImage library="images/icons" name="#{item.fechaCreacionNacViv le firmaExtemporaneoRenaviController.fechaPreFirma ? 'semaforo-amarillo.png' : 'semaforo-verde.png'}" width="18" height="18" title="#{item.fechaCreacionNacViv le firmaExtemporaneoRenaviController.fechaPreFirma ? 'Registro por vencer' : ''}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="btnEnviarFirma" process="checkboxDT" update=":form:multiCarDetail" icon="ui-icon-check" value="#{campos.EnviarParaFirmar}" oncomplete="PF('multiCarDialog').show();" disabled="#{empty firmaExtemporaneoRenaviController.listSelectNacidoVivo}" />  
+                            </f:facet>
+                        </p:dataTable>
+                        <p:dialog  header="¿Está seguro que desea firmar los siguientes documentos?" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="300" >
+                            <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                                <ui:repeat value="#{firmaExtemporaneoRenaviController.listSelectNacidoVivo}" var="nvs">
+                                    <h:outputText value="Código: #{nvs.idNacViv}" style="display:block"/>
+                                </ui:repeat>
+                                <hr/>
+
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="PF('multiCarDialog').hide();" style="font-size: 12px;"/>
+                                <p:commandButton action="#{firmaExtemporaneoRenaviController.enviarApplet()}"  value="Si" oncomplete="PF('multiCarDialog').hide()" process="@this" style="font-size: 12px;"/>
+
+                            </p:outputPanel>
+                        </p:dialog>
+
+                        <br/>
+                        <p:dialog header="Firma Electrónica de Documentos - Registro de Datos Vitales" widgetVar="firmaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  width="583" >
+
+                            <p:outputPanel id="firmaPanel" style="text-align:center; " >
+                                <applet id       = "AppletFirmaDigital"
+                                        code     = "ec.gov.informatica.firmadigital.applet.AppletFirmaDigital"
+                                        name     = "firma"
+                                        archive  = "firma.jar"
+                                        width    = "555"  
+                                        height   = "292"
+                                        hspace   = "0"
+                                        vspace   = "0"
+                                        align    = "middle"
+                                        >
+                                </applet>
+                            </p:outputPanel>     
+                            <p:ajax event="close" update=":form:checkboxDT" process="@this"
+                                    listener="#{firmaExtemporaneoRenaviController.actualizaTablaPorFirmar(event)}" global="false" />  
+                        </p:dialog>    
+
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

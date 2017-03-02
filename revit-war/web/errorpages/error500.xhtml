@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="./../templates/temrecursos.xhtml">
+
+	<ui:define name="menu">
+		<div align="center"><label>ERROR 500</label></div>
+	</ui:define>
+
+	<ui:define name="body">
+            <div align="center" style="margin-top: 40px;">
+                <h:graphicImage library="images" name="notfound.jpg" height="80" width="80" />
+                <br />
+                <br /> <label style="font-weight: bold;">ERROR INTERNO DEL SERVIDOR</label>
+            </div>
+            <div align="left" style="margin-top: 25px;">
+                <ul>
+                    <li>
+                        <label>La mentamos el inconveniente.</label>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <h:form id="error404">
+                            Ir a la pagina principal: <a href="#{facesContext.externalContext.requestContextPath}/index.jsf">Index</a>
+                        </h:form>
+                    </li>
+                </ul>
+            </div>
+	</ui:define>
+</ui:composition>
+
+</html>

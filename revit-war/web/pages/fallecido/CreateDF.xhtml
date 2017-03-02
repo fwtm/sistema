@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:growl id="mssgsBusquedaDF" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+    <div align="left" class="divAtras">
+        <h:panelGrid columns="1">
+            <p:commandLink id="btnAtrasNV" action="#{fallecidoCDUVController.atrasF}" title="#{campos.Atras}" process="@this" update="cntndrBotones" oncomplete="PF('statusDialog').hide();" onclick="if (!confirm('¿#{campos.ConfirmacionRegrTabMadre}?'))
+                        return false">
+                <div class="atras"/>
+            </p:commandLink>
+        </h:panelGrid>   
+    </div>
+    <p:fieldset legend="#{campos.DatResultadosFallecido}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table width="100%">
+            <tr>
+                <td width="60px">
+                    <p:outputLabel value="#{campos.NombreL}" for="nombreFalDF" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nombreFalDF" value="#{fallecidoCDUVController.selected.nombreFal}" style="#{util.UppercaseWidth}"/>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulaFalDF" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="cedulaFalDF" value="#{fallecidoCDUVController.selected.cedulaFal}" style="#{util.Width}"/>
+                </td>
+                <td/>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset legend="#{campos.DatMortalidadMaterna}" style="#{util.WidthPfieldset}" rendered="#{fallecidoCDUVController.selected.edadFal lt 50 and fallecidoCDUVController.selected.edadFal gt 9 and fallecidoCDUVController.selected.sexoFal eq 'FEMENINO' ? true:false }">
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="280px">
+                    <p:outputLabel value="#{campos.EmbarazadaAlFallecerL}" for="fkIdMorMat" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="240px"> 
+                    <p:selectOneMenu id="fkIdMorMat" value="#{fallecidoCDUVController.selected.fkIdMorMat}"
+                                     required="true" requiredMessage="#{campos.EmbarazadaAlFallecerM}"
+                                     style="#{util.WidthCombo}">
+                        <f:selectItems value="#{mortalidadMaternaLController.itemsAvailableSelectOne}"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgfkIdMorMat" for="fkIdMorMat" display="#{util.DisplayMessage}"/>
+                </td>
+                <td width="150px"/>
+                <td width="115px"/>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset legend="#{campos.DatFallecimiento}" style="#{util.WidthPfieldset}">
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="170px">
+                    <p:outputLabel value="#{campos.FechaFallecimientoL}" for="fechaFallecimientoFalDF" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:calendar id="fechaFallecimientoFalDF" value="#{fallecidoCDUVController.selected.fechaFallecimientoFal}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="#{campos.FechaFallecimientoM}" pattern="dd/MM/yyyy " navigator="false" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" 
+                                yearRange="c-1:c-0" maxdate="#{fallecidoCDUVController.fechaActual}">
+                        <p:ajax event="dateSelect" listener="#{fallecidoCDUVController.seleccionFechaFallecimiento}" 
+                                process="@this" update="@this,edadFalDF" />
+                    </p:calendar>
+                    <p:message id="mssgfechaFallecimientoFalDF" for="fechaFallecimientoFalDF" display="#{util.DisplayMessage}"/>
+                </td>
+                <td width="45px">
+                    <p:outputLabel value="#{campos.EdadL}" for="edadFalDF" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="edadFalDF" value="#{fallecidoCDUVController.selected.edadFal}" style="#{util.Width}"/>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+    <p:fieldset legend="#{campos.DatCausaDefuncion}" style="#{util.WidthPfieldset}">
+        <table border="0" style="text-align-left">
+            <tr>
+                <td colspan="2">
+                    <p:outputLabel value="CAUSAS DE LA DEFUNCIÓN CERTIFICADAS POR MÉDICO" style="text-align: justify;"/>
+                </td>
+                <td>
+                    <p:outputLabel value="Tiempo aproximado entre el comienzo de cada causa y la muerte." style="text-align: justify; font-size: 10px;"/>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td width="285px">
+                    <p:outputLabel value="Enfermedad o estado fisiológico que produjo la muerte directamente" style="text-align: justify;"/>
+                </td>
+                <td width="240px">
+                    <p:inputTextarea id="causaMuertaAFal" value="#{fallecidoCDUVController.selected.causaMuertaAFal}" maxlength="70" converter="uperCaseConverter" rows="1" autoResize="false" style="width: 240px; text-transform: uppercase;" />
+                    <p:message id="mssgcausaMuertaAFal" for="causaMuertaAFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td width="150px">
+                    <p:inputMask id="tiempoMuerteAFal" value="#{fallecidoCDUVController.selected.tiempoMuerteAFal}" mask="999"/>
+                    <p:message id="mssgtiempoMuerteAFal" for="tiempoMuerteAFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td width="110px">
+                    <p:selectOneMenu id="unidadTiempoCausaA" value="#{fallecidoCDUVController.unidadTiempoCausaA}"
+                                     required="true" requiredMessage="#{campos.CampoObligatorioM}" style="width: 110px;" onchange="valUnidadMedida('form_cont:contTab:tiempoMuerteAFal','form_cont:contTab:mssgunidadTiempoCausaA','form_cont:contTab:txtmssgunidadTiempoCausaA','form_cont:contTab:unidadTiempoCausaA_input')">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="#{estados.Minutos}" itemValue="#{estados.MinutosValor}"/>
+                        <f:selectItem itemLabel="#{estados.Horas}" itemValue="#{estados.HorasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Dias}" itemValue="#{estados.DiasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Semanas}" itemValue="#{estados.SemanasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Meses}" itemValue="#{estados.MesesValor}"/>
+                        <f:selectItem itemLabel="#{estados.Anios}" itemValue="#{estados.AniosValor}"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgunidadTiempoCausaA" for="unidadTiempoCausaA" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+            <tr>
+                <td/>
+                <td>
+                    <p:inputTextarea id="causaMuertaBFal" value="#{fallecidoCDUVController.selected.causaMuertaBFal}" maxlength="70" converter="uperCaseConverter" rows="1" autoResize="false" style="width: 240px; text-transform: uppercase;" />
+                    <p:message id="mssgcausaMuertaBFal" for="causaMuertaBFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:inputMask id="tiempoMuerteBFal" value="#{fallecidoCDUVController.selected.tiempoMuerteBFal}" mask="999" />
+                    <p:message id="mssgtiempoMuerteBFal" for="tiempoMuerteBFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:selectOneMenu id="unidadTiempoCausaB" value="#{fallecidoCDUVController.unidadTiempoCausaB}"
+                                     required="true" requiredMessage="#{campos.CampoObligatorioM}" style="width: 110px;"
+                                     onchange="valUnidadMedida('form_cont:contTab:tiempoMuerteBFal','form_cont:contTab:mssgunidadTiempoCausaB','form_cont:contTab:txtmssgunidadTiempoCausaB','form_cont:contTab:unidadTiempoCausaB_input')">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="#{estados.Minutos}" itemValue="#{estados.MinutosValor}"/>
+                        <f:selectItem itemLabel="#{estados.Horas}" itemValue="#{estados.HorasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Dias}" itemValue="#{estados.DiasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Semanas}" itemValue="#{estados.SemanasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Meses}" itemValue="#{estados.MesesValor}"/>
+                        <f:selectItem itemLabel="#{estados.Anios}" itemValue="#{estados.AniosValor}"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgunidadTiempoCausaB" for="unidadTiempoCausaB" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="CAUSAS ANTECEDENTES:" style="#{util.outputTextTitulo}"/>
+                    <br/>
+                    <p:outputLabel value="Estados morbosos, si existiera alguno, que produjeron la causa arriba consignada, mencionándose en último lugar, la CAUSA BÀSICA o fundamental" style="text-align: justify;"/>
+                </td>
+                <td>
+                    <p:inputTextarea id="causaMuerteCFal" value="#{fallecidoCDUVController.selected.causaMuerteCFal}" maxlength="70" converter="uperCaseConverter" rows="1" autoResize="false" style="width: 240px; text-transform: uppercase;" />
+                    <p:message id="mssgcausaMuerteCFal" for="causaMuerteCFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:inputMask id="tiempoMuerteCFal" value="#{fallecidoCDUVController.selected.tiempoMuerteCFal}" mask="999" />
+                    <p:message id="mssgtiempoMuerteCFal" for="tiempoMuerteCFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:selectOneMenu id="unidadTiempoCausaC" value="#{fallecidoCDUVController.unidadTiempoCausaC}"
+                                     required="true" requiredMessage="#{campos.CampoObligatorioM}" style="width: 110px;"
+                                     onchange="valUnidadMedida('form_cont:contTab:tiempoMuerteCFal','form_cont:contTab:mssgunidadTiempoCausaC','form_cont:contTab:txtmssgunidadTiempoCausaC','form_cont:contTab:unidadTiempoCausaC_input')">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="#{estados.Minutos}" itemValue="#{estados.MinutosValor}"/>
+                        <f:selectItem itemLabel="#{estados.Horas}" itemValue="#{estados.HorasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Dias}" itemValue="#{estados.DiasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Semanas}" itemValue="#{estados.SemanasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Meses}" itemValue="#{estados.MesesValor}"/>
+                        <f:selectItem itemLabel="#{estados.Anios}" itemValue="#{estados.AniosValor}"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgunidadTiempoCausaC" for="unidadTiempoCausaC" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+            <tr>
+                <td/>
+                <td>
+                    <p:inputTextarea id="causaMuerteDFal" value="#{fallecidoCDUVController.selected.causaMuerteDFal}" maxlength="70" converter="uperCaseConverter" rows="1" autoResize="false" style="width: 240px; text-transform: uppercase;" />
+                    <p:message id="mssgcausaMuerteDFal" for="causaMuerteDFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:inputMask id="tiempoMuerteDFal" value="#{fallecidoCDUVController.selected.tiempoMuerteDFal}" mask="999" />
+                    <p:message id="mssgtiempoMuerteDFal" for="tiempoMuerteDFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:selectOneMenu id="unidadTiempoCausaD" value="#{fallecidoCDUVController.unidadTiempoCausaD}"
+                                     required="true" requiredMessage="#{campos.CampoObligatorioM}" style="width: 110px;"
+                                     onchange="valUnidadMedida('form_cont:contTab:tiempoMuerteDFal','form_cont:contTab:mssgunidadTiempoCausaD','form_cont:contTab:txtmssgunidadTiempoCausaD','form_cont:contTab:unidadTiempoCausaD_input')">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="#{estados.Minutos}" itemValue="#{estados.MinutosValor}"/>
+                        <f:selectItem itemLabel="#{estados.Horas}" itemValue="#{estados.HorasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Dias}" itemValue="#{estados.DiasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Semanas}" itemValue="#{estados.SemanasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Meses}" itemValue="#{estados.MesesValor}"/>
+                        <f:selectItem itemLabel="#{estados.Anios}" itemValue="#{estados.AniosValor}"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgunidadTiempoCausaD" for="unidadTiempoCausaD" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div style="margin-top: 10px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <p:outputLabel value="Recuerde que la CAUSA BÀSICA de la defunción es definida como 
+                                   'la enfermedad o lesón qie inició la cadena de acontecimientos patológicos que condujeron 
+                                   directamente a la muerte, o las circunstancias del accidente o violencia que produjo la lesión fatal' " style="text-align: justify;"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div style="margin-top: 10px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="OTROS ESTADOS PATOLÓGICOS SIGNIFICATIVOS," style="#{util.outputTextTitulo}"/>
+                    <br/>
+                    <p:outputLabel value="que contribuyeron a la muerte, pero no relacionados con la enfermedad o estado morboso que la condujo." for="otrosMotivosPatologicosFal" style="text-align: justify;"/>
+                </td>
+                <td>
+                    <p:inputTextarea id="otrosMotivosPatologicosFal" value="#{fallecidoCDUVController.selected.otrosMotivosPatologicosFal}" maxlength="70" converter="uperCaseConverter" rows="1" autoResize="false" style="width: 240px; text-transform: uppercase;" />
+                    <p:message id="mssgotrosMotivosPatologicosFal" for="otrosMotivosPatologicosFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:inputMask id="tiempoMuerteOtrsMotivFal" value="#{fallecidoCDUVController.selected.tiempoMuerteOtrsMotivFal}" mask="999" />
+                    <p:message id="mssgtiempoMuerteOtrsMotivFal" for="tiempoMuerteOtrsMotivFal" display="#{util.DisplayMessage}"/>
+                </td>
+                <td>
+                    <p:selectOneMenu id="unidadTiempoCausaOtros" value="#{fallecidoCDUVController.unidadTiempoCausaOtros}"
+                                     required="true" requiredMessage="#{campos.CampoObligatorioM}" style="width: 110px;"
+                                     onchange="valUnidadMedida('form_cont:contTab:tiempoMuerteOtrsMotivFal','form_cont:contTab:mssgunidadTiempoCausaOtros','form_cont:contTab:txtmssgunidadTiempoCausaOtros','form_cont:contTab:unidadTiempoCausaOtros_input')">
+                        <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="#{estados.Minutos}" itemValue="#{estados.MinutosValor}"/>
+                        <f:selectItem itemLabel="#{estados.Horas}" itemValue="#{estados.HorasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Dias}" itemValue="#{estados.DiasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Semanas}" itemValue="#{estados.SemanasValor}"/>
+                        <f:selectItem itemLabel="#{estados.Meses}" itemValue="#{estados.MesesValor}"/>
+                        <f:selectItem itemLabel="#{estados.Anios}" itemValue="#{estados.AniosValor}"/>
+                    </p:selectOneMenu>
+                    <p:message id="mssgunidadTiempoCausaOtros" for="unidadTiempoCausaOtros" display="#{util.DisplayMessage}"/>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+    <br />
+    <h:panelGrid id="cntndrBotonesDF" columns="1" cellspacing="0" styleClass="text-align-left">
+        <p:commandLink id="btnCreateDF" action="#{fallecidoCDUVController.saveDF}" title="#{campos.Guardar}" 
+                       process="@this,fkIdMorMat,fechaFallecimientoFalDF,
+                       edadFalDF,causaMuertaAFal,causaMuertaBFal,causaMuerteCFal,causaMuerteDFal,otrosMotivosPatologicosFal,
+                       tiempoMuerteAFal,tiempoMuerteBFal,tiempoMuerteCFal,tiempoMuerteDFal,tiempoMuerteOtrsMotivFal,
+                       unidadTiempoCausaA,unidadTiempoCausaB,unidadTiempoCausaC,unidadTiempoCausaD,unidadTiempoCausaOtros" 
+                       update="fkIdMorMat,mssgfkIdMorMat,fechaFallecimientoFalDF,mssgfechaFallecimientoFalDF,edadFalDF,
+                       causaMuertaAFal,mssgcausaMuertaAFal,causaMuertaBFal,mssgcausaMuertaBFal,causaMuerteCFal,mssgcausaMuerteCFal,
+                       causaMuerteDFal,mssgcausaMuerteDFal,otrosMotivosPatologicosFal,mssgotrosMotivosPatologicosFal,
+                       tiempoMuerteAFal,mssgtiempoMuerteAFal,tiempoMuerteBFal,mssgtiempoMuerteBFal,tiempoMuerteCFal,mssgtiempoMuerteCFal,tiempoMuerteDFal,mssgtiempoMuerteDFal,tiempoMuerteOtrsMotivFal,mssgtiempoMuerteOtrsMotivFal,
+                       unidadTiempoCausaA,mssgunidadTiempoCausaA,unidadTiempoCausaB,mssgunidadTiempoCausaB,unidadTiempoCausaC,mssgunidadTiempoCausaC,unidadTiempoCausaD,mssgunidadTiempoCausaD,unidadTiempoCausaOtros,mssgunidadTiempoCausaOtros"
+                       oncomplete="PF('statusDialog').hide();" 
+                       onclick="if(!saveDF('form_cont:contTab:tiempoMuerteAFal','form_cont:contTab:mssgunidadTiempoCausaA','form_cont:contTab:txtmssgunidadTiempoCausaA','form_cont:contTab:unidadTiempoCausaA_input',
+                                        'form_cont:contTab:tiempoMuerteBFal','form_cont:contTab:mssgunidadTiempoCausaB','form_cont:contTab:txtmssgunidadTiempoCausaB','form_cont:contTab:unidadTiempoCausaB_input',
+                                        'form_cont:contTab:tiempoMuerteCFal','form_cont:contTab:mssgunidadTiempoCausaC','form_cont:contTab:txtmssgunidadTiempoCausaC','form_cont:contTab:unidadTiempoCausaC_input',
+                                        'form_cont:contTab:tiempoMuerteDFal','form_cont:contTab:mssgunidadTiempoCausaD','form_cont:contTab:txtmssgunidadTiempoCausaD','form_cont:contTab:unidadTiempoCausaD_input',
+                                        'form_cont:contTab:tiempoMuerteOtrsMotivFal','form_cont:contTab:mssgunidadTiempoCausaOtros','form_cont:contTab:txtmssgunidadTiempoCausaOtros','form_cont:contTab:unidadTiempoCausaOtros_input')) return false;">
+            <div class="guardar"/>
+        </p:commandLink>
+    </h:panelGrid>
+</html>

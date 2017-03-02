@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p/>
+                <div align="center" style="margin-bottom: 7px; font-weight: bold; color: #565656; font-size: 1.1em;">
+                    Reasignación de Formularios de Nacido Vivo 
+                </div>
+                <p:fieldset id="fieldsetgenerico" style="width:1020px" legend="Profesional de salud"> 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:growl id="growl" autoUpdate="false" life="8000"/>  
+                       
+
+                        <h:panelGrid id="panelsuperior" columns="4" cellspacing="3" styleClass="text-align-left">
+                            <p:outputLabel value="Profesional" for="profesional" style="#{util.outputTextTitulo}" />
+                            <p:selectOneMenu id="profesional" value="#{reasignacionRenaviController.userProfCedula}" filter="true" filterMatchMode="contains"  style="width: 190px;" valueChangeListener="#{reasignacionRenaviController.cambiarTblSauregUsuarioList}" required="true" requiredMessage="Es oblogatorio seleccionar el profesional">
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="-1" noSelectionOption="true"/>
+                                <f:selectItems value="#{reasignacionRenaviController.listaProfesional}"  var="prof" id="selcprof"
+
+
+                                               itemLabel="#{prof.apellido} #{prof.nombre}" 
+                                               itemValue="#{prof.nomUsuario}"/>
+                                <f:ajax render="@this nomProf  establProf btn_buscar checkboxDT"   />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Profesional a reasignar:" for="profesionalReasig" style="#{util.outputTextTitulo}" />
+                            <p:selectOneMenu id="profesionalReasig" value="#{reasignacionRenaviController.userReasigCedula}" filter="true" filterMatchMode="contains"  style="width: 190px;"   required="true"  requiredMessage="Es oblogatorio seleccionar el profesional a reasignar" >
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reasignacionRenaviController.listProfAsig}"  var="prof" 
+                                               itemLabel="#{prof.apellido} #{prof.nombre} " 
+                                               itemValue="#{prof.nomUsuario.toString()}" />
+                                <f:ajax render="btn_buscar" />
+
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="Nombre:" for="nomProf"  style="#{util.outputTextTitulo}" />
+                            <p:outputLabel id="nomProf" value="#{reasignacionRenaviController.tblSauregUsuario.apellido} #{reasignacionRenaviController.tblSauregUsuario.nombre}" />
+<!--                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+
+                            <p:outputLabel value="Cargo:" for="cargoProf"  style="#{util.outputTextTitulo}" />
+                            <p:outputLabel id="cargoProf" value="#{reasignacionRenaviController.asistencia}"  />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />-->
+
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="Establecimiento:" for="establProf"  style="#{util.outputTextTitulo}" />
+                            <p:outputLabel id="establProf" value="#{reasignacionRenaviController.usuEstablecimiento}" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                        </h:panelGrid>  
+                        <h:panelGrid id="panelinferior" columns="1">
+                            <p:commandButton id="btn_buscar" action="#{reasignacionRenaviController.buscar}" title="Buscar" process="@this profesional profesionalReasig" update="growl,checkboxDT"  value="Buscar" disabled="#{reasignacionRenaviController.userProfCedula != null and reasignacionRenaviController.userReasigCedula !=null ? false:true}" oncomplete="PF('statusDialog').hide();"  />
+                        </h:panelGrid>
+                        <br/> 
+                        <p:fieldset id="fieldsetRes" style="width:1020px" legend="Registros de nacimiento" > 
+                            <p:dataTable  id="checkboxDT" var="nv" value="#{reasignacionRenaviController.listRegProf}" selection="#{reasignacionRenaviController.listSelectReg}" emptyMessage="#{campos.NoHayDatos}"
+                                          scrollHeight="150px" paginator="true" 
+                                          paginatorPosition="bottom" rows="10"  rowKey="#{nv.idNacViv}"    
+                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                          scrollable="false" rowIndexVar="rowIndex">
+                                <p:column  selectionMode="multiple"   width="20"  style="text-align:center" />
+                                <p:ajax event="toggleSelect"  update="btnEnviarReasignar" />
+                                <p:ajax event="rowSelectCheckbox"  update="btnEnviarReasignar"   />
+                                <p:ajax event="rowUnselectCheckbox" update="btnEnviarReasignar" />
+                                <p:column headerText="No." style="width:20px;font-size: 11px;">
+                                    #{rowIndex+1}
+                                </p:column>
+                                <p:column  headerText="Madre" style="width:180px;font-size: 11px;"  filterBy="#{nv.fkCedulMad.nomMadreMad}">
+                                    <h:outputText value="#{nv.fkCedulMad.nombrMad}" style="font-size: 11px; "/>
+                                </p:column> 
+                                <p:column  headerText="Cédula Madre" style="width:90px;font-size: 11px;"  filterBy="#{nv.fkCedulMad.cedulMad}">
+                                    <h:outputText value="#{nv.fkCedulMad.cedulMad}" style="font-size: 11px; "/>
+                                </p:column>
+                                <p:column  headerText="Fecha de Registro" style="width:100px;font-size: 11px;" >
+                                    <h:outputText value="#{nv.fechaCreacionNacViv}" style="font-size: 11px; ">
+                                        <f:convertDateTime parent="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column  headerText="Nacido Vivo" style="width:120px;font-size: 11px;"  >
+                                    <h:outputText value="#{nv.nombrNacViv}  #{nv.apellNacViv}" style="font-size: 11px; "/>
+                                </p:column>
+                                <p:column    headerText="Fecha de Nacimiento" style="width:100px;font-size: 11px;" >
+                                    <h:outputText value="#{nv.fechaNacimNacViv}" style="font-size: 11px; ">
+                                        <f:convertDateTime parent="dd/MM/yyyy"/>
+                                    </h:outputText>    
+                                </p:column>
+                                <p:column headerText="Estado" style="width:100px;font-size: 11px;" >
+                                    <h:outputText value="#{nv.fkIdEstFir.descEstFir}" style="font-size: 11px; "/>
+                                </p:column>                               
+                                <f:facet name="footer">
+                                    <p:commandButton id="btnEnviarReasignar"  update=":form:multiCarDetail" process="checkboxDT" title="Reasignar"  icon="ui-icon-check" value="#{campos.btnReasignar}" oncomplete="PF('multiCarDialog').show();"  disabled="#{empty reasignacionRenaviController.listSelectReg}" >
+
+                                    </p:commandButton>  
+                                </f:facet>
+                            </p:dataTable>
+                            <p:dialog  header="¿Está seguro que desea reasignar?" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="300" >
+                                <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                                    <hr/>
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"  onclick="PF('multiCarDialog').hide();" style="font-size: 12px;"/>
+                                    <p:commandButton  value="Si" action="#{reasignacionRenaviController.reasignar}"  oncomplete="PF('multiCarDialog').hide()" process="@this,:form:profesional,:form:profesionalReasig" update=":form " style="font-size: 12px;"/>
+                                </p:outputPanel>
+                                <p:ajax event="close" update=":form:checkboxDT,:form:profesional,:form:profesionalReasig" process="@this" oncomplete="PF('statusDialog').hide();" 
+                                        listener="#{reasignacionRenaviController.reCargarLista(event)}" global="false" />
+                            </p:dialog>
+                        </p:fieldset>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

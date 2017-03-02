@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCiudadanoInvolucradoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCiudadanoInvolucradoLabel_idCiuInv}"/>
+                    <h:outputText value="#{ciudadanoInvolucradoController.selected.idCiuInv}" title="#{bundle.ViewCiudadanoInvolucradoTitle_idCiuInv}"/>
+                    <h:outputText value="#{bundle.ViewCiudadanoInvolucradoLabel_nombreCiuInv}"/>
+                    <h:outputText value="#{ciudadanoInvolucradoController.selected.nombreCiuInv}" title="#{bundle.ViewCiudadanoInvolucradoTitle_nombreCiuInv}"/>
+                    <h:outputText value="#{bundle.ViewCiudadanoInvolucradoLabel_cedulaCiuInv}"/>
+                    <h:outputText value="#{ciudadanoInvolucradoController.selected.cedulaCiuInv}" title="#{bundle.ViewCiudadanoInvolucradoTitle_cedulaCiuInv}"/>
+                    <h:outputText value="#{bundle.ViewCiudadanoInvolucradoLabel_pasaporteCiuInv}"/>
+                    <h:outputText value="#{ciudadanoInvolucradoController.selected.pasaporteCiuInv}" title="#{bundle.ViewCiudadanoInvolucradoTitle_pasaporteCiuInv}"/>
+                    <h:outputText value="#{bundle.ViewCiudadanoInvolucradoLabel_fechaNacimientoCiuInv}"/>
+                    <h:outputText value="#{ciudadanoInvolucradoController.selected.fechaNacimientoCiuInv}" title="#{bundle.ViewCiudadanoInvolucradoTitle_fechaNacimientoCiuInv}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{ciudadanoInvolucradoController.destroyAndView}" value="#{bundle.ViewCiudadanoInvolucradoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewCiudadanoInvolucradoEditLink}"/>
+                <br />
+                <h:commandLink action="#{ciudadanoInvolucradoController.prepareCreate}" value="#{bundle.ViewCiudadanoInvolucradoCreateLink}" />
+                <br />
+                <h:commandLink action="#{ciudadanoInvolucradoController.prepareList}" value="#{bundle.ViewCiudadanoInvolucradoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewCiudadanoInvolucradoIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

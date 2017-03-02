@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-WSRegistroCivilConsulta" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilConsulta"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WSRegistroCivilConsulta" destdir="${build.generated.dir}/jax-wsCache/WSRegistroCivilConsulta" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/WSRegistroCivilConsulta/wsdl/172.24.16.50_8080/WEBRegistroCivilUniversal/WSRegistroCivilConsulta.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://172.24.16.50:8080/WEBRegistroCivilUniversal/WSRegistroCivilConsulta?wsdl" xnocompile="true" xendorsed="true" package="ec.gob.digercic.renavi.ws.datmadre">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/WSRegistroCivilConsulta/wsdl/172.24.16.50_8080/WEBRegistroCivilUniversal/WSRegistroCivilConsulta.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilConsulta"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilConsulta">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-WSRegistroCivilConsulta" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ec/gob/digercic/renavi/ws/datmadre"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilConsulta"/>
+    </target>
+    <target name="wsimport-client-WSRegistroCivilGeneradorCodigo" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilGeneradorCodigo"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WSRegistroCivilGeneradorCodigo" destdir="${build.generated.dir}/jax-wsCache/WSRegistroCivilGeneradorCodigo" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/WSRegistroCivilGeneradorCodigo/wsdl/172.24.16.93/WSRegistroCivilGeneradorCodigo/.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://172.24.16.93/WSRegistroCivilGeneradorCodigo?WSDL" xnocompile="true" xendorsed="true" package="ec.gob.digercic.renavi.ws.qrbc">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/WSRegistroCivilGeneradorCodigo/wsdl/172.24.16.93/WSRegistroCivilGeneradorCodigo/.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilGeneradorCodigo"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilGeneradorCodigo">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-WSRegistroCivilGeneradorCodigo" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ec/gob/digercic/renavi/ws/qrbc"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/WSRegistroCivilGeneradorCodigo"/>
+    </target>
+    <target name="wsimport-client-Usuarios" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Usuarios"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Usuarios" destdir="${build.generated.dir}/jax-wsCache/Usuarios" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Usuarios/wsdl/webservice04.registrocivil.gob.ec_80/wsintegracion/Usuarios.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://webservice04.registrocivil.gob.ec:80/wsintegracion/Usuarios?wsdl" xnocompile="true" xendorsed="true" package="ec.gob.digercic.renavi.ws">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Usuarios/wsdl/webservice04.registrocivil.gob.ec_80/wsintegracion/Usuarios.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Usuarios"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Usuarios">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Usuarios" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ec/gob/digercic/renavi/ws"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Usuarios"/>
+    </target>
+    <target name="wsimport-client-GeneraCedula" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/GeneraCedula"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/GeneraCedula" destdir="${build.generated.dir}/jax-wsCache/GeneraCedula" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/GeneraCedula/wsdl/webservice04.registrocivil.gob.ec_80/wsgeneracioncedula/GeneraCedula.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://webservice04.registrocivil.gob.ec:80/wsgeneracioncedula/GeneraCedula?wsdl" xnocompile="true" xendorsed="true" package="ec.gob.digercic.renavi.ws.cedula">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/GeneraCedula/wsdl/webservice04.registrocivil.gob.ec_80/wsgeneracioncedula/GeneraCedula.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/GeneraCedula"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/GeneraCedula">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-GeneraCedula" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ec/gob/digercic/renavi/ws/cedula"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/GeneraCedula"/>
+    </target>
+    <target name="wsimport-client-Firmado" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Firmado"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Firmado" destdir="${build.generated.dir}/jax-wsCache/Firmado" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Firmado/wsdl/webservice04.registrocivil.gob.ec_80/wsfirsincrono/Firmado.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://webservice04.registrocivil.gob.ec:80/wsfirsincrono/Firmado?wsdl" xnocompile="true" xendorsed="true" package="ec.gob.digercic.renavi.ws.firma">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Firmado/wsdl/webservice04.registrocivil.gob.ec_80/wsfirsincrono/Firmado.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Firmado"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Firmado">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Firmado" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ec/gob/digercic/renavi/ws/firma"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Firmado"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-WSRegistroCivilConsulta, wsimport-client-WSRegistroCivilGeneradorCodigo, wsimport-client-Usuarios, wsimport-client-GeneraCedula, wsimport-client-Firmado"/>
+</project>

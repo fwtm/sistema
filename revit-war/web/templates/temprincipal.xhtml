@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <link href="#{request.contextPath}/resources/images/icons/favicon.ico" type="image/x-icon"
+              rel="shortcut icon" />
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/blueprint/screen.css" type="text/css" rel="stylesheet" media="screen, projection"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/blueprint/print.css" type="text/css" rel="stylesheet" media="print"/>    
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <h:outputScript library="js" name="utilitarioDIGERCIC.js"/>
+        <h:outputScript library="js" name="validador.js"/>
+        <h:outputScript library="js" name="calendar_es.js"/>
+
+        <title><ui:insert name="pageTitle">[DIGERCIC-REVIT]</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <div class="container" id="container">
+            <div class="span-29 last" id="top">
+                <table border="0" width="100%" class="degrado">
+                    <tr>
+                        <td >
+                            <table width="88%" border="0" style="margin-left: 135px; margin-top: 3px;">
+                                <tr>
+                                    <td colspan="3" align="right" height="85px" valign="top" style="padding-right: 10px;">
+                                        <table style="margin-top: 10px;" border="0">
+                                            <tr>
+                                                <td colspan="2" align="center">
+                                                    <p:graphicImage id="usuario" library="images/icons" name="usuario.png" rendered="#{usuarioRenaviLoginController.usu eq null? false:true}"/>
+                                                    <p:overlayPanel id="imgPanel" for="usuario" hideEffect="fade" dynamic="true" style="width: 225px; height: auto; " rendered="#{usuarioRenaviLoginController.usu eq null? false:true}">
+                                                        <table border="0">
+                                                            <tr>
+                                                                <td class="top_texto-usuario" style="font-style: italic;">
+                                                                    <h:outputLabel value="#{usuarioRenaviLoginController.usu.apellido} #{usuarioRenaviLoginController.usu.nombre}" rendered="#{usuarioRenaviLoginController.usu eq null? false:true}"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="top_texto-usuario">
+                                                                    <h:form id="frm_agencia">
+                                                                        <p:selectOneMenu id="residnProvdsMad" value="#{usuarioRenaviLoginController.idAgencia}"
+                                                                                         required="true" requiredMessage="#{campos.ProvinciaM}" valueChangeListener="#{usuarioRenaviLoginController.cambiarAgencia}"
+                                                                                         style="width: 196px;" filter="true" filterMatchMode="contains">
+                                                                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                                                            <f:selectItems value="#{usuarioRenaviLoginController.usu.listTblSauregAgencia}" var="item" itemLabel="(#{item.idInstituc.nomCorto}) #{item.nomAgencia}" itemValue="#{item.idAgencia}"/>
+                                                                            <f:ajax render="@this"/>
+                                                                        </p:selectOneMenu>
+                                                                    </h:form>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="top_texto_cerrarsesion" align="left">
+                                                                    <h:form id="temprincipalCerrarSesion">
+                                                                        <h:outputLink value="#{request.contextPath}/resources/manuales/ManualUsuario-v2.pdf" target="_blank">Manual de Usuario</h:outputLink> <br/>
+                                                                        <a href="http://www.registrocivil.gob.ec/wp-content/uploads/2014/Instructivo_tecnico_firma_electronica.pdf" target="_blank">Manual Técnico de Firma electrónica</a> <br/>
+                                                                        <h:link value="Cambiar clave" outcome="#{facesContext.externalContext.requestPathInfo}/pages/usuarioRenavi/CambioContrasenia"/><br/>
+                                                                        <h:commandLink value="Cerrar Sesión" action="#{usuarioRenaviLoginController.logOut}" rendered="#{usuarioRenaviLoginController.usu eq null ? false : true}"/>
+                                                                    </h:form>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </p:overlayPanel>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div id="top_titulo-usuario">
+                                                        <h:outputLabel value="USUARIO:" rendered="#{usuarioRenaviLoginController.usu eq null? false:true}"/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div align="left">
+                                                        <h:outputLabel  value="#{usuarioRenaviLoginController.usu.nomUsuario}" rendered="#{usuarioRenaviLoginController.usu eq null? false:true}" style="color: #ffffff;"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <tr>
+                                        <h:form id="frm_agencia_select">
+                                            <td width="68px">
+                                                <div id="top_titulo-usuario">
+                                                    <h:outputLabel value="INSTITUCIÓN:" rendered="#{usuarioRenaviLoginController.usu  eq null? false:true}"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div align="left">
+
+                                                    <h:outputLabel value="#{usuarioRenaviLoginController.usu.agenciaInUser.nomAgencia}" rendered="#{usuarioRenaviLoginController.usu eq null? false:true}" style="color: #ffffff;"/>
+
+                                                </div>
+                                            </td>
+                                            <td align="right">
+
+                                                <h:panelGroup id="cntndrSobre" rendered="#{usuarioRenaviLoginController.usu eq null ? false:true}">
+                                                    <div style="position: relative; margin-right: 0px; padding: 0px; left: -50px;" class="mensaje">
+                                                        <h:panelGroup id="cntndrMensajeSuper" rendered="#{notificacioneController.notificaSuper eq null ? false:true}">
+                                                            <div style="position: absolute;left: 26px; top: -12px; padding: 4px;" class="texto-mensaje"> 
+                                                                <h:outputLabel value="#{notificacioneController.notificaSuper}" style="color: #ffffff; font-size: 9px;"/> 
+                                                            </div>
+                                                        </h:panelGroup>
+                                                    </div>
+                                                    <h:panelGroup rendered="#{notificacioneController.notificaMed eq null ? false:true}">
+                                                        <div style="position:relative; margin-right: 0px; padding: 0px; left: -50px;" class="mensaje" >
+                                                            <h:panelGroup id="cntndrMensajeMed" rendered="#{notificacioneController.notificaMed eq null ? false:true}">
+                                                                <div style="position: absolute;left: 26px; top: 3px; padding: 2px;" class="texto-mensaje"> 
+                                                                    <h:outputLabel value="#{notificacioneController.notificaMed}" style="color: #ffffff; font-size: 9px;"/> 
+                                                                </div>
+                                                            </h:panelGroup>
+                                                        </div>
+                                                    </h:panelGroup>
+                                                </h:panelGroup>                                            
+                                            </td>
+                                        </h:form>
+                                    </tr>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="span-29 last" id="menu">
+                <div id="menu_container">
+                    <ui:insert name="menu">
+                        <div align="left">
+                            <h:form id="temprincipalMenu">
+                                <p:menubar styleClass="menu" rendered="#{usuarioRenaviLoginController.usu eq null? false:true}">
+                                    <p:submenu label="INICIO" icon="ui-icon-home">  
+                                        <p:menuitem value="Ir al inicio" url="/index.jsf" styleClass="menuitem" icon="ui-icon-link"/>
+                                    </p:submenu>
+                                    <c:forEach items="#{usuarioRenaviLoginController.listEstructura}" var="roles">
+
+                                        <p:submenu label="#{roles.tblSauregEstrucSist.descripcion}" icon="ui-icon-gear" rendered="#{roles.tblSauregEstrucSist.codEsctructSist eq 'GRUP'? true:false}" >
+                                            <c:forEach items="#{usuarioRenaviLoginController.listEstructura}" var="ro">
+                                                <p:menuitem value="#{ro.tblSauregEstrucSist.descripcion}" icon="ui-icon-script" url="#{facesContext.externalContext.requestPathInfo}#{ro.tblSauregEstrucSist.paginas}" style="padding: 4px;" rendered="#{ro.tblSauregEstrucSist.codEsctructSist eq 'SUB'? ro.tblSauregEstrucSist.codEstructura.idEstrucSist eq roles.tblSauregEstrucSist.idEstrucSist?true:false:false}"/>
+                                                <p:submenu label="#{ro.tblSauregEstrucSist.descripcion}" icon="ui-icon-wrench" rendered="#{ro.tblSauregEstrucSist.codEsctructSist eq 'GRUP2'? ro.tblSauregEstrucSist.codEstructura.idEstrucSist eq roles.tblSauregEstrucSist.idEstrucSist?true:false:false}" >
+                                                    <c:forEach items="#{usuarioRenaviLoginController.listEstructura}" var="sub">
+                                                        <p:menuitem value="#{sub.tblSauregEstrucSist.descripcion}" icon="ui-icon-script" url="#{facesContext.externalContext.requestPathInfo}#{sub.tblSauregEstrucSist.paginas}" style="padding: 4px;" rendered="#{sub.tblSauregEstrucSist.codEsctructSist eq 'SUB'? sub.tblSauregEstrucSist.codEstructura.idEstrucSist eq ro.tblSauregEstrucSist.idEstrucSist?true:false:false}"/>
+                                                    </c:forEach>
+                                                </p:submenu> 
+
+                                            </c:forEach>
+                                        </p:submenu>    
+
+                                    </c:forEach>
+                                </p:menubar>
+                            </h:form>
+                        </div>
+                    </ui:insert>
+                </div>
+            </div>
+            <div class="span-29 last" id="content">
+                <div id="content_container">
+                    <ui:insert name="body">Content</ui:insert>
+                    <p:layout style="min-width:100px;min-height:100px; border-bottom-color: white;" rendered="#{usuarioRenaviLoginController.mensajeDispaly()}">
+                        <p:layoutUnit position="center" style="border: white">
+                            <br/><br/><br/><br/>
+                            <br/><br/><br/><br/>
+                            <br/><br/>
+                            <div style="font-style: italic; font-size: 20px; text-align: justify; color: black; padding-left: 170px; border-bottom-color: white;">
+                                <label>"Bienvenid@ al sistema REVIT <br/>Por favor asegúrese de seleccionar el establecimiento de salud en el cual brindó <br/>atención médica en el momento de la ocurrencia del hecho vital".</label>
+                            </div>
+                        </p:layoutUnit>
+                    </p:layout>
+                </div>
+            </div>
+            <div class="span-29 last" id="ruta">
+                <div align="center" id="ruta_container">
+                    <ui:insert name="navegador">
+                        Para el correcto funcionamiento de la aplicación se recomienda usar: Mozilla Firefox versión 15, MAC Safari 5, Google Chrome 35, o las versiones superiores de estos navegadores.
+                    </ui:insert>
+                </div>
+            </div>
+            <div class="span-29 last" id="bottom">
+                <h:graphicImage library="images" name="footer.jpg" height="20"/>
+            </div>
+        </div>
+        <script>
+            window.location.hash = "_";
+            window.location.hash = "_";//for google chrome
+            window.onhashchange = function() {
+                window.location.hash = "_";
+            };
+        </script>
+    </h:body>
+
+</html>

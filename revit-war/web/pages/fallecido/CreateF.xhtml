@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:growl id="mssgsBusquedaF" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+    <p:fieldset legend="#{campos.DatBusqueda}" style="#{util.WidthMrgnBttmPfieldset}">
+        <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left" style="width: 100%;">
+            <p:messages id="mssgsBusquedaErrorF" autoUpdate="false" closable="true"/>
+            <h:panelGrid id="cntndrBuscarPor" columns="2" cellspacing="1" styleClass="text-align-left">
+                <p:outputLabel value="#{campos.BuscarPorL}" for="buscarPor" style="#{util.outputTextTitulo}"/>
+                <p:selectOneRadio id="buscarPor" value="#{fallecidoCDUVController.buscarPor}" required="true" requiredMessage="#{campos.BuscarPorM}" immediate="true">  
+                    <p:ajax event="change" immediate="true" listener="#{fallecidoCDUVController.cambiarBuscarPor}" oncomplete="PF('statusDialog').hide();" process="@this" 
+                            update="buscarPor,cntndrBusquedaCedula,cntndrBusquedaNombres,nombreFal,fotografia,cedulaFal,fechaNacimientoFal,edadFal,sexoFal,fkIdEstadoCivilFal,
+                            conyugeFal,condicionCeduladoFal,fechaFallecimientoFal,nombreMadreFal,nombrePadreFal,fkIdNacionalidad,fkIdEtnia,mssgfkIdEtnia,fkIdPais,codigoPaisFal,fkIdAlfabetismo,mssgfkIdAlfabetismo,
+                            fkIdNivelInstruccion,mssgfkIdNivelInstruccion,provinciaDsRsdncFal,mssgprovinciaDsRsdncFal,ciudadRsdncFal,mssgciudadRsdncFal,cantonDsRsdncFal,mssgcantonDsRsdncFal,
+                            localidadRsdncFal,mssglocalidadRsdncFal,parroquiaDsRsdncFal,mssgparroquiaDsRsdncFal,btnCreateF,pdtTblItemsPersonas"/>
+                    <f:selectItem itemLabel="#{campos.NombresT}" itemValue="#{campos.NombresT}"/>  
+                    <f:selectItem itemLabel="#{campos.CedulaT}" itemValue="#{campos.CedulaT}" />
+                </p:selectOneRadio>
+                <p:message for="buscarPor" display="#{util.DisplayMessage}"/>
+            </h:panelGrid>
+            <h:panelGroup id="cntndrBusquedaCedula">
+                <p:focus id="focusBusquedaCedula" context="cntndrParametroCedula"/>
+                <h:panelGrid id="cntndrParametroCedula"  columns="3" cellspacing="1" styleClass="text-align-left" rendered="#{fallecidoCDUVController.buscarPor eq 'Cédula' ? true:false}">
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulaBusq" style="#{util.outputTextTitulo}"/>
+                    <p:inputMask id="cedulaBusq" value="#{fallecidoCDUVController.cedulaBusq}" mask="9999999999" required="true" requiredMessage="#{campos.CedulaM}" style="#{util.Width}" disabled="#{fallecidoCDUVController.selected.cedulaFal  eq null ? false:true}">
+                        <f:validator validatorId="cedulaValidador" />
+                    </p:inputMask>
+                    <p:message id="mssgcedulaBusq" for="cedulaBusq" display="#{util.DisplayMessage}"/>
+                    <p:commandButton id="btnBuscarCedula" action="#{fallecidoCDUVController.buscarMadreCedula}" value="#{campos.Buscar}" process="@this,cedulaBusq" 
+                                     update="@this,btnResetBuscarCedula,nombreFal,fotografia,cedulaFal,fechaNacimientoFal,edadFal,sexoFal,fkIdEstadoCivilFal,conyugeFal,condicionCeduladoFal,
+                                     fechaFallecimientoFal,nombreMadreFal,nombrePadreFal,fkIdNacionalidad,fkIdEtnia,mssgfkIdEtnia,fkIdPais,codigoPaisFal,fkIdAlfabetismo,mssgfkIdAlfabetismo,fkIdNivelInstruccion,
+                                     mssgfkIdNivelInstruccion,provinciaDsRsdncFal,mssgprovinciaDsRsdncFal,ciudadRsdncFal,mssgciudadRsdncFal,cantonDsRsdncFal,mssgcantonDsRsdncFal,localidadRsdncFal,
+                                     mssglocalidadRsdncFal,parroquiaDsRsdncFal,mssgparroquiaDsRsdncFal,btnCreateF,focusBusquedaCedula" 
+                                     disabled="#{fallecidoCDUVController.selected.cedulaFal eq null ? false:true}" oncomplete="PF('statusDialog').hide();"/>
+                    <p:commandButton id="btnResetBuscarCedula" action="#{fallecidoCDUVController.limpiarBuscarPorCedula}" value="#{campos.NuevaBusqueda}" process="@this" 
+                                     update="@this,cedulaBusq,btnBuscarCedula,nombreFal,fotografia,cedulaFal,fechaNacimientoFal,edadFal,sexoFal,fkIdEstadoCivilFal,conyugeFal,condicionCeduladoFal,
+                                     fechaFallecimientoFal,nombreMadreFal,nombrePadreFal,fkIdNacionalidad,fkIdEtnia,mssgfkIdEtnia,fkIdPais,codigoPaisFal,fkIdAlfabetismo,mssgfkIdAlfabetismo,fkIdNivelInstruccion,
+                                     mssgfkIdNivelInstruccion,provinciaDsRsdncFal,mssgprovinciaDsRsdncFal,ciudadRsdncFal,mssgciudadRsdncFal,cantonDsRsdncFal,mssgcantonDsRsdncFal,localidadRsdncFal,
+                                     mssglocalidadRsdncFal,parroquiaDsRsdncFal,mssgparroquiaDsRsdncFal,btnCreateF,focusBusquedaCedula"  
+                                     disabled="#{fallecidoCDUVController.selected.cedulaFal eq null ? true:false}" oncomplete="PF('statusDialog').hide();" onclick="cerrarMsj()"/>
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup id="cntndrBusquedaNombres">
+                <p:focus id="focusBusquedaNombres" context="cntndrParametroNombres"/>
+                <h:panelGrid id="cntndrParametroNombres" columns="5" cellspacing="1" styleClass="text-align-left" rendered="#{fallecidoCDUVController.buscarPor eq 'Nombres' ? true:false}"  columnClasses="colUno,colDos,colEspacio,colUno,colDos">
+                    <p:outputLabel value="#{campos.ApellidoUnoL}" for="apellidoUnoBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="apellidoUnoBusq" value="#{fallecidoCDUVController.apellidoUnoBusq}" maxlength="20" required="true" requiredMessage="#{campos.ApellidoUnoM}" style="#{util.UppercaseWidth}" disabled="#{fallecidoCDUVController.selected.cedulaFal  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgapellidoUnoBusq" for="apellidoUnoBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid>    
+                    <h:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false"/>
+                    <p:outputLabel value="#{campos.ApellidoDosL}" for="apellidoDosBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="apellidoDosBusq" value="#{fallecidoCDUVController.apellidoDosBusq}" maxlength="20" style="#{util.UppercaseWidth}" disabled="#{fallecidoCDUVController.selected.cedulaFal  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgapellidoDosBusq" for="apellidoDosBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid> 
+                    <p:outputLabel value="#{campos.NombreUnoL}" for="nombreUnoBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="nombreUnoBusq" value="#{fallecidoCDUVController.nombreUnoBusq}" required="true" requiredMessage="#{campos.NombreUnoM}" maxlength="30" style="#{util.UppercaseWidth}" disabled="#{fallecidoCDUVController.selected.cedulaFal  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgnombreUnoBusq" for="nombreUnoBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid> 
+                    <h:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false"/>
+                    <p:outputLabel value="#{campos.NombreDosL}" for="nombreDosBusq" style="#{util.outputTextTitulo}"/>
+                    <h:panelGrid columns="1" cellspacing="1" styleClass="text-align-left">
+                        <p:inputText id="nombreDosBusq" value="#{fallecidoCDUVController.nombreDosBusq}" maxlength="30" style="#{util.UppercaseWidth}" disabled="#{fallecidoCDUVController.selected.cedulaFal  eq null ? false:true}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgnombreDosBusq" for="nombreDosBusq" display="#{util.DisplayMessage}"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid columns="2" cellspacing="1" styleClass="text-align-left" rendered="#{fallecidoCDUVController.buscarPor eq 'Nombres' ? true:false}">
+                    <p:commandButton id="btnBuscarNombres" action="#{fallecidoCDUVController.buscarMadreAppellidosNombres}" value="#{campos.Buscar}" 
+                                     process="@this,apellidoUnoBusq,apellidoDosBusq,nombreUnoBusq,nombreDosBusq" 
+                                     update="@this,btnResetBuscarNombres,apellidoUnoBusq,mssgapellidoUnoBusq,apellidoDosBusq,mssgapellidoDosBusq,mssgnombreUnoBusq,nombreDosBusq,mssgnombreDosBusq,btnCreateF" 
+                                     disabled="#{fallecidoCDUVController.selected.cedulaFal eq null ? false:true}" oncomplete="PF('statusDialog').hide();"/>
+                    <p:commandButton id="btnResetBuscarNombres" action="#{fallecidoCDUVController.limpiarBuscarPorApellNom}" value="#{campos.NuevaBusqueda}" process="@this" 
+                                     update="@this,btnBuscarNombres,nombreFal,fotografia,cedulaFal,fechaNacimientoFal,edadFal,sexoFal,fkIdEstadoCivilFal,conyugeFal,condicionCeduladoFal,fechaFallecimientoFal,
+                                     nombreMadreFal,nombrePadreFal,fkIdNacionalidad,fkIdEtnia,mssgfkIdEtnia,fkIdPais,codigoPaisFal,fkIdAlfabetismo,mssgfkIdAlfabetismo,fkIdNivelInstruccion,mssgfkIdNivelInstruccion,
+                                     provinciaDsRsdncFal,mssgprovinciaDsRsdncFal,ciudadRsdncFal,mssgciudadRsdncFal,cantonDsRsdncFal,mssgcantonDsRsdncFal,localidadRsdncFal,mssglocalidadRsdncFal,parroquiaDsRsdncFal,
+                                     mssgparroquiaDsRsdncFal,btnCreateF,pdtTblItemsPersonas,focusBusquedaNombres" 
+                                     disabled="#{fallecidoCDUVController.selected.cedulaFal eq null ? true:false}" oncomplete="PF('statusDialog').hide();" onclick="cerrarMsj()"/>
+                </h:panelGrid>
+            </h:panelGroup>    
+        </h:panelGrid>
+    </p:fieldset>
+
+    <p:fieldset id="cntndrResultadosFallecido" legend="#{campos.DatResultadosFallecido}" style="#{util.WidthMrgnBttmPfieldset}">
+        <table border="0" width="100%" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.NombreL}" for="nombreFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <p:outputLabel id="nombreFal" value="#{fallecidoCDUVController.selected.nombreFal}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td width="12px"/>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.FotografiaL}" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px" rowspan="7">
+                    <p:graphicImage id="fotografia" cache="false" value="#{fotografiaController.fotografia}" width="120px" height="140px">
+                        <f:param name="cedula" value="#{fallecidoCDUVController.selected.cedulaFal}" />
+                        <f:param name="view" value="Create" />
+                    </p:graphicImage>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CedulaL}" for="cedulaFal" style="#{util.outputTextTitulo}"/>  
+                </td>
+                <td>
+                    <p:outputLabel id="cedulaFal" value="#{fallecidoCDUVController.selected.cedulaFal}" style="#{util.Width}"/>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.FechaNacimientoL}" for="fechaNacimientoFal" style="#{util.outputTextTitulo}"/> 
+                </td>
+                <td>
+                    <p:outputLabel id="fechaNacimientoFal" value="#{fallecidoCDUVController.selected.fechaNacimientoFal}" style="#{util.Width}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.EdadL}" for="edadFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="edadFal" value="#{fallecidoCDUVController.selected.edadFal}" style="#{util.Width}"/>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.GeneroL}" for="sexoFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="sexoFal" value="#{fallecidoCDUVController.selected.sexoFal}" >
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.EstadoCivilL}" for="fkIdEstadoCivilFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdEstadoCivilFal" value="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal}"
+                                         required="true" requiredMessage="#{campos.EstadoCivilM}"
+                                         style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null? true:false}">
+                            <f:selectItems value="#{estadoCivilRenaviCDLController.itemsAvailableSelectOne}" var="item"/>
+                        </p:selectOneMenu>
+                        <p:message for="fkIdEstadoCivilFal" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ConyugeL}" for="conyugeFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="conyugeFal" value="#{fallecidoCDUVController.selected.conyugeFal}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.CondicionCeduladoL}" for="condicionCeduladoFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="condicionCeduladoFal" value="#{fallecidoCDUVController.selected.condicionCeduladoFal}" style="#{util.UppercaseWidth} #{fallecidoCDUVController.selected.condicionCeduladoFal.contains('FALLECIDO') ? 'background-color: #F7FE2E;':''}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.FechaFallecimientoL}" for="fechaFallecimientoFal" style="#{util.outputTextTitulo}" rendered="false"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fechaFallecimientoFal" value="#{fallecidoCDUVController.selected.fechaFallecimientoFal}" style="#{util.UppercaseWidth} #{not fallecidoCDUVController.selected.fechaFallecimientoFal eq null ? 'background-color: #F7FE2E;':''}" rendered="false">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:outputLabel>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NombreMadreL}" for="nombreMadreFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nombreMadreFal" value="#{fallecidoCDUVController.selected.nombreMadreFal}" style="#{util.UppercaseWidth}" >
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.NombrePadreL}" for="nombrePadreFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="nombrePadreFal" value="#{fallecidoCDUVController.selected.nombrePadreFal}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NacionalidadL}" for="fkIdNacionalidad" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fkIdNacionalidad" value="#{fallecidoCDUVController.selected.fkIdNacionalidad.descNac}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.EtniaL}" for="fkIdEtnia" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdEtnia" value="#{fallecidoCDUVController.selected.fkIdEtnia}" required="true" requiredMessage="#{campos.EtniaM}" style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null ? true:false}">
+                            <f:selectItems value="#{identificacionEtnicaRenaviCDLController.itemsAvailableSelectOne}"/>
+                        </p:selectOneMenu>
+                        <p:message id="mssgfkIdEtnia" for="fkIdEtnia" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.NomPaisL}" for="fkIdPais" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="fkIdPais" value="#{fallecidoCDUVController.selected.fkIdPais}" style="#{util.UppercaseWidth}">
+                        <f:converter converterId="uperCaseConverter"/>
+                    </p:outputLabel>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.CodigoPaisL}" for="codigoPaisFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <p:outputLabel id="codigoPaisFal" value="#{fallecidoCDUVController.selected.codigoPaisFal}" style="#{util.Width}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.SabeLeerEscribirL}" for="fkIdAlfabetismo" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdAlfabetismo" value="#{fallecidoCDUVController.selected.fkIdAlfabetismo}" required="true" requiredMessage="#{campos.SabeLeerEscribirM}" style="#{util.WidthCombo}" valueChangeListener="#{fallecidoCDUVController.cambiarSabeLeer}" disabled="#{fallecidoCDUVController.selected.edadFal eq null or fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null? true:false}">
+                            <f:selectItems value="#{alfabetismoRenaviCDLController.itemsAvailableSelectOne}"/>
+                            <f:ajax render="fkIdNivelInstruccion"/>
+                        </p:selectOneMenu>
+                        <p:message id="mssgfkIdAlfabetismo" for="fkIdAlfabetismo" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.InstruccionAlcanzadaL}" for="fkIdNivelInstruccion" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="fkIdNivelInstruccion" value="#{fallecidoCDUVController.selected.fkIdNivelInstruccion}" required="true" requiredMessage="#{campos.InstruccionAlcanzadaM}" style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdAlfabetismo.idAlfb eq 2 or fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null ? true:false}">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{fallecidoCDUVController.nivelesInstruccion}" var="item" itemLabel="#{item.descrNivInst}" itemValue="#{item}"/>
+                        </p:selectOneMenu>
+                        <p:message id="mssgfkIdNivelInstruccion" for="fkIdNivelInstruccion" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+        </table>
+    </p:fieldset>
+
+    <p:fieldset id="cntndrDatResidenciaHabitual" legend="#{campos.DatResidenciaHabitualFallecido}" style="#{util.WidthPfieldset}">
+        <table width="100%" border="0" style="text-align-left">
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.ProvinciaL}" for="provinciaDsRsdncFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:selectOneMenu id="provinciaDsRsdncFal" value="#{fallecidoCDUVController.provincia}"
+                                         required="true" requiredMessage="#{campos.ProvinciaM}" valueChangeListener="#{fallecidoCDUVController.cambiarProvincia}"
+                                         style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null? true:false}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{fallecidoCDUVController.provincias}" var="itemProv" itemLabel="#{itemProv.codDpa} - #{itemProv.derscripcion}" itemValue="#{itemProv.codDpa}.- #{itemProv.derscripcion}"/>
+                            <f:ajax render="cantonDsRsdncFal parroquiaDsRsdncFal"/>
+                        </p:selectOneMenu>
+                        <p:message id="mssgprovinciaDsRsdncFal" for="provinciaDsRsdncFal" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td width="12px"/>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.DireccionL}" for="ciudadRsdncFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:inputText id="ciudadRsdncFal" value="#{fallecidoCDUVController.selected.ciudadRsdncFal}" required="true" requiredMessage="#{campos.DireccionM}" style="#{util.UppercaseWidth}" maxlength="50" disabled="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null? true:false}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssgciudadRsdncFal" for="ciudadRsdncFal" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td width="135px">
+                    <p:outputLabel value="#{campos.CantonL}" for="cantonDsRsdncFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td width="245px">
+                    <h:panelGroup>
+                        <p:selectOneMenu id="cantonDsRsdncFal" value="#{fallecidoCDUVController.canton}"
+                                         required="true" requiredMessage="#{campos.CantonM}" valueChangeListener="#{fallecidoCDUVController.cambiarCanton}"
+                                         style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null? true:false}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{fallecidoCDUVController.cantones}" var="itemCant" itemLabel="#{itemCant.codDpa} - #{itemCant.derscripcion}" itemValue="#{itemCant.codDpa}.- #{itemCant.derscripcion}"/>
+                            <f:ajax render="parroquiaDsRsdncFal"/>
+                        </p:selectOneMenu>
+                        <p:message id="mssgcantonDsRsdncFal" for="cantonDsRsdncFal" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td>
+                    <p:outputLabel value="#{campos.LocalidadL}" for="localidadRsdncFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:inputText id="localidadRsdncFal" value="#{fallecidoCDUVController.selected.localidadRsdncFal}" style="#{util.UppercaseWidth}" maxlength="50" disabled="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null? true:false}">
+                            <f:converter converterId="uperCaseConverter"/>
+                        </p:inputText>
+                        <p:message id="mssglocalidadRsdncFal" for="cantonDsRsdncFal" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{campos.ParroquiaL}" for="parroquiaDsRsdncFal" style="#{util.outputTextTitulo}"/>
+                </td>
+                <td>
+                    <h:panelGroup>
+                        <p:selectOneMenu id="parroquiaDsRsdncFal" value="#{fallecidoCDUVController.parroquia}"
+                                         required="true" requiredMessage="#{campos.ParroquiaM}" valueChangeListener="#{fallecidoCDUVController.cambiarParroquia}"
+                                         style="#{util.WidthCombo}" disabled="#{fallecidoCDUVController.selected.fkIdEstadoCivilFal.descEstCiv eq null? true:false}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{fallecidoCDUVController.parroquias}" var="itemParr" itemLabel="#{itemParr.codDpa} - #{itemParr.derscripcion}" itemValue="#{itemParr.codDpa}.- #{itemParr.derscripcion}"/>
+                            <f:ajax render="@this"/>
+                        </p:selectOneMenu>
+                        <p:message id="mssgparroquiaDsRsdncFal" for="parroquiaDsRsdncFal" display="#{util.DisplayMessage}"/>
+                    </h:panelGroup>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+            </tr>
+        </table>
+    </p:fieldset>
+    <br/>
+    <h:panelGroup id="cntndrBotones">
+        <table>
+            <tr>
+                <td>
+                    <p:commandLink id="btnCreateF" action="#{fallecidoCDUVController.saveF}" title="#{botones.Guardar}" process="@this cntndrResultadosFallecido cntndrDatResidenciaHabitual" 
+                                   update="cntndrBuscarPor cntndrBusquedaCedula cntndrBusquedaNombres cntndrResultadosFallecido cntndrDatResidenciaHabitual" 
+                                   oncomplete="PF('statusDialog').hide();" rendered="#{fallecidoCDUVController.tituloPantalla.contains('Crea')}"
+                                   onclick="if (!confirm('#{dialogos.ConfirmacionCrear}'))
+                                       return true;">
+                        <div class="guardar"/>
+                    </p:commandLink>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:commandLink id="btnUpdateF" action="#{fallecidoCDUVController.editF}" title="#{botones.Guardar} ooo" process="@this cntndrResultadosFallecido cntndrDatResidenciaHabitual" 
+                                   update="cntndrBuscarPor cntndrBusquedaCedula cntndrBusquedaNombres cntndrResultadosFallecido cntndrDatResidenciaHabitual" 
+                                   oncomplete="PF('statusDialog').hide();" rendered="#{not fallecidoCDUVController.tituloPantalla.contains('Crea')}"
+                                   onclick="if (!confirm('#{dialogos.ConfirmacionCrear}'))
+                                       return true;">
+                        <div class="guardar"/>
+                    </p:commandLink>
+                </td>
+            </tr>
+        </table>
+    </h:panelGroup>
+
+    <p:dialog  header="#{campos.BuscarCiudadano}" widgetVar="personasDialog" modal="true" draggable="false" width="#{util.DlgWidthMediano}" height="#{util.DlgHeightMediano}">
+        <div align="center" class="cntndrTableDlg">
+            <p:dataTable id="pdtTblItemsPersonas" value="#{fallecidoCDUVController.personas}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                         scrollable="true" scrollWidth="#{util.DlgTableWidthMediano}" scrollHeight="#{util.DlgTableHeightMediano}" resizableColumns="true" paginator="true" paginatorPosition="bottom" rows="20"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <f:facet name="header">
+                    <h:outputText value="#{campos.Resultados}"/>
+                </f:facet>
+                <p:column width="#{util.OpcionesSeleccionar}">
+                    <h:commandLink actionListener="#{fallecidoCDUVController.seleccionarPersonaDialog}" onclick="PF('personasDialog').hide();">
+                        <div class="seleccionar"/>
+                        <f:param value="#{item.cedula}" name="cedulaDialog" />
+                        <f:ajax render=":form_cont:contTab:btnBuscarNombres :form_cont:contTab:btnResetBuscarNombres 
+                                :form_cont:contTab:nombreFal :form_cont:contTab:fotografia :form_cont:contTab:cedulaFal :form_cont:contTab:fechaNacimientoFal 
+                                :form_cont:contTab:edadFal :form_cont:contTab:sexoFal :form_cont:contTab:fkIdEstadoCivilFal :form_cont:contTab:conyugeFal 
+                                :form_cont:contTab:condicionCeduladoFal :form_cont:contTab:fechaFallecimientoFal :form_cont:contTab:nombreMadreFal :form_cont:contTab:nombrePadreFal 
+                                :form_cont:contTab:fkIdNacionalidad :form_cont:contTab:fkIdEtnia :form_cont:contTab:mssgfkIdEtnia :form_cont:contTab:fkIdPais :form_cont:contTab:codigoPaisFal 
+                                :form_cont:contTab:fkIdAlfabetismo :form_cont:contTab:mssgfkIdAlfabetismo :form_cont:contTab:fkIdNivelInstruccion :form_cont:contTab:mssgfkIdNivelInstruccion 
+                                :form_cont:contTab:provinciaDsRsdncFal :form_cont:contTab:mssgprovinciaDsRsdncFal :form_cont:contTab:ciudadRsdncFal :form_cont:contTab:mssgciudadRsdncFal 
+                                :form_cont:contTab:cantonDsRsdncFal :form_cont:contTab:mssgcantonDsRsdncFal :form_cont:contTab:localidadRsdncFal :form_cont:contTab:parroquiaDsRsdncFal 
+                                :form_cont:contTab:mssgparroquiaDsRsdncFal :form_cont:contTab:focusBusquedaNombres"/>
+                    </h:commandLink>
+                </p:column>
+                <p:column headerText="#{campos.CedulaT}" width="#{util.Codigo}">
+                    <h:outputText value="#{item.cedula}"/>
+                </p:column>
+                <p:column headerText="#{campos.NombresT}" width="#{util.Nombre}">
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
+                <p:column headerText="#{campos.FechaNacimientoT}" width="#{util.Fecha}">
+                    <h:outputText value="#{item.fechaNacimiento}"/>
+                </p:column>
+                <p:column headerText="#{campos.LugarNacimentoT}" width="#{util.Descripcion}">
+                    <h:outputText value="#{item.lugarNacimiento}"/>
+                </p:column>
+            </p:dataTable>
+        </div>
+    </p:dialog>
+    <br/>
+    <script type="text/javascript">
+        function cerrarMsj() {
+            var msj = document.getElementById('form_cont:contTab:mssgsBusquedaErrorF');
+            msj.style.display = "none";
+        }
+    </script>
+</html>

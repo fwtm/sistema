@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./templates/temrecursos.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>
+                <h:form id="form_cont">
+                    <p:growl id="mssgsBusqueda" autoUpdate="false" life="#{util.GrowlLifeMed}"/>
+                    <table width="100%" border="0">
+                        <tr>
+                            <td width="92%" align="center" style="font-size: 0.5em; padding-left: 8px;">
+                                <h1>
+                                    <b>CONSULTA DE INFORMES ESTADÍSTICO DE NACIDO VIVO</b>
+                                </h1>
+                            </td>
+                            <td width="8%" align="right">
+
+                            </td>
+                        </tr>
+                    </table>
+                    <div align="justify" style="font-size: 12px; margin-left: 10px;">
+                        <table>
+                            <tr>
+                                <td width="100%">
+                                    <label>
+                                        La Dirección Nacional de Registro Civil, Identificación y Cedulación, habilita la consulta de Informes Estadístico de Nacido Vivo, como parte del Sistema Nacional de Registro de Datos Vitales.
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>  
+                    </div>
+                    <br/>
+                    <h:panelGrid id="cntndrFormM" columns="1" cellspacing="1" styleClass="text-align-left" >
+                        <h:panelGroup id="cntndrBusqueda">
+                            <p:fieldset id="cntndrBusquedaHijos" legend="Parámetros de búsqueda" style="width: 1020px;" >
+                                <div style="margin-bottom: 5px;">
+                                    <table>
+                                        <tr>
+                                            <td width="3%">
+                                                <div class="informacion"/> 
+                                            </td>
+                                            <td width="97%">
+                                                <p:outputLabel value="1.- Escoja el criterio de búsqueda que desea."/>
+                                                <br/>
+                                                <p:outputLabel value="2.- Ingrese el número de cédula de la madre, recién nacido, pasaporte ó código REVIT de la madre según sea el caso."/>
+                                                <br/>
+                                                <p:outputLabel value="3.- Ingrese el texto mostrado en la imagen en el campo 'Type the text'."/>
+                                                <br/>
+                                                <p:outputLabel value="4.- Haga clic en el botón 'Buscar'."/>
+                                                <br/>
+                                                <p:outputLabel value="5.- Haga clic en el botón 'Limpiar' para realizar una nueva búsqueda."/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>  
+                                <h:panelGroup id="pnlGrpCriterios">
+                                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="10">
+                                    <p:outputLabel for="rblCriteriosBusqueda" value="Criterios de Búsqueda:" />
+                                    <p:selectOneRadio id="rblCriteriosBusqueda" value="#{madreRenaviFCController.criterioBusqueda}" required="true" requiredMessage="#{campos.BusquedaPorM}" styleClass="selectRadio">
+                                        <f:selectItem itemValue="idMadre" itemLabel="Cédula Madre"/>
+                                        <f:selectItem itemValue="idNacidoVivo" itemLabel="Cédula Recién Nacido"/>
+                                        <f:selectItem itemValue="pasaporteMadre" itemLabel="Pasaporte Madre"/>
+                                        <f:selectItem itemValue="codigoMadre" itemLabel="Identificación Madre REVIT"/>
+                                    </p:selectOneRadio>
+                                    <p:message id="criterioBusquedaMsg" for="rblCriteriosBusqueda" display="#{util.DisplayMessage}"/>
+                                </h:panelGrid>
+                                </h:panelGroup>
+                               
+                                <h:panelGroup id="cntndrBuscPorCedMadre">
+                                    <h:panelGroup rendered="true">
+                                        <table border="0" width="100%" align="center">
+                                            <tr>
+                                                <td align="right" width="47%">
+                                                    <p:outputLabel id="lbnParametroBusqueda" value="Parámetro de Búsqueda:" for="parametroBusqueda" style="font-weight: bold;"/>
+                                                </td>
+                                                <td width="53%">
+                                                    <h:panelGroup>
+                                                        <p:inputText id="parametroBusqueda" value="#{madreRenaviFCController.parametroBusqueda}" required="true" requiredMessage="#{campos.CampoRequerido}" maxlength="15" style="#{util.UppercaseWidth}" size="40" disabled="#{not empty madreRenaviFCController.hijoItems}">
+                                                            <p:message id="parametroBusquedaMsg" for="parametroBusqueda" display="#{util.DisplayMessage}"/>
+                                                            <f:converter converterId="uperCaseConverter" />
+                                                            <pe:keyFilter regEx="/[a-z0-9]/i"/>
+                                                        </p:inputText>
+                                                    </h:panelGroup>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" align="center" >
+                                                    <h:panelGroup >
+                                                        <p:captcha id="captcha"  label="Captcha" theme="white" requiredMessage="Debe ingresar el texto mostrado en la imagen." required="#{not empty madreRenaviFCController.hijoItems  ? false:true }" validatorMessage="El texto no corresponde a la imagen." />
+                                                        <p:message id="captchaMsg" for="captcha" display="#{util.DisplayMessage}"/>
+                                                    </h:panelGroup>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table border="0" width="100%" align="center">
+                                            <tr>
+                                                <td align="right">
+                                                    <p:commandButton id="btnBuscarPorCedMad" action="#{madreRenaviFCController.seleccionBusqueda}" value="#{campos.Buscar}" process="@this, parametroBusqueda,captcha, rblCriteriosBusqueda" update="@this, btnResetBuscPorCedMad, parametroBusqueda, captcha, captchaMsg, parametroBusquedaMsg, criterioBusquedaMsg" disabled="#{not empty madreRenaviFCController.hijoItems}" onsuccess="PF('statusDialog').hide();" oncomplete="Recaptcha.reload()" />
+                                                </td>
+                                                <td align="left">
+                                                    <p:commandButton id="btnResetBuscPorCedMad" action="#{madreRenaviFCController.limpiarConsulta}" value="#{campos.NuevaBusqueda}" process="@this" update="@this, btnBuscarPorCedMad, parametroBusqueda, cntndrResultados, captcha, captchaMsg, parametroBusquedaMsg, criterioBusquedaMsg" disabled="#{empty madreRenaviFCController.hijoItems}" onsuccess="PF('statusDialog').hide();" oncomplete="Recaptcha.reload()" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table align="left">
+                                            <tr>
+                                                <td>
+                                                    <a href="http://servicios1.registrocivil.gob.ec/revit/login.jsf">Ir al sistema</a> 
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <h:panelGroup id="cntndrBuscPorNomMadre" rendered="false">
+
+                                </h:panelGroup>               
+                            </p:fieldset >
+                        </h:panelGroup>
+                        <h:panelGroup id="cntndrResultados">
+                            <p:fieldset id="cntndrResultadosHijos" legend="Resultados de la búsqueda" style="width: 1020px;" rendered="#{not empty madreRenaviFCController.hijoItems}">
+                                <p:dataTable id="pdtTblItemsHijos" value="#{madreRenaviFCController.hijoItems}" var="item" emptyMessage="#{campos.NoHayDatos}" 
+                                             scrollable="true" scrollHeight="100" resizableColumns="true" paginator="true" paginatorPosition="bottom" rows="3"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{campos.RegistrosEncontrados}"/>
+
+                                    </f:facet>
+                                    <p:column headerText="Documento" width="24">
+                                        <p:commandLink id="pdfbton" action="#{madreRenaviFCController.verPDFConFirma}"  disabled="#{item.fkIdEstReg.idEstReg == '6'}" onclick="if (!confirm('¿#{campos.ConfirmacionVerDocumento}?'))
+                                                    return false;"  title="#{campos.Descargar}" ajax="false">
+                                            <div class="download"/>
+                                            <f:param value="#{item.cedulNacViv}" name="cedulNacViv" />
+                                        </p:commandLink>
+                                    </p:column>
+                                    <p:column headerText="#{campos.FechaNacimientoT}" width="100">
+                                        <h:outputText value="#{item.fechaNacimNacViv}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="#{campos.NumeroIdentificacionT}" width="85">
+                                        <h:outputText value="#{item.cedulNacViv}"/>
+                                    </p:column>
+                                    <p:column headerText="#{campos.NombresT} del nacido vivo" width="270">
+                                        <h:outputText value="#{item.apellNacViv} #{item.nombrNacViv}"/>
+                                    </p:column>
+                                    <p:column headerText="#{campos.DetalleT}" width="17">
+                                        
+                                        <div>
+                                            <p:graphicImage id="img" library="images/icons" name="hijo.png" width="12px" height="12px"/>
+                                            <p:tooltip for="img" styleClass="tooltip" showEffect="clip" hideEffect="fade" style="height:auto; width:235px;">
+                                                <table>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            Nº Parto en el sistema:
+                                                        </td>
+                                                        <td>
+                                                            #{item.numPartoSistema}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            Tipo de parto:
+                                                        </td>
+                                                        <td>
+                                                            #{item.fkIdTipPar.descrTipPar}
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="text-align: left;">
+                                                        <td style="font-weight: bold;">
+                                                            Peso:
+                                                        </td>
+                                                        <td>
+                                                            #{item.pesoNacViv}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            Talla:
+                                                        </td>
+                                                        <td>
+                                                            #{item.tallaNacViv}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            Sexo:
+                                                        </td>
+                                                        <td>
+                                                            #{item.fkIdSexoNv.descrSexo}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            APGAR 1:
+                                                        </td>
+                                                        <td>
+                                                            #{item.apgar1NacViv}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            APGAR 2:
+                                                        </td>
+                                                        <td>
+                                                            #{item.apgar2NacViv}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            Semanas de gestación:
+                                                        </td>
+                                                        <td>
+                                                            #{item.semanGstcnNacViv}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:tooltip>
+                                        </div>
+                                        <!-- <div style="float:right; margin-top: -14px;">
+                                            <p:graphicImage id="imgMadre" library="images/icons" name="madre.png" width="15px" height="15px"/>
+                                            <p:tooltip for="imgMadre" styleClass="tooltip" showEffect="clip" hideEffect="fade" style="height:auto; width:235px;">
+                                                <table>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            Nombre:
+                                                        </td>
+                                                        <td>
+                                                            #{item.fkCedulMad.nombrMad}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight: bold;">
+                                                            Cédula:
+                                                        </td>
+                                                        <td>
+                                                            #{item.fkCedulMad.cedulMad}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:tooltip>
+                                        </div> -->
+                                    </p:column>
+                                    <p:column headerText="Estado " style="width:55px;font-size: 11px;" >
+                                            <h:outputText value="#{item.fkIdEstReg.idEstReg == '6' ? 'ANULADO' : ' '} "  style="font-size: 10px;"/>
+                                            <h:outputText value="#{item.fkIdEstReg.idEstReg == '4' ? 'ACTIVO' : ' '} "  style="font-size: 10px;"/>
+                                            <h:outputText value="#{item.fkIdEstReg.idEstReg == '8' ? 'ACTIVO' : ' '} "  style="font-size: 10px;"/>
+                                        </p:column>
+                                </p:dataTable>
+                            </p:fieldset>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

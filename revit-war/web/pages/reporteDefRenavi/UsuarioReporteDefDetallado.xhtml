@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../templates/temprincipal.xhtml">
+        <ui:define name="body">
+            <div align="center">
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/> 
+                <p:dialog modal="true" widgetVar="statusDialog" header="#{util.Procesando}"   
+                          draggable="false" closable="false" height="#{util.DialogHeight}" width="#{util.DialogWidth}">  
+                    <h:graphicImage library="images" name="cargando.gif"/> 
+                </p:dialog>  
+                <p/>
+                 <div align="center" style="margin-bottom: 7px; font-weight: bold; color: #565656; font-size: 1.1em;">
+                    Reporte por usuario
+                </div>
+                <p:fieldset id="fieldsetgenerico" style="width: 1020px;" legend="Reporte"> 
+                    <h:form id="form" styleClass="jsfcrud_list_form" prependId="false">
+                        <p:growl id="growl" sticky="false" life="3000"/>  
+                        <!--<p:messages id="messages"  closable="true" />-->
+
+                        <h:panelGrid columns="4" cellspacing="3" styleClass="text-align-left">
+                            <p:outputLabel value="Fecha de Fallecimiento Desde:" for="filtroFechaNacIni"  style="#{util.outputTextTitulo}"/>
+                            <h:panelGrid id="cntndrFiltroFechaIniNac" columns="1" cellspacing="0" styleClass="text-align-left">
+                                <p:calendar id="filtroFechaNacIni" value="#{reporteDefDetalladoUsuarioControler.fechaNacIni}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="Campo Requerido" pattern="dd/MM/yyyy " navigator="false" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" maxdate="#{reporteDefDetalladoUsuarioControler.fechaNacFin}" yearRange="c-1:c-0" >
+                                    <p:ajax process="@this" event="dateSelect" update="filtroFechaNacFin" />
+                                </p:calendar>    
+                            </h:panelGrid>
+                            <p:outputLabel value="Hasta:" for="filtroFechaNacFin" style="#{util.outputTextTitulo}"/>
+                            <h:panelGrid id="cntndrFiltroFechaFinNac" columns="1" cellspacing="0" styleClass="text-align-left">
+                                <p:calendar id="filtroFechaNacFin" value="#{reporteDefDetalladoUsuarioControler.fechaNacFin}" placeholder="#{campos.FormatoFechaPH}" required="true" requiredMessage="Campo Requerido" pattern="dd/MM/yyyy " navigator="true" locale="es" showOn="button" onkeypress="return permite(event, 'none')" style="#{util.WidthCalendar}" mindate="#{reporteDefDetalladoUsuarioControler.fechaNacIni}" maxdate="#{reporteDefDetalladoUsuarioControler.fechaActual}">
+                                    <f:attribute name="finicial" value="#{reporteDefDetalladoUsuarioControler.fechaNacIni}"/>
+                                    <p:ajax process="@this" event="dateSelect" update="filtroFechaNacIni" />
+                                    <f:validator validatorId="primeDateRangeValidator" />
+                                </p:calendar>   
+                                <!--<p:message  id="errorfiltroFechaNacFin" for="filtroFechaNacFin" display="#{util.DisplayMessage}"/>-->
+                            </h:panelGrid>
+                            <p:outputLabel value="Institución:" for="inst" style="#{util.outputTextTitulo}"/>
+                            <p:selectOneMenu id="inst" value="#{reporteDefDetalladoUsuarioControler.idInstitucion}" filter="true" filterMatchMode="contains"  style="width: 190px;" valueChangeListener="#{reporteDefDetalladoUsuarioControler.poblaAgencias}" 
+                                             required="true" requiredMessage="Es oblogatorio seleccionar la institución">
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reporteDefDetalladoUsuarioControler.instituciones}"  var="inst" 
+                                               itemLabel="#{inst.nomInstituc}" 
+                                               itemValue="#{inst.idInstituc.toString()}"/>
+                                <f:ajax render="agencias usu" execute="@this" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+
+                            <p:outputLabel value="Establecimiento de Salud:" for="agencias" style="#{util.outputTextTitulo}"/>
+                            <p:selectOneMenu id="agencias" value="#{reporteDefDetalladoUsuarioControler.codMSP}" filter="true" filterMatchMode="contains"  style="width: 190px;"  valueChangeListener="#{reporteDefDetalladoUsuarioControler.poblaUsuariosPorAgencias}" required="true" requiredMessage="Es oblogatorio seleccionar el establecimiento de salud" >
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reporteDefDetalladoUsuarioControler.agencias}"  var="age" 
+                                               itemLabel="#{age.nomAgencia}" 
+                                               itemValue="#{age.codMsp};#{age.nomAgencia}"/>
+                                <f:ajax execute="@this" render="usu"/> 
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="Usuario:" for="usu" style="#{util.outputTextTitulo}"/>
+                            <p:selectOneMenu id="usu" value="#{reporteDefDetalladoUsuarioControler.userCedula}" filter="true" filterMatchMode="contains"  style="width: 190px;"  required="#{reporteDefDetalladoUsuarioControler.rolSesion eq 'RP' ? true : false}" requiredMessage="Es obligatorio seleccionar el usuario">
+                                <f:selectItem itemLabel="#{campos.SeleccionarCombo}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{reporteDefDetalladoUsuarioControler.usuarios}"  var="user" 
+                                               itemLabel="#{user.nombre} #{user.apellido} " 
+                                               itemValue="#{user.nomUsuario.toString()}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:outputLabel value="#{campos.EspaciosEnBlanco}" escape="false" />
+                            <p:commandButton action="#{reporteDefDetalladoUsuarioControler.generaReporte}" process="filtroFechaNacIni filtroFechaNacFin @this inst agencias usu" update="growl" value="Ejecutar" oncomplete="PF('statusDialog').hide();" />
+                            <h:panelGroup id="btnReporte" rendered="false">
+                                <p:commandButton  action="#{reporteDefDetalladoUsuarioControler.generaReportePDF()}"  ajax="false"  value="Reporte PDF" rendered="#{not empty reporteDefDetalladoUsuarioControler.resultado}"/>
+                            </h:panelGroup>
+                        </h:panelGrid>                
+                        <br/> 
+                        <p:fieldset id="fieldsetRes" style="width: 1010px;" legend="Resultados"> 
+                            <p:dataTable  id="tblResultados" var="usuario" value="#{reporteDefDetalladoUsuarioControler.resultado}" emptyMessage="No se han encontrado Resultados"
+                                          scrollHeight="250" paginator="true" 
+                                          paginatorPosition="bottom" rows="200"  
+                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                          scrollable="true">
+                                <f:facet name="header">
+                                    REGISTROS
+                                </f:facet>
+                                <p:columnGroup type="header">
+                                    <p:row>
+                                        <p:column rowspan="2" headerText="Usuarios" />
+                                        <p:column colspan="4" headerText="Registros" />
+                                    </p:row>
+                                    <p:row>
+                                        <p:column headerText="Nombres" />
+                                        <p:column headerText="Madre" />
+                                        <p:column headerText="Padre" />
+                                        <p:column headerText="Estado" />
+                                    </p:row>
+                                </p:columnGroup>
+                                <p:subTable var="registro" value="#{usuario.nacVivDetallado}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{usuario.nombres} - " style="font-weight: bold; font-size: 11px; color: #1e3d69;"/>      
+                                        <label style="font-weight: bold; font-size: 11px;"> Firmados: </label><label style="font-weight: normal; font-size: 11px;">#{usuario.firmados},</label> 
+                                        <label style="font-weight: bold; font-size: 11px;"> No firmados: </label><label style="font-weight: normal; font-size: 11px;">#{usuario.noFirmados},</label>
+                                        <label style="font-weight: bold; font-size: 11px;"> Inscritos: </label><label style="font-weight: normal; font-size: 11px;">#{usuario.inscritos},</label> 
+                                        <label style="font-weight: bold; font-size: 11px;"> Anulados: </label><label style="font-weight: normal; font-size: 11px;">#{usuario.anulados},</label>
+                                        <label style="font-weight: bold; font-size: 11px;"> Incompletos: </label><label style="font-weight: normal; font-size: 11px;">#{usuario.incompletos},</label>
+                                        <label style="font-weight: bold; font-size: 11px;"> Total: </label><label style="font-weight: normal; font-size: 11px;">#{usuario.total}</label>
+                                    </f:facet>
+                                    <p:column>
+                                        <h:outputText value="#{registro.fechaNacimiento}" style="font-size: 10px; ">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{registro.nombres}" style="font-size: 10px; "/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{registro.nombresMadre}" style="font-size: 10px; "/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{registro.nombresPadre}" style="font-size: 10px; "/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{registro.estado}" style="font-size: 10px; "/>
+                                    </p:column>
+                                </p:subTable>
+                                <f:facet name="footer" >  
+                                    <h:outputText value="TOTAL: #{reporteDefDetalladoUsuarioControler.resultado.size()}" style="font-size: 11px; " /> 
+                                </f:facet>  
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:form>
+                </p:fieldset>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>
